@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, GameController } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -54,7 +54,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
         isScrolled
-          ? "bg-white/80 backdrop-blur-sm shadow-sm py-2"
+          ? "bg-slate-900/90 backdrop-blur-md shadow-lg py-2 border-b border-purple-900/50"
           : "bg-transparent py-4"
       )}
     >
@@ -62,16 +62,19 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <motion.a
             href="#home"
-            className="text-xl font-bold text-slate-800 hover:text-blue-600 transition-colors relative"
+            className="text-xl font-bold text-white hover:text-purple-400 transition-colors flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="relative z-10">Arpit Tripathi</span>
-            <motion.span 
-              className="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-600 rounded-full" 
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.2 }}
-            />
+            <GameController className="h-5 w-5 text-purple-500" />
+            <div className="relative">
+              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Arpit Tripathi</span>
+              <motion.span 
+                className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-500 rounded-full" 
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
           </motion.a>
 
           {/* Desktop Navigation */}
@@ -84,17 +87,23 @@ const Navbar = () => {
                 variants={linkVariants}
                 initial="hidden"
                 animate="visible"
-                whileHover={{ scale: 1.1, color: "#3B82F6" }}
-                className="text-slate-600 hover:text-blue-600 transition-colors"
+                whileHover={{ scale: 1.1, color: "#a855f7" }}
+                className="text-slate-300 hover:text-purple-400 transition-colors relative px-2 py-1"
               >
-                {link.name}
+                <span>{link.name}</span>
+                <motion.span 
+                  className="absolute bottom-0 left-0 h-0.5 bg-purple-500 w-full origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.2 }}
+                />
               </motion.a>
             ))}
           </div>
 
           {/* Mobile Navigation Toggle */}
           <motion.button
-            className="md:hidden text-slate-800"
+            className="md:hidden text-white bg-slate-800 p-2 rounded-lg border border-purple-900/50"
             onClick={toggleMenu}
             whileTap={{ scale: 0.9 }}
             aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
@@ -106,7 +115,7 @@ const Navbar = () => {
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <motion.div 
-            className="md:hidden absolute top-full left-0 w-full bg-white shadow-md py-4 px-4 transform origin-top"
+            className="md:hidden absolute top-full left-0 w-full bg-slate-900/95 backdrop-blur-lg shadow-lg py-4 px-4 border-b border-purple-900/50"
             initial={{ opacity: 0, scaleY: 0 }}
             animate={{ opacity: 1, scaleY: 1 }}
             exit={{ opacity: 0, scaleY: 0 }}
@@ -117,12 +126,12 @@ const Navbar = () => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="text-slate-600 hover:text-blue-600 transition-colors"
+                  className="text-slate-300 hover:text-purple-400 transition-colors px-2 py-1 border-l-2 border-purple-800"
                   onClick={() => setIsMenuOpen(false)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  whileHover={{ x: 5 }}
+                  whileHover={{ x: 5, borderColor: "#a855f7" }}
                 >
                   {link.name}
                 </motion.a>
