@@ -5,26 +5,26 @@ import { ExternalLink, Github } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce platform with payment integration, user authentication, and product management.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      liveLink: "#",
-      githubLink: "#",
-    },
-    {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates and team collaboration features.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      technologies: ["React", "Firebase", "Tailwind CSS", "Redux"],
-      liveLink: "#",
-      githubLink: "#",
-    },
-    {
-      title: "Portfolio Website",
-      description: "A responsive portfolio website to showcase skills and projects with a modern design.",
+      title: "Fantasy Gaming Platform",
+      description: "A comprehensive social and fantasy gaming platform with multiple game modes, monetization strategies, and social features.",
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      technologies: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+      technologies: ["Product Strategy", "Game Development", "UX Design", "Monetization"],
+      liveLink: "#",
+      githubLink: "#",
+    },
+    {
+      title: "Hospital Management System",
+      description: "A full-featured HMS that improved operational efficiency by 30%, streamlining patient management, billing, and inventory tracking.",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      technologies: ["Healthcare Tech", "Data Management", "User Experience", "Process Automation"],
+      liveLink: "#",
+      githubLink: "#",
+    },
+    {
+      title: "E-commerce Delivery Optimization",
+      description: "Reduced NDR from 70% to 25% through innovative delivery models and prepaid wallet systems for better cash flow management.",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      technologies: ["Shopify", "Logistics", "Workflow Automation", "Analytics"],
       liveLink: "#",
       githubLink: "#",
     },
@@ -82,7 +82,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                   >
                     <Github size={16} className="mr-1" />
-                    GitHub
+                    Case Study
                   </a>
                 </div>
               </div>

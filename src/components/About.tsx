@@ -49,16 +49,17 @@ const About = () => {
             className="lg:w-3/5"
           >
             <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-slate-800">
-              Software Engineer & Web Developer
+              Product Strategist & Tech Leader
             </h3>
             <p className="text-slate-600 mb-6 text-lg">
-              I'm a passionate software engineer with over 5 years of experience building web applications
-              and digital products. I specialize in creating efficient, maintainable, and user-friendly
-              solutions that solve real-world problems.
+              Currently heading product at Celestial IT Verse Pvt. Ltd., I lead the vision and execution of a 
+              social + fantasy gaming platform, building it from the ground up — games, mechanics, monetization models, 
+              influencer onboarding, and more.
             </p>
             <p className="text-slate-600 mb-8 text-lg">
-              My approach combines technical expertise with a deep understanding of user experience and business needs.
-              I'm constantly learning and adapting to new technologies and methodologies to deliver the best possible results.
+              I connect dots across users, tech, design, and business to build products that work beautifully 
+              and perform powerfully. My approach combines technical expertise with a deep understanding of 
+              user experience and business needs.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -66,7 +67,7 @@ const About = () => {
                 <MapPin className="h-5 w-5 text-blue-600 mr-3" />
                 <div>
                   <h4 className="text-sm font-medium text-slate-400">Location</h4>
-                  <p className="text-slate-800">San Francisco, CA</p>
+                  <p className="text-slate-800">India</p>
                 </div>
               </div>
               
@@ -74,7 +75,7 @@ const About = () => {
                 <Mail className="h-5 w-5 text-blue-600 mr-3" />
                 <div>
                   <h4 className="text-sm font-medium text-slate-400">Email</h4>
-                  <p className="text-slate-800">john.doe@example.com</p>
+                  <p className="text-slate-800">arpit01999@gmail.com</p>
                 </div>
               </div>
               
@@ -82,7 +83,7 @@ const About = () => {
                 <Briefcase className="h-5 w-5 text-blue-600 mr-3" />
                 <div>
                   <h4 className="text-sm font-medium text-slate-400">Experience</h4>
-                  <p className="text-slate-800">5+ Years</p>
+                  <p className="text-slate-800">Product Leadership</p>
                 </div>
               </div>
             </div>

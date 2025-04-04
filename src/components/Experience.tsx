@@ -5,28 +5,28 @@ import { Briefcase } from "lucide-react";
 const Experience = () => {
   const experiences = [
     {
-      position: "Senior Software Engineer",
-      company: "Tech Innovations Inc",
-      period: "2021 - Present",
-      description: "Leading the development of a React-based SaaS platform. Implemented new features, improved performance by 40%, and mentored junior developers.",
+      position: "Head of Product",
+      company: "Celestial IT Verse Pvt. Ltd.",
+      period: "Oct 2024 - Present",
+      description: "Spearheading the creation of a Winzo/MPL-style gaming ecosystem from scratch. Built and scaled a full product + dev team for end-to-end game development. Defined architecture, tech stack, and monetization strategy. Leading vendor onboarding, gameplay UX, and backend scalability.",
     },
     {
-      position: "Full Stack Developer",
-      company: "Digital Solutions Ltd",
-      period: "2018 - 2021",
-      description: "Developed and maintained multiple web applications using React, Node.js, and MongoDB. Reduced API response time by 30% through code optimization.",
+      position: "Product Manager",
+      company: "Tap for Tech Pvt Ltd",
+      period: "July 2024 - Oct 2024",
+      description: "Launched a full-scale Hospital Management System (HMS) boosting operational efficiency by 30%. Designed and deployed adventure booking & event systems for Pinak Adventure Park. Rolled out custom enterprise software, automating operations and improving productivity by 40%.",
     },
     {
-      position: "Frontend Developer",
-      company: "Creative Web Agency",
-      period: "2016 - 2018",
-      description: "Created responsive web interfaces for clients across various industries. Collaborated with designers to implement pixel-perfect designs.",
+      position: "Product Analyst",
+      company: "Zippee",
+      period: "March 2023 - July 2024",
+      description: "Reduced NDR from 70% to 25% and transitioned to a prepaid model, improving cash flow. Designed a prepaid wallet system, optimized delivery using QCF + hyperlocal models. Created a Shopify zipcode validator, introduced automated workflows (Arigato, Mesa, Thrive).",
     },
     {
-      position: "Web Development Intern",
-      company: "StartUp Hub",
-      period: "2015 - 2016",
-      description: "Assisted in developing web applications and learned modern web development practices and technologies.",
+      position: "Script Developer",
+      company: "Uplers",
+      period: "Dec 2022 - Mar 2023",
+      description: "Boosted email open rates by 25% and CTR by 35% via AMP innovations. Reduced email production time by 30% with streamlined development.",
     },
   ];
 

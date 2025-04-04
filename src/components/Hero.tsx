@@ -14,7 +14,7 @@ const Hero = () => {
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-blue-500/10"
+            className="absolute rounded-full bg-blue-500/10 animate-pulse"
             style={{
               width: `${Math.random() * 300 + 50}px`,
               height: `${Math.random() * 300 + 50}px`,
@@ -22,7 +22,6 @@ const Hero = () => {
               left: `${Math.random() * 100}%`,
               animationDuration: `${Math.random() * 10 + 10}s`,
             }}
-            className="animate-pulse"
           />
         ))}
       </div>
@@ -35,7 +34,7 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
-              John Doe
+              Arpit Tripathi
             </h1>
           </motion.div>
           
@@ -45,7 +44,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h2 className="text-xl md:text-3xl text-blue-400 font-medium mb-6">
-              Software Engineer
+              Product Strategist • Builder • Tech Leader
             </h2>
           </motion.div>
 
@@ -55,8 +54,9 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <p className="text-slate-300 max-w-2xl mb-8 text-lg">
-              I build exceptional digital experiences with clean, efficient code. 
-              Specializing in full-stack development with expertise in modern web technologies.
+              I'm a dynamic and impact-driven product leader with a strong engineering foundation. 
+              From gaming to healthcare tech and fintech, I craft digital experiences that 
+              solve real-world problems, delight users, and scale fast.
             </p>
           </motion.div>
 
@@ -68,15 +68,15 @@ const Hero = () => {
           >
             <div className="flex flex-col items-center p-4">
               <Code className="h-8 w-8 text-blue-400 mb-2" />
-              <span className="text-white text-sm">Full Stack</span>
+              <span className="text-white text-sm">Strategy</span>
             </div>
             <div className="flex flex-col items-center p-4">
               <Globe className="h-8 w-8 text-blue-400 mb-2" />
-              <span className="text-white text-sm">Web Dev</span>
+              <span className="text-white text-sm">Leadership</span>
             </div>
             <div className="flex flex-col items-center p-4">
               <Laptop className="h-8 w-8 text-blue-400 mb-2" />
-              <span className="text-white text-sm">UX/UI</span>
+              <span className="text-white text-sm">Technology</span>
             </div>
           </motion.div>
 

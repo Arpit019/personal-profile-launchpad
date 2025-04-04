@@ -3,34 +3,34 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const Skills = () => {
-  const frontendSkills = [
-    { name: "JavaScript (ES6+)", level: 90 },
-    { name: "TypeScript", level: 85 },
-    { name: "React", level: 90 },
-    { name: "Redux", level: 80 },
-    { name: "HTML5 & CSS3", level: 95 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "Next.js", level: 85 },
+  const productSkills = [
+    { name: "Product Strategy", level: 95 },
+    { name: "UX/UI Design", level: 85 },
+    { name: "Roadmapping", level: 90 },
+    { name: "Cross-functional Leadership", level: 90 },
+    { name: "Go-to-Market Execution", level: 85 },
+    { name: "System Design", level: 90 },
+    { name: "Workflow Automation", level: 85 },
   ];
 
-  const backendSkills = [
-    { name: "Node.js", level: 85 },
-    { name: "Express", level: 80 },
-    { name: "Python", level: 75 },
-    { name: "Django", level: 70 },
-    { name: "RESTful APIs", level: 90 },
-    { name: "GraphQL", level: 80 },
-    { name: "MongoDB", level: 85 },
+  const techSkills = [
+    { name: "Java", level: 80 },
+    { name: "C++", level: 75 },
+    { name: "Python", level: 80 },
+    { name: "JavaScript", level: 85 },
+    { name: "HTML/CSS", level: 90 },
+    { name: "Shopify", level: 85 },
+    { name: "WordPress", level: 80 },
   ];
 
-  const otherSkills = [
-    { name: "Git & GitHub", level: 90 },
-    { name: "CI/CD", level: 80 },
-    { name: "AWS", level: 75 },
-    { name: "Docker", level: 80 },
-    { name: "Jest & RTL", level: 85 },
-    { name: "Agile/Scrum", level: 90 },
-    { name: "UI/UX Design", level: 80 },
+  const toolsSkills = [
+    { name: "Jira", level: 90 },
+    { name: "ProductPlan", level: 85 },
+    { name: "Figma", level: 80 },
+    { name: "Adobe XD", level: 85 },
+    { name: "Power BI", level: 80 },
+    { name: "Tableau", level: 75 },
+    { name: "Google Analytics", level: 85 },
   ];
 
   const container = {
@@ -73,10 +73,10 @@ const Skills = () => {
             className="bg-slate-800 p-8 rounded-xl shadow-lg"
           >
             <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
-              Frontend Development
+              Product Leadership
             </h3>
             <div className="space-y-5">
-              {frontendSkills.map((skill, index) => (
+              {productSkills.map((skill, index) => (
                 <motion.div key={index} variants={item}>
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
@@ -101,10 +101,10 @@ const Skills = () => {
             className="bg-slate-800 p-8 rounded-xl shadow-lg"
           >
             <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
-              Backend Development
+              Technical Skills
             </h3>
             <div className="space-y-5">
-              {backendSkills.map((skill, index) => (
+              {techSkills.map((skill, index) => (
                 <motion.div key={index} variants={item}>
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
@@ -129,10 +129,10 @@ const Skills = () => {
             className="bg-slate-800 p-8 rounded-xl shadow-lg"
           >
             <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
-              Other Skills
+              Tools & Software
             </h3>
             <div className="space-y-5">
-              {otherSkills.map((skill, index) => (
+              {toolsSkills.map((skill, index) => (
                 <motion.div key={index} variants={item}>
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
