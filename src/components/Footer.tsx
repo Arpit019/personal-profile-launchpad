@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Linkedin, Mail, Github, ExternalLink } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,10 +11,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <a href="#home" className="text-2xl font-bold">
-              John Doe
+              Arpit Tripathi
             </a>
             <p className="text-slate-400 mt-2 max-w-md">
-              A passionate software engineer specialized in creating exceptional digital experiences.
+              A product strategist and tech leader crafting impactful digital experiences.
             </p>
           </div>
 
@@ -48,23 +49,23 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-3">Connect</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                    LinkedIn
+                  <a href="https://linkedin.com/in/arpit-tripathi" className="flex items-center text-slate-400 hover:text-white transition-colors">
+                    <Linkedin size={16} className="mr-2" /> LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                    GitHub
+                  <a href="https://github.com" className="flex items-center text-slate-400 hover:text-white transition-colors">
+                    <Github size={16} className="mr-2" /> GitHub
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                    Twitter
+                  <a href="mailto:arpit01999@gmail.com" className="flex items-center text-slate-400 hover:text-white transition-colors">
+                    <Mail size={16} className="mr-2" /> Email
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="text-slate-400 hover:text-white transition-colors">
-                    Contact
+                  <a href="#contact" className="flex items-center text-slate-400 hover:text-white transition-colors">
+                    <ExternalLink size={16} className="mr-2" /> Contact
                   </a>
                 </li>
               </ul>
@@ -74,7 +75,7 @@ const Footer = () => {
 
         <div className="border-t border-slate-800 mt-8 pt-8 text-center">
           <p className="text-slate-400">
-            © {currentYear} John Doe. All rights reserved.
+            © {currentYear} Arpit Tripathi. All rights reserved.
           </p>
         </div>
       </div>
