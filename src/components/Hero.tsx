@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ArrowDown, Code, Globe, Laptop, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
@@ -29,7 +28,7 @@ const Hero = () => {
       transition: {
         duration: 6,
         repeat: Infinity,
-        repeatType: "reverse" // Changed from string to literal "reverse"
+        repeatType: "reverse" as const
       }
     }
   };
