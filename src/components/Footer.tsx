@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Linkedin, Mail, Github, ExternalLink, GameController } from "lucide-react";
+import { Linkedin, Mail, Github, ExternalLink, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -28,7 +28,7 @@ const Footer = () => {
               className="text-2xl font-bold flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
             >
-              <GameController className="h-6 w-6 text-purple-500" />
+              <Gamepad className="h-6 w-6 text-purple-500" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                 Arpit Tripathi
               </span>

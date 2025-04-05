@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ArrowDown, Code, Globe, Laptop, GameController } from "lucide-react";
+import { ArrowDown, Code, Globe, Laptop, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -29,7 +29,7 @@ const Hero = () => {
       transition: {
         duration: 6,
         repeat: Infinity,
-        repeatType: "reverse"
+        repeatType: "reverse" // Changed from string to literal "reverse"
       }
     }
   };
@@ -138,7 +138,7 @@ const Hero = () => {
               whileHover={{ y: -5 }}
             >
               <div className="absolute inset-0 bg-green-900/20 rounded-lg -z-10 blur-md"></div>
-              <GameController className="h-8 w-8 text-green-400 mb-2" />
+              <Gamepad className="h-8 w-8 text-green-400 mb-2" />
               <span className="text-white text-sm">Gaming</span>
             </motion.div>
           </motion.div>

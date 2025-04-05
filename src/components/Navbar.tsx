@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, GameController } from "lucide-react";
+import { Menu, X, Gamepad } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -65,7 +65,7 @@ const Navbar = () => {
             className="text-xl font-bold text-white hover:text-purple-400 transition-colors flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
           >
-            <GameController className="h-5 w-5 text-purple-500" />
+            <Gamepad className="h-5 w-5 text-purple-500" />
             <div className="relative">
               <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Arpit Tripathi</span>
               <motion.span 
