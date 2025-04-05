@@ -1,10 +1,14 @@
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const BackgroundElements = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+  
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div ref={ref} className="absolute inset-0 overflow-hidden">
       <div className="grid-lines">
         {[...Array(20)].map((_, i) => (
           <div
@@ -32,14 +36,14 @@ const BackgroundElements = () => {
             left: `${Math.random() * 100}%`,
             background: `radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 70%, rgba(0, 0, 0, 0) 100%)`,
           }}
-          animate={{
+          animate={isInView ? {
             y: [0, Math.random() * 30, 0],
             transition: {
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
               repeatType: "reverse" as const
             }
-          }}
+          } : {}}
         />
       ))}
     </div>

@@ -1,7 +1,7 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import ContactStatusOverlay from "./ContactStatusOverlay";
 
 const ContactForm = () => {
@@ -11,6 +11,13 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: ""
+  });
+  
+  const formRef = useRef(null);
+  const isInView = useInView(formRef, { 
+    once: true,
+    amount: 0.25,
+    margin: "-100px 0px"
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,10 +48,12 @@ const ContactForm = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.3 }}
+      ref={formRef}
+      style={{ 
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? "translateX(0px)" : "translateX(50px)",
+        transition: "opacity 0.5s ease, transform 0.5s ease"
+      }}
     >
       <form 
         onSubmit={handleSubmit}

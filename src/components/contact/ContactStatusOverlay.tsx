@@ -4,7 +4,7 @@ import { AlertCircle, CheckCircle2, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
 type ContactStatusProps = {
-  status: "submitting" | "success" | "error";
+  status: "idle" | "submitting" | "success" | "error";
   resetForm: () => void;
 };
 

@@ -3,13 +3,18 @@ import React from "react";
 import { Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
-const ContactAchievementCard = () => {
+type ContactAchievementCardProps = {
+  inView?: boolean;
+};
+
+const ContactAchievementCard = ({ inView = false }: ContactAchievementCardProps) => {
   return (
     <motion.div 
-      variants={{
-        hidden: { opacity: 0, y: -10 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-      }} 
+      style={{ 
+        transform: inView ? "translateY(0px)" : "translateY(-10px)",
+        opacity: inView ? 1 : 0,
+        transition: "transform 0.5s ease 0.6s, opacity 0.5s ease 0.6s"
+      }}
       className="mt-10 bg-slate-800/70 backdrop-blur-sm p-6 rounded-lg border border-purple-900/30 shadow-lg"
     >
       <h4 className="text-lg font-medium text-white mb-4 flex items-center">
@@ -17,27 +22,42 @@ const ContactAchievementCard = () => {
         Achievement Unlocked
       </h4>
       <div className="space-y-3">
-        <div className="flex items-center gap-3 bg-slate-700/50 p-3 rounded-md border border-purple-900/20">
-          <div className="text-yellow-500 text-xl">🏆</div>
-          <div>
-            <p className="text-white font-medium">Most Innovative Employee</p>
-            <p className="text-slate-400 text-sm">2024 • Celestial IT Verse</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 bg-slate-700/50 p-3 rounded-md border border-purple-900/20">
-          <div className="text-yellow-500 text-xl">🚀</div>
-          <div>
-            <p className="text-white font-medium">Product Milestone Achiever</p>
-            <p className="text-slate-400 text-sm">2024 • Tap for Tech</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 bg-slate-700/50 p-3 rounded-md border border-purple-900/20">
-          <div className="text-yellow-500 text-xl">🎓</div>
-          <div>
-            <p className="text-white font-medium">B.E. in Computer Science</p>
-            <p className="text-slate-400 text-sm">AKTU</p>
-          </div>
-        </div>
+        {[
+          {
+            icon: "🏆",
+            title: "Most Innovative Employee",
+            subtitle: "2024 • Celestial IT Verse",
+            delay: 0.7
+          },
+          {
+            icon: "🚀",
+            title: "Product Milestone Achiever",
+            subtitle: "2024 • Tap for Tech",
+            delay: 0.8
+          },
+          {
+            icon: "🎓",
+            title: "B.E. in Computer Science",
+            subtitle: "AKTU",
+            delay: 0.9
+          }
+        ].map((achievement, index) => (
+          <motion.div 
+            key={index}
+            className="flex items-center gap-3 bg-slate-700/50 p-3 rounded-md border border-purple-900/20"
+            style={{ 
+              transform: inView ? "translateY(0px)" : "translateY(10px)",
+              opacity: inView ? 1 : 0,
+              transition: `transform 0.5s ease ${achievement.delay}s, opacity 0.5s ease ${achievement.delay}s`
+            }}
+          >
+            <div className="text-yellow-500 text-xl">{achievement.icon}</div>
+            <div>
+              <p className="text-white font-medium">{achievement.title}</p>
+              <p className="text-slate-400 text-sm">{achievement.subtitle}</p>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );
