@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, MessageSquare, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare, AlertCircle, CheckCircle2, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Contact = () => {
