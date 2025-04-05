@@ -238,8 +238,8 @@ const About = () => {
                   viewport={{ once: true }}
                   className="text-lg"
                 >
-                  Currently heading product at Celestial IT Verse Pvt. Ltd., I lead the vision and execution of a 
-                  social + fantasy gaming platform, building it from the ground up — games, mechanics, monetization models, 
+                  Currently heading product at Celestial IT Verse Pvt. Ltd.. I lead the vision and execution of a 
+                  social, fantasy gaming platform, building it from the ground up — games, mechanics, monetization models, 
                   influencer onboarding, and more.
                 </motion.p>
                 
