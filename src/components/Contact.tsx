@@ -44,7 +44,7 @@ const Contact = () => {
               transition: "opacity 0.5s ease 0.2s"
             }}
           >
-            &lt; await Contact.send(message) /&gt;
+            Send a Message to Start Collaboration
           </motion.p>
         </motion.div>
 

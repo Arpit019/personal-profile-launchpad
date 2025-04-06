@@ -148,10 +148,49 @@ const Skills: React.FC = () => {
               <span className="text-white">{skill.name}</span>
               <span className="text-blue-400">{skill.level}%</span>
             </div>
-            <Progress 
-              value={isInView ? skill.level : 0} 
-              className="h-2 bg-slate-700" 
-            />
+            <div className="relative">
+              <Progress 
+                value={isInView ? skill.level : 0} 
+                className="h-2 bg-slate-700" 
+              />
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={isInView ? { width: `${skill.level}%` } : { width: "0%" }}
+                transition={{ 
+                  duration: 1.5, 
+                  delay: 0.8 + index * 0.1 + skillIndex * 0.1,
+                  ease: "easeOut" 
+                }}
+                className="absolute top-0 left-0 h-2 rounded-full bg-gradient-to-r from-green-400 to-[#4eda80] z-10"
+                style={{
+                  boxShadow: "0 0 8px 1px rgba(78, 218, 128, 0.4)"
+                }}
+              />
+              <motion.div
+                className="absolute top-0 left-0 h-2 w-full overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+              >
+                {[...Array(8)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute h-5 w-2 bg-white/30 rounded-full rotate-45 top-[-2px]"
+                    style={{ left: `${10 + i * 30}%` }}
+                    animate={{
+                      x: ["-400%", "400%"],
+                      opacity: [0, 0.8, 0]
+                    }}
+                    transition={{
+                      duration: 3,
+                      delay: 1 + i * 0.2,
+                      repeat: Infinity,
+                      repeatDelay: 5
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
         ))}
       </div>

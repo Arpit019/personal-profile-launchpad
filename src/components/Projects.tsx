@@ -243,7 +243,7 @@ const Projects: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-purple-300 text-lg font-mono mb-4"
           >
-            &lt; Projects.filter(quality =&gt; "exceptional") /&gt;
+            Featured Work & Achievements
           </motion.p>
         </motion.div>
 

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, User, ArrowRight, Book } from "lucide-react";
@@ -131,7 +130,7 @@ const Blog: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-purple-300 text-lg font-mono mb-4"
             >
-              &lt; Blog.posts.map(insight =&gt; "valuable") /&gt;
+              Insights and Solutions from My Journey
             </motion.p>
 
             <motion.div 
