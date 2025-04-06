@@ -1,5 +1,5 @@
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 
@@ -104,17 +104,6 @@ const Skills: React.FC = () => {
     }
   };
 
-  const codeTextAnimation = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        delay: 0.4
-      }
-    }
-  };
-
   // Function to render a skill category card
   const renderSkillCard = (
     title: string, 
@@ -160,14 +149,8 @@ const Skills: React.FC = () => {
               <span className="text-blue-400">{skill.level}%</span>
             </div>
             <Progress 
-              value={0} 
+              value={isInView ? skill.level : 0} 
               className="h-2 bg-slate-700" 
-            />
-            <motion.div 
-              className="bg-gradient-to-r from-purple-600 to-blue-600 h-2 rounded-full -mt-2"
-              initial={{ width: 0 }}
-              animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-              transition={{ delay: 0.8 + index * 0.1 + skillIndex * 0.1, duration: 0.8, ease: "easeOut" }}
             />
           </motion.div>
         ))}
@@ -195,10 +178,10 @@ const Skills: React.FC = () => {
             />
           </motion.h2>
           <motion.p
-            variants={codeTextAnimation}
+            variants={titleAnimation}
             className="text-purple-300 text-lg font-mono mt-4"
           >
-            &lt; const skills = loadExpertise() /&gt;
+            My Digital Arsenal
           </motion.p>
         </motion.div>
         

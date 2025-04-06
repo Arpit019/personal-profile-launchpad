@@ -21,6 +21,7 @@ const ContactForm: React.FC = () => {
     subject: "",
     message: ""
   });
+  const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
   
   const formRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(formRef, { 
@@ -29,15 +30,54 @@ const ContactForm: React.FC = () => {
     margin: "-100px 0px"
   });
 
+  const validateForm = (): boolean => {
+    const errors: Partial<FormData> = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = "Name is required";
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email is invalid";
+    }
+    
+    if (!formData.subject.trim()) {
+      errors.subject = "Subject is required";
+    }
+    
+    if (!formData.message.trim()) {
+      errors.message = "Message is required";
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value
-    });
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+    
+    // Clear error when user types
+    if (formErrors[id as keyof FormData]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [id]: undefined
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setFormStatus("submitting");
     
     // Simulate form submission
@@ -53,6 +93,7 @@ const ContactForm: React.FC = () => {
   const resetForm = () => {
     setFormStatus("idle");
     setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormErrors({});
   };
 
   return (
@@ -86,9 +127,10 @@ const ContactForm: React.FC = () => {
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-slate-700/70 border border-purple-900/30 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className={`w-full px-4 py-2 bg-slate-700/70 border ${formErrors.name ? 'border-red-500' : 'border-purple-900/30'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent`}
               placeholder="Your name"
             />
+            {formErrors.name && <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>}
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-purple-300 mb-1">
@@ -99,9 +141,10 @@ const ContactForm: React.FC = () => {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-slate-700/70 border border-purple-900/30 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className={`w-full px-4 py-2 bg-slate-700/70 border ${formErrors.email ? 'border-red-500' : 'border-purple-900/30'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent`}
               placeholder="Your email"
             />
+            {formErrors.email && <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>}
           </div>
         </div>
         <div className="mb-4">
@@ -113,9 +156,10 @@ const ContactForm: React.FC = () => {
             id="subject"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full px-4 py-2 bg-slate-700/70 border border-purple-900/30 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className={`w-full px-4 py-2 bg-slate-700/70 border ${formErrors.subject ? 'border-red-500' : 'border-purple-900/30'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent`}
             placeholder="Subject"
           />
+          {formErrors.subject && <p className="text-red-500 text-xs mt-1">{formErrors.subject}</p>}
         </div>
         <div className="mb-6">
           <label htmlFor="message" className="block text-sm font-medium text-purple-300 mb-1">
@@ -126,9 +170,10 @@ const ContactForm: React.FC = () => {
             rows={5}
             value={formData.message}
             onChange={handleChange}
-            className="w-full px-4 py-2 bg-slate-700/70 border border-purple-900/30 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+            className={`w-full px-4 py-2 bg-slate-700/70 border ${formErrors.message ? 'border-red-500' : 'border-purple-900/30'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none`}
             placeholder="Your message"
           ></textarea>
+          {formErrors.message && <p className="text-red-500 text-xs mt-1">{formErrors.message}</p>}
         </div>
         <motion.button
           type="submit"

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Briefcase, Award, Brain, Heart, Code, Zap } from "lucide-react";
@@ -95,7 +94,7 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-purple-300 text-lg font-mono mb-4"
           >
-            &lt; Profile.details(expertise, skills, background) /&gt;
+            Expertise, Skills & Background
           </motion.p>
         </motion.div>
         

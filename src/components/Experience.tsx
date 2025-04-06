@@ -91,7 +91,7 @@ const Experience = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-purple-300 text-lg font-mono mb-4"
           >
-            &lt; Experience.map(year =&gt; value) /&gt;
+            Professional Journey & Achievements
           </motion.p>
         </motion.div>
 

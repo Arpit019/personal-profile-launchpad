@@ -1,3 +1,4 @@
+
 import React from "react";
 import { ArrowDown, Code, Globe, Laptop, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
@@ -144,7 +145,7 @@ const Hero = () => {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-4 justify-center"
+            className="flex flex-wrap gap-4 justify-center relative"
           >
             <motion.a
               href="#contact"
@@ -165,26 +166,27 @@ const Hero = () => {
               <span className="relative">View Projects</span>
             </motion.a>
           </motion.div>
-          
-          <motion.a
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ 
-              opacity: 1, 
-              y: [0, 10, 0],
-              transition: {
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop"
-              }
-            }}
-            href="#about"
-            className="absolute bottom-10"
-            aria-label="Scroll down"
-          >
-            <ArrowDown className="text-purple-400" />
-          </motion.a>
         </motion.div>
       </div>
+      
+      {/* Move scroll arrow below content */}
+      <motion.a
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ 
+          opacity: 1, 
+          y: [0, 10, 0],
+          transition: {
+            duration: 1.5,
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        }}
+        href="#about"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        aria-label="Scroll down"
+      >
+        <ArrowDown className="text-purple-400" />
+      </motion.a>
     </section>
   );
 };
