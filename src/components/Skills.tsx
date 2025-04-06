@@ -1,6 +1,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { Progress } from "@/components/ui/progress";
 
 const Skills = () => {
   const sectionRef = useRef(null);
@@ -40,41 +41,26 @@ const Skills = () => {
     { name: "Google Analytics", level: 85 },
   ];
 
-  const container = {
+  // Animation variants
+  const containerAnimation = {
     hidden: { opacity: 0 },
-    show: {
+    visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.1,
+        delayChildren: 0.3
       }
     }
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
-
-  const progressAnimation = {
-    initial: { width: 0 },
-    animate: (level) => ({
-      width: `${level}%`,
-      transition: { 
-        duration: 1.2, 
-        ease: "easeOut",
-        delay: 0.3
-      }
-    })
-  };
-
   const cardAnimation = {
-    initial: { 
+    hidden: { 
       y: 50, 
       opacity: 0,
       rotateY: 15,
-      rotateX: -10
+      rotateX: -10 
     },
-    animate: (index) => ({
+    visible: (index) => ({
       y: 0,
       opacity: 1,
       rotateY: 0,
@@ -82,33 +68,69 @@ const Skills = () => {
       transition: {
         duration: 0.6,
         delay: 0.1 * index,
-        ease: "easeOut"
+        ease: "easeOut",
+        type: "spring",
+        stiffness: 100
       }
     })
+  };
+
+  const titleAnimation = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const lineAnimation = {
+    hidden: { scaleX: 0 },
+    visible: { 
+      scaleX: 1,
+      transition: {
+        duration: 0.5,
+        delay: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const codeTextAnimation = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        delay: 0.4
+      }
+    }
   };
 
   return (
     <section id="skills" className="py-20 bg-slate-900" ref={sectionRef}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerAnimation}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <motion.h2 
+            variants={titleAnimation}
+            className="inline-block text-3xl font-bold text-white mb-4 relative"
+          >
             Skills & Expertise
-          </h2>
-          <motion.div 
-            className="w-20 h-1 bg-blue-600 mx-auto"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          ></motion.div>
+            <motion.div 
+              variants={lineAnimation}
+              className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-blue-600"
+            />
+          </motion.h2>
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            variants={codeTextAnimation}
             className="text-purple-300 text-lg font-mono mt-4"
           >
             &lt; const skills = loadExpertise() /&gt;
@@ -116,107 +138,193 @@ const Skills = () => {
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Product Leadership Card */}
           <motion.div
             custom={0}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
             variants={cardAnimation}
-            className="bg-slate-800 p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
+            className="bg-slate-800/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
             whileHover={{ 
               scale: 1.02, 
+              rotateY: 2,
+              rotateX: -2,
               boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.3)" 
             }}
           >
-            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
+            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3 flex items-center">
+              <span className="bg-blue-500/20 w-8 h-8 rounded-lg flex items-center justify-center mr-2">
+                <motion.svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="18" 
+                  height="18" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </motion.svg>
+              </span>
               Product Leadership
             </h3>
             <div className="space-y-5">
               {productSkills.map((skill, index) => (
-                <div key={index}>
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.7 + index * 0.1, duration: 0.4 }}
+                >
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
                     <span className="text-blue-400">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
-                    <motion.div 
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 h-2.5 rounded-full"
-                      custom={skill.level}
-                      initial="initial"
-                      animate={isInView ? "animate" : "initial"}
-                      variants={progressAnimation}
-                    ></motion.div>
-                  </div>
-                </div>
+                  <Progress 
+                    value={0} 
+                    className="h-2 bg-slate-700" 
+                    // Animated value applied after component mounts
+                    // This is managed by framer motion separately
+                  />
+                  <motion.div 
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 h-2 rounded-full -mt-2"
+                    initial={{ width: 0 }}
+                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                    transition={{ delay: 0.8 + index * 0.1, duration: 0.8, ease: "easeOut" }}
+                  />
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
+          {/* Technical Skills Card */}
           <motion.div
             custom={1}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
             variants={cardAnimation}
-            className="bg-slate-800 p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
+            className="bg-slate-800/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
             whileHover={{ 
               scale: 1.02, 
+              rotateY: 2,
+              rotateX: -2,
               boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.3)" 
             }}
           >
-            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
+            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3 flex items-center">
+              <span className="bg-purple-500/20 w-8 h-8 rounded-lg flex items-center justify-center mr-2">
+                <motion.svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="18" 
+                  height="18" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                >
+                  <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path>
+                  <path d="M2 20h20"></path>
+                  <path d="M14 12v.01"></path>
+                </motion.svg>
+              </span>
               Technical Skills
             </h3>
             <div className="space-y-5">
               {techSkills.map((skill, index) => (
-                <div key={index}>
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.8 + index * 0.1, duration: 0.4 }}
+                >
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
                     <span className="text-blue-400">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
-                    <motion.div 
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 h-2.5 rounded-full"
-                      custom={skill.level}
-                      initial="initial"
-                      animate={isInView ? "animate" : "initial"}
-                      variants={progressAnimation}
-                    ></motion.div>
-                  </div>
-                </div>
+                  <Progress 
+                    value={0} 
+                    className="h-2 bg-slate-700" 
+                  />
+                  <motion.div 
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 h-2 rounded-full -mt-2"
+                    initial={{ width: 0 }}
+                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                    transition={{ delay: 0.9 + index * 0.1, duration: 0.8, ease: "easeOut" }}
+                  />
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
+          {/* Tools & Software Card */}
           <motion.div
             custom={2}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
             variants={cardAnimation}
-            className="bg-slate-800 p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
+            className="bg-slate-800/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
             whileHover={{ 
               scale: 1.02, 
+              rotateY: 2,
+              rotateX: -2,
               boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.3)" 
             }}
           >
-            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3">
+            <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3 flex items-center">
+              <span className="bg-green-500/20 w-8 h-8 rounded-lg flex items-center justify-center mr-2">
+                <motion.svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="18" 
+                  height="18" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.5 }}
+                >
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </motion.svg>
+              </span>
               Tools & Software
             </h3>
             <div className="space-y-5">
               {toolsSkills.map((skill, index) => (
-                <div key={index}>
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.9 + index * 0.1, duration: 0.4 }}
+                >
                   <div className="flex justify-between mb-1">
                     <span className="text-white">{skill.name}</span>
                     <span className="text-blue-400">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
-                    <motion.div 
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 h-2.5 rounded-full"
-                      custom={skill.level}
-                      initial="initial"
-                      animate={isInView ? "animate" : "initial"}
-                      variants={progressAnimation}
-                    ></motion.div>
-                  </div>
-                </div>
+                  <Progress 
+                    value={0} 
+                    className="h-2 bg-slate-700" 
+                  />
+                  <motion.div 
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 h-2 rounded-full -mt-2"
+                    initial={{ width: 0 }}
+                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                    transition={{ delay: 1 + index * 0.1, duration: 0.8, ease: "easeOut" }}
+                  />
+                </motion.div>
               ))}
             </div>
           </motion.div>

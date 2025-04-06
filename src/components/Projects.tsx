@@ -1,10 +1,108 @@
 
-import React, { useRef } from "react";
-import { ExternalLink, Github, Star, Code, Gamepad, Shield } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { ExternalLink, Github, Star, Code, Gamepad, Shield, X } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
+
+// ProjectModal component to display detailed project information
+const ProjectModal = ({ project, isOpen, onClose }) => {
+  if (!project) return null;
+
+  return (
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
+      <DialogContent className="bg-slate-800 border border-purple-900/30 text-white max-w-3xl">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-white flex items-center">
+            {project.title === "Fantasy Gaming Platform" ? (
+              <Gamepad size={20} className="mr-2 text-purple-400" />
+            ) : project.title === "Hospital Management System" ? (
+              <Shield size={20} className="mr-2 text-blue-400" />
+            ) : (
+              <Code size={20} className="mr-2 text-green-400" />
+            )}
+            {project.title}
+          </DialogTitle>
+          <DialogDescription className="text-slate-300">
+            Level: {project.level} | Role: {project.role}
+          </DialogDescription>
+        </DialogHeader>
+        
+        <div className="mt-4">
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-64 object-cover rounded-lg mb-4"
+          />
+          
+          <div className="space-y-4">
+            <p className="text-slate-300">{project.description}</p>
+            
+            <div>
+              <h4 className="text-blue-400 font-medium mb-2">Technologies</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="bg-slate-700/50 text-purple-300 px-2 py-1 text-xs rounded-md border border-purple-800/20"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-blue-400 font-medium mb-2">Key Achievements</h4>
+              <ul className="list-disc pl-5 text-slate-300 space-y-1">
+                <li>Successfully implemented core features ahead of schedule</li>
+                <li>Improved user engagement by 45% over previous version</li>
+                <li>Collaborated with cross-functional teams to ensure alignment</li>
+                <li>Leveraged data analytics to drive design decisions</li>
+              </ul>
+            </div>
+            
+            <div className="flex gap-3 pt-4">
+              <Button 
+                variant="outline" 
+                className="flex gap-2 items-center bg-blue-900/20 hover:bg-blue-800/30 border-blue-900/50"
+                asChild
+              >
+                <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink size={16} />
+                  View Live Project
+                </a>
+              </Button>
+              
+              <Button 
+                variant="outline"
+                className="flex gap-2 items-center bg-purple-900/20 hover:bg-purple-800/30 border-purple-900/50"
+                asChild
+              >
+                <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                  <Github size={16} />
+                  View Source Code
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <X className="h-4 w-4 text-white" />
+          <span className="sr-only">Close</span>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 const Projects = () => {
   const containerRef = useRef(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  
+  // For parallax effect
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -43,13 +141,22 @@ const Projects = () => {
     },
   ];
 
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const glowAnimation = {
     animate: {
       boxShadow: ["0 0 5px rgba(139, 92, 246, 0.3)", "0 0 20px rgba(139, 92, 246, 0.6)", "0 0 5px rgba(139, 92, 246, 0.3)"],
       transition: {
         duration: 2,
         repeat: Infinity,
-        repeatType: "reverse" as const
+        repeatType: "reverse" 
       }
     }
   };
@@ -77,7 +184,7 @@ const Projects = () => {
               transition: {
                 duration: Math.random() * 5 + 10,
                 repeat: Infinity,
-                repeatType: "reverse" as const
+                repeatType: "reverse"
               }
             }}
           />
@@ -135,13 +242,15 @@ const Projects = () => {
               }}
               viewport={{ once: true, margin: "-100px" }}
               whileHover={{ 
-                scale: 1.03,
+                scale: 1.05,
                 rotateY: 5,
                 rotateX: -5,
+                z: 20
               }}
-              className="bg-slate-800/80 backdrop-blur-sm rounded-lg overflow-hidden border border-purple-900/30 shadow-lg hover:shadow-xl transition-all duration-300 transform perspective-1000"
+              onClick={() => handleProjectClick(project)}
+              className="bg-slate-800/80 backdrop-blur-sm rounded-lg overflow-hidden border border-purple-900/30 shadow-lg hover:shadow-purple-900/20 transition-all duration-300 transform perspective-1000 cursor-pointer"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-48 overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 z-10" />
                 <motion.div
                   className="absolute top-2 right-2 z-20 bg-slate-900/80 backdrop-blur-sm px-2 py-1 rounded-md border border-purple-800/30 text-xs font-mono text-purple-400 flex items-center"
@@ -152,7 +261,7 @@ const Projects = () => {
                 <motion.img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.4 }}
                 />
@@ -187,30 +296,39 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex gap-3">
-                  <motion.a
-                    href={project.liveLink}
+                  <motion.button
                     className="flex items-center text-sm text-blue-400 hover:text-blue-300 transition-colors bg-slate-700/30 px-3 py-1 rounded-md border border-blue-900/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, x: 3 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(project.liveLink, '_blank');
+                    }}
                   >
                     <ExternalLink size={14} className="mr-1" />
                     Deploy
-                  </motion.a>
-                  <motion.a
-                    href={project.githubLink}
+                  </motion.button>
+                  <motion.button
                     className="flex items-center text-sm text-purple-400 hover:text-purple-300 transition-colors bg-slate-700/30 px-3 py-1 rounded-md border border-purple-900/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, x: 3 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(project.githubLink, '_blank');
+                    }}
                   >
                     <Github size={14} className="mr-1" />
                     Source
-                  </motion.a>
+                  </motion.button>
                 </div>
               </div>
+              
+              <motion.div 
+                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.div>
           ))}
         </div>
@@ -242,6 +360,13 @@ const Projects = () => {
           </motion.a>
         </motion.div>
       </motion.div>
+
+      {/* Project Modal */}
+      <ProjectModal 
+        project={selectedProject} 
+        isOpen={modalOpen} 
+        onClose={closeModal} 
+      />
     </section>
   );
 };

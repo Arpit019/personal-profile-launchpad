@@ -11,6 +11,7 @@ const Skills = lazy(() => import("@/components/Skills"));
 const Experience = lazy(() => import("@/components/Experience"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
+const CTA = lazy(() => import("@/components/CTA"));
 const Footer = lazy(() => import("@/components/Footer"));
 
 // Loading component for suspense fallback
@@ -114,6 +115,10 @@ const Index = () => {
       
       <Suspense fallback={<SectionLoader />}>
         <Contact />
+      </Suspense>
+      
+      <Suspense fallback={<SectionLoader />}>
+        <CTA />
       </Suspense>
       
       <Suspense fallback={<div className="h-20 bg-slate-900" />}>
