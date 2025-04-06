@@ -1,145 +1,159 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, Gamepad } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", path: "/" },
+    { name: "Skills", path: "/#skills" },
+    { name: "Projects", path: "/#projects" },
+    { name: "Blog", path: "/blog" },
+    { name: "Resume", path: "/resume" },
+    { name: "Contact", path: "/#contact" }
   ];
 
-  const navbarVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: (i) => ({ 
-      opacity: 1, 
-      y: 0, 
-      transition: { delay: 0.1 * i, duration: 0.3 } 
-    })
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
     <motion.nav
-      variants={navbarVariants}
-      initial="hidden"
-      animate="visible"
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-slate-900/90 backdrop-blur-md shadow-lg py-2 border-b border-purple-900/50"
-          : "bg-transparent py-4"
-      )}
+      className={`fixed top-0 left-0 w-full py-4 px-6 md:px-10 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-slate-900/90 backdrop-blur-lg shadow-lg" : "bg-transparent"
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
-          <motion.a
-            href="#home"
-            className="text-xl font-bold text-white hover:text-purple-400 transition-colors flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Gamepad className="h-5 w-5 text-purple-500" />
-            <div className="relative">
-              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Arpit Tripathi</span>
-              <motion.span 
-                className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-500 rounded-full" 
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            </div>
-          </motion.a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link, i) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                custom={i}
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.1, color: "#a855f7" }}
-                className="text-slate-300 hover:text-purple-400 transition-colors relative px-2 py-1"
-              >
-                <span>{link.name}</span>
-                <motion.span 
-                  className="absolute bottom-0 left-0 h-0.5 bg-purple-500 w-full origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Mobile Navigation Toggle */}
-          <motion.button
-            className="md:hidden text-white bg-slate-800 p-2 rounded-lg border border-purple-900/50"
-            onClick={toggleMenu}
-            whileTap={{ scale: 0.9 }}
-            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {isMenuOpen && (
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <Link to="/" className="flex items-center space-x-2">
           <motion.div 
-            className="md:hidden absolute top-full left-0 w-full bg-slate-900/95 backdrop-blur-lg shadow-lg py-4 px-4 border-b border-purple-900/50"
-            initial={{ opacity: 0, scaleY: 0 }}
-            animate={{ opacity: 1, scaleY: 1 }}
-            exit={{ opacity: 0, scaleY: 0 }}
-            transition={{ duration: 0.3 }}
+            className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 text-white flex items-center justify-center text-xl font-bold"
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <div className="flex flex-col space-y-4">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  className="text-slate-300 hover:text-purple-400 transition-colors px-2 py-1 border-l-2 border-purple-800"
-                  onClick={() => setIsMenuOpen(false)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ x: 5, borderColor: "#a855f7" }}
+            AT
+          </motion.div>
+          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+            Arpit Tripathi
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex space-x-8 items-center">
+          {navLinks.map((link) => {
+            const isActive = 
+              (link.path === "/" && location.pathname === "/") ||
+              (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/") ||
+              (link.path === location.pathname);
+              
+            return (
+              <motion.li key={link.name} whileHover={{ scale: 1.05 }}>
+                <Link
+                  to={link.path}
+                  className={`text-sm font-medium transition-colors relative ${
+                    isActive ? "text-purple-400" : "text-slate-300 hover:text-white"
+                  }`}
                 >
                   {link.name}
-                </motion.a>
-              ))}
-            </div>
+                  {isActive && (
+                    <motion.span
+                      className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500"
+                      layoutId="navbar-indicator"
+                    />
+                  )}
+                </Link>
+              </motion.li>
+            );
+          })}
+          <motion.li whileHover={{ scale: 1.05 }}>
+            <a
+              href="#contact"
+              className="px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500 transition-all duration-300"
+            >
+              Let's Connect
+            </a>
+          </motion.li>
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <motion.button
+          className="md:hidden text-white bg-slate-800 p-2 rounded-md"
+          onClick={toggleMobileMenu}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </motion.button>
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 top-[72px] bg-slate-900/95 backdrop-blur-lg md:hidden z-40"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <ul className="flex flex-col items-center py-10 space-y-8">
+              {navLinks.map((link) => {
+                const isActive = 
+                  (link.path === "/" && location.pathname === "/") ||
+                  (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/") ||
+                  (link.path === location.pathname);
+                  
+                return (
+                  <motion.li 
+                    key={link.name}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      to={link.path}
+                      className={`text-lg font-medium ${
+                        isActive ? "text-purple-400" : "text-slate-300"
+                      }`}
+                      onClick={toggleMobileMenu}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                );
+              })}
+              <motion.li 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <a
+                  href="#contact"
+                  className="px-6 py-3 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white"
+                  onClick={toggleMobileMenu}
+                >
+                  Let's Connect
+                </a>
+              </motion.li>
+            </ul>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </motion.nav>
   );
 };

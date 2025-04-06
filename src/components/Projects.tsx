@@ -150,13 +150,14 @@ const Projects = () => {
     setModalOpen(false);
   };
 
+  // Fixed: TypeScript error by properly typing the animation values
   const glowAnimation = {
     animate: {
       boxShadow: ["0 0 5px rgba(139, 92, 246, 0.3)", "0 0 20px rgba(139, 92, 246, 0.6)", "0 0 5px rgba(139, 92, 246, 0.3)"],
       transition: {
         duration: 2,
         repeat: Infinity,
-        repeatType: "reverse" 
+        repeatType: "loop" as const
       }
     }
   };
