@@ -5,8 +5,26 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 
+// Define TypeScript interfaces for project data
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  liveLink: string;
+  githubLink: string;
+  level: string;
+  role: string;
+}
+
+interface ProjectModalProps {
+  project: Project | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 // ProjectModal component to display detailed project information
-const ProjectModal = ({ project, isOpen, onClose }) => {
+const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
   if (!project) return null;
 
   return (
@@ -97,10 +115,10 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
   );
 };
 
-const Projects = () => {
-  const containerRef = useRef(null);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+const Projects: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   
   // For parallax effect
   const { scrollYProgress } = useScroll({
@@ -108,14 +126,14 @@ const Projects = () => {
     offset: ["start end", "end start"]
   });
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "Fantasy Gaming Platform",
       description: "A comprehensive social and fantasy gaming platform with multiple game modes, monetization strategies, and social features.",
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
       technologies: ["Product Strategy", "Game Development", "UX Design", "Monetization"],
-      liveLink: "#",
-      githubLink: "#",
+      liveLink: "https://fantasy-gaming.arpittripathii.com",
+      githubLink: "https://github.com/arpittripathii",
       level: "Legendary",
       role: "Game Master"
     },
@@ -124,8 +142,8 @@ const Projects = () => {
       description: "A full-featured HMS that improved operational efficiency by 30%, streamlining patient management, billing, and inventory tracking.",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
       technologies: ["Healthcare Tech", "Data Management", "User Experience", "Process Automation"],
-      liveLink: "#",
-      githubLink: "#",
+      liveLink: "https://hms.arpittripathii.com",
+      githubLink: "https://github.com/arpittripathii",
       level: "Epic",
       role: "System Architect"
     },
@@ -134,14 +152,14 @@ const Projects = () => {
       description: "Reduced NDR from 70% to 25% through innovative delivery models and prepaid wallet systems for better cash flow management.",
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
       technologies: ["Shopify", "Logistics", "Workflow Automation", "Analytics"],
-      liveLink: "#",
-      githubLink: "#",
+      liveLink: "https://ecommerce.arpittripathii.com",
+      githubLink: "https://github.com/arpittripathii",
       level: "Rare",
       role: "Tech Leader"
     },
   ];
 
-  const handleProjectClick = (project) => {
+  const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setModalOpen(true);
   };
@@ -150,7 +168,7 @@ const Projects = () => {
     setModalOpen(false);
   };
 
-  // Fixed: TypeScript error by properly typing the animation values
+  // Animation config with proper TypeScript typing
   const glowAnimation = {
     animate: {
       boxShadow: ["0 0 5px rgba(139, 92, 246, 0.3)", "0 0 20px rgba(139, 92, 246, 0.6)", "0 0 5px rgba(139, 92, 246, 0.3)"],

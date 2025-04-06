@@ -4,16 +4,25 @@ import { Send } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import ContactStatusOverlay from "./ContactStatusOverlay";
 
-const ContactForm = () => {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+const ContactForm: React.FC = () => {
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: ""
   });
   
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(formRef, { 
     once: true,
     amount: 0.25,
