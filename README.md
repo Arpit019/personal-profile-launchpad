@@ -1,8 +1,29 @@
+
 # Welcome to your Lovable project
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/86481094-0243-458d-a826-a897994eb377
+
+## Deployment Instructions
+
+This project is configured for automatic deployment to GitHub Pages. Here's how it works:
+
+1. Push your changes to the `main` branch
+2. GitHub Actions will automatically build and deploy the site
+3. Your site will be available at `https://[your-username].github.io/[repository-name]/`
+
+### Manual Deployment
+
+If you prefer to deploy manually:
+
+```sh
+# Build the project
+npm run build
+
+# The built files will be in the 'dist' directory
+# You can then deploy these files to any static hosting service
+```
 
 ## How can I edit this code?
 
@@ -36,20 +57,6 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
 ## What technologies are used for this project?
 
 This project is built with:
@@ -60,14 +67,10 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/86481094-0243-458d-a826-a897994eb377) and click on Share -> Publish.
-
 ## Can I connect a custom domain to my Lovable project?
 
 Yes it is!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+To connect a domain, navigate to Project > Settings > Domains in Lovable.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
