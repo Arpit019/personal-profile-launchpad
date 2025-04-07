@@ -4,4 +4,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location (once you have one)
-# Sitemap: https://yourdomain.com/sitemap.xml
+# Sitemap: https://arpit019.github.io/personal-profile-launchpad/sitemap.xml
