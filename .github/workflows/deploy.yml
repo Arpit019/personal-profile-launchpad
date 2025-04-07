@@ -33,8 +33,15 @@ jobs:
       - name: Copy 404.html
         run: cp dist/index.html dist/404.html
         
-      - name: Add .nojekyll file
+      - name: Create .nojekyll file
         run: touch dist/.nojekyll
+        
+      - name: Create docs directory if needed
+        run: |
+          mkdir -p docs
+          touch docs/.nojekyll
+          cp dist/index.html docs/
+          echo "This site is built with Vite and deployed directly from the /dist folder." > docs/README.md
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
