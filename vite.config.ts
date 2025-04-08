@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: "dist",
+    outDir: "docs", // Build directly to docs folder instead of dist
     emptyOutDir: true,
   },
 }));
