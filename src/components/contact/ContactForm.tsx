@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { Send } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import ContactStatusOverlay from "./ContactStatusOverlay";
+import { toast } from "@/components/ui/use-toast";
 
 interface FormData {
   name: string;
@@ -72,7 +73,8 @@ const ContactForm: React.FC = () => {
   };
 
   const submitToGoogleSheet = async (data: FormData) => {
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlTrdzAVaKP4jA9PqXLQdDJo5y-0zOTj6AuMAGWPc5jx-eVe1aTPOAcBHDOagbkW8/exec';
+    // Updated with the new Google Script Web App URL provided by the user
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
     
     const formDataToSend = new FormData();
     formDataToSend.append('name', data.name);
@@ -87,9 +89,20 @@ const ContactForm: React.FC = () => {
         mode: 'no-cors'
       });
       
+      // Since we're using no-cors, we don't get a valid response to check
+      // So we'll assume success if no exception was thrown
+      toast({
+        title: "Message Sent!",
+        description: "We've received your message. We'll get back to you soon.",
+      });
       return true;
     } catch (error) {
       console.error('Error submitting form:', error);
+      toast({
+        title: "Message Failed",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
       return false;
     }
   };
