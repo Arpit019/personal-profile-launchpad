@@ -14,30 +14,51 @@ const Experience = () => {
     {
       position: "Head of Product",
       company: "Celestial IT Verse Pvt. Ltd.",
-      period: "Oct 2024 - Present",
-      description: "Spearheading the creation of a Winzo/MPL-style gaming ecosystem from scratch. Built and scaled a full product + dev team for end-to-end game development. Defined architecture, tech stack, and monetization strategy. Leading vendor onboarding, gameplay UX, and backend scalability.",
-      achievement: "Launched platform with 500K+ DAU in first month"
+      period: "Current",
+      description: "Leading the firm's innovation division to bring bold ideas to life with product strategy, design systems, and full-stack implementation. Managing CRM development, marketplace integrations, hospital apps, and influencer tools. Driving adoption of agile, microservices, and cloud-native architecture.",
+      achievement: "Built scalable ecosystem of interconnected products"
+    },
+    {
+      position: "Head of Product - AAG App",
+      company: "Celestial IT Verse Pvt. Ltd.",
+      period: "2024",
+      description: "Led development of a social + fantasy gaming platform from scratch. Built architecture for multi-game logic (Ludo, Fruit Ninja, Snake & Ladders), enabled real-money gaming with secure wallet systems, designed vendor monetization models, and managed hiring for backend, Android, and design teams.",
+      achievement: "Launched platform with impressive user acquisition"
     },
     {
       position: "Product Manager",
       company: "Tap for Tech Pvt Ltd",
-      period: "July 2024 - Oct 2024",
-      description: "Launched a full-scale Hospital Management System (HMS) boosting operational efficiency by 30%. Designed and deployed adventure booking & event systems for Pinak Adventure Park. Rolled out custom enterprise software, automating operations and improving productivity by 40%.",
-      achievement: "Reduced operational costs by 45%"
+      period: "2023-2024",
+      description: "Built Hospital Management System (HMS) covering admissions, referrals, prescriptions, diagnostics, and analytics. Launched Pinak Adventure Farms with influencer engagement, ticketing and operations. Delivered various service-based products for internal clients.",
+      achievement: "Reduced operational costs by 45% with HMS"
     },
     {
       position: "Product Analyst",
       company: "Zippee",
-      period: "March 2023 - July 2024",
-      description: "Reduced NDR from 70% to 25% and transitioned to a prepaid model, improving cash flow. Designed a prepaid wallet system, optimized delivery using QCF + hyperlocal models. Created a Shopify zipcode validator, introduced automated workflows (Arigato, Mesa, Thrive).",
-      achievement: "Grew revenue by 85% year-over-year"
+      period: "2023",
+      description: "Developed prepaid wallet + ERP integration for billing and COD reconciliation. Built a Zipcode Validator App for Shopify. Automated workflows using Arigato, Mesa, and Thrive. Worked on QCF, P2P, SDD, and Hyperlocal delivery models to increase margins.",
+      achievement: "Grew revenue by 85% through delivery optimization"
     },
     {
       position: "Script Developer",
       company: "Uplers",
-      period: "Dec 2022 - Mar 2023",
-      description: "Boosted email open rates by 25% and CTR by 35% via AMP innovations. Reduced email production time by 30% with streamlined development.",
-      achievement: "Created innovative email templates used by 50+ clients"
+      period: "2022-2023",
+      description: "Led projects in CRM integration, campaign performance dashboards, and WordPress marketplaces. Delivered solutions for US, UK, and Australian clients. Built strength in product consulting, scope management, and digital transformation.",
+      achievement: "Created innovative solutions used by global clients"
+    },
+    {
+      position: "Associate Mission Control GTM",
+      company: "State Street",
+      period: "2021-2022",
+      description: "Gained exposure to financial services and asset management sector. Worked on tools used by global institutional investors. Learned risk frameworks, compliance mapping, and automation in large systems.",
+      achievement: "Contributed to process optimization and requirement gathering"
+    },
+    {
+      position: "ARO",
+      company: "Wiley",
+      period: "2020-2021",
+      description: "Developed understanding of structured corporate workflows and educational product landscapes. Worked on product lifecycle understanding in educational content. Learned project planning and customer journey design.",
+      achievement: "Built foundation in data-driven decision making"
     },
   ];
 

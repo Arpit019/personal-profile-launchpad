@@ -31,7 +31,8 @@ const Navbar: React.FC = () => {
 
   const navLinks: NavLink[] = [
     { name: "Home", path: "/" },
-    { name: "Skills", path: "/#skills" },
+    { name: "About", path: "/#about" },
+    { name: "Experience", path: "/#experience" },
     { name: "Projects", path: "/#projects" },
     { name: "Blog", path: "/blog" },
     { name: "Resume", path: "/resume" },
@@ -66,11 +67,11 @@ const Navbar: React.FC = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex space-x-8 items-center">
+        <ul className="hidden md:flex space-x-6 items-center">
           {navLinks.map((link) => {
             const isActive = 
               (link.path === "/" && location.pathname === "/") ||
-              (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/") ||
+              (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/" && window.location.hash === link.path.substring(1)) ||
               (link.path === location.pathname);
               
             return (
@@ -94,7 +95,7 @@ const Navbar: React.FC = () => {
           })}
           <motion.li whileHover={{ scale: 1.05 }}>
             <a
-              href="#contact"
+              href="/#contact"
               className="px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500 transition-all duration-300"
             >
               Let's Connect
@@ -127,7 +128,7 @@ const Navbar: React.FC = () => {
               {navLinks.map((link) => {
                 const isActive = 
                   (link.path === "/" && location.pathname === "/") ||
-                  (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/") ||
+                  (link.path !== "/" && link.path.startsWith("/#") && location.pathname === "/" && window.location.hash === link.path.substring(1)) ||
                   (link.path === location.pathname);
                   
                 return (
@@ -153,7 +154,7 @@ const Navbar: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <a
-                  href="#contact"
+                  href="/#contact"
                   className="px-6 py-3 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white"
                   onClick={toggleMobileMenu}
                 >

@@ -8,7 +8,7 @@ const Footer = () => {
 
   const linkItems = [
     { icon: Linkedin, text: "LinkedIn", href: "https://linkedin.com/in/arpit-tripathi" },
-    { icon: Github, text: "GitHub", href: "https://github.com" },
+    { icon: Github, text: "GitHub", href: "https://github.com/arpittripathii" },
     { icon: Mail, text: "Email", href: "mailto:arpit01999@gmail.com" },
     { icon: ExternalLink, text: "Contact", href: "#contact" }
   ];
@@ -34,7 +34,7 @@ const Footer = () => {
               </span>
             </motion.a>
             <p className="text-slate-400 mt-2 max-w-md">
-              A product strategist and tech leader crafting impactful digital experiences.
+              A product strategist and tech leader crafting impactful digital experiences for Gaming, Healthcare, and Enterprise.
             </p>
           </div>
 
@@ -100,6 +100,8 @@ const Footer = () => {
                       variants={linkVariants}
                       initial="initial"
                       whileHover="hover"
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     >
                       <item.icon size={16} className="mr-2 text-purple-500" /> {item.text}
                     </motion.a>
@@ -119,7 +121,7 @@ const Footer = () => {
             initial={{ opacity: 0.5 }}
             whileHover={{ opacity: 1 }}
           >
-            Character Level: Product Leader • Class: Tech Strategist • XP: {currentYear - 2022} years
+            Character Level: Product Leader • Class: Tech Strategist • XP: {currentYear - 2020} years
           </motion.p>
         </div>
       </div>

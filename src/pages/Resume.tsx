@@ -15,60 +15,76 @@ const Resume = () => {
 
   const experiences = [
     {
-      company: "Tech Innovations Inc.",
-      role: "Senior Product Manager",
-      period: "2020 - Present",
-      description: "Led product strategy and development for the company's flagship SaaS platform. Increased user engagement by 45% and reduced churn by 30% through data-driven feature prioritization.",
+      company: "Celestial IT Verse Pvt. Ltd.",
+      role: "Head of Product",
+      period: "Current",
+      description: "Leading the firm's innovation division, bringing bold ideas to life with product strategy, design systems, and full-stack implementation.",
       achievements: [
-        "Spearheaded the redesign of core user flows, resulting in a 35% improvement in task completion rates",
-        "Collaborated with engineering teams to implement new architecture, reducing load times by 60%",
-        "Managed a cross-functional team of 12 members across design, engineering, and marketing"
+        "Managing CRM development, marketplace integrations, hospital apps, and influencer tools",
+        "Driving adoption of agile, microservices, and cloud-native architecture",
+        "Managing cross-functional collaboration with clients, devs, and UI/UX teams"
       ]
     },
     {
-      company: "Digital Solutions Ltd.",
+      company: "Celestial IT Verse - AAG App",
+      role: "Head of Product",
+      period: "2024",
+      description: "Led development of a social + fantasy gaming platform from scratch with multiple game modes and monetization strategies.",
+      achievements: [
+        "Built architecture for multi-game logic (Ludo, Fruit Ninja, Snake & Ladders)",
+        "Enabled real-money gaming with secure wallet and payment gateway integration",
+        "Led hiring for backend, Android, and design teams"
+      ]
+    },
+    {
+      company: "Tap for Tech Pvt Ltd",
       role: "Product Manager",
-      period: "2018 - 2020",
-      description: "Managed the product lifecycle for multiple web and mobile applications, focusing on healthcare and finance verticals.",
+      period: "2023-2024",
+      description: "Designed and deployed technology solutions for healthcare, local businesses, and entertainment sectors.",
       achievements: [
-        "Launched 4 major product features that generated $1.2M in additional annual revenue",
-        "Implemented Agile methodologies across the product development process",
-        "Created comprehensive product documentation and roadmaps"
+        "Built Hospital Management System covering admissions, referrals, prescriptions, diagnostics",
+        "Launched Pinak Adventure Farms with ticketing, influencer engagement, and operations",
+        "Delivered various service-based products for internal clients"
       ]
     },
     {
-      company: "Web Crafters",
-      role: "UX Designer & Developer",
-      period: "2016 - 2018",
-      description: "Designed and developed web applications for clients across various industries, with a focus on usability and performance.",
+      company: "Zippee",
+      role: "Product Analyst",
+      period: "2023",
+      description: "Developed logistics and e-commerce solutions for a fast-scaling startup.",
       achievements: [
-        "Designed and implemented responsive interfaces for 20+ client projects",
-        "Reduced average page load times by 40% through performance optimizations",
-        "Created component libraries that accelerated development time by 30%"
+        "Developed prepaid wallet + ERP integration for billing and COD reconciliation",
+        "Built a Zipcode Validator App listed on the Shopify Store",
+        "Optimized delivery using QCF, P2P, SDD, and Hyperlocal models"
+      ]
+    },
+    {
+      company: "Uplers",
+      role: "Script Developer",
+      period: "2022-2023",
+      description: "Led global client projects across diverse domains, building agility and delivery excellence.",
+      achievements: [
+        "Executed CRM integration, campaign performance dashboards, and WordPress marketplaces",
+        "Delivered solutions for US, UK, and Australian clients",
+        "Developed strength in product consulting and digital transformation"
       ]
     }
   ];
 
   const education = [
     {
-      institution: "Stanford University",
-      degree: "Master of Science in Computer Science",
-      period: "2014 - 2016",
-      specialization: "Human-Computer Interaction"
-    },
-    {
-      institution: "University of Michigan",
-      degree: "Bachelor of Science in Information Technology",
-      period: "2010 - 2014",
-      specialization: "Software Development"
+      institution: "Bachelor of Technology",
+      degree: "Engineering",
+      period: "Graduation Year",
+      specialization: "Technical & Managerial Skills Development"
     }
   ];
 
   const certifications = [
-    "Certified Scrum Product Owner (CSPO)",
-    "Professional Product Manager (PPM)",
-    "Google UX Design Professional Certificate",
-    "AWS Certified Solutions Architect"
+    "Product Management Professional",
+    "Agile & Scrum Methodologies",
+    "Technical Project Management",
+    "Full Stack Development Fundamentals"
   ];
 
   const containerAnimation = {
@@ -126,11 +142,10 @@ const Resume = () => {
           variants={itemAnimation}
         >
           <h1 className="text-3xl font-bold text-white mb-2">Arpit Tripathi</h1>
-          <p className="text-xl text-blue-400 mb-4">Senior Product Manager & Technical Leader</p>
+          <p className="text-xl text-blue-400 mb-4">Head of Product & Technical Leader</p>
           <p className="text-slate-300 max-w-3xl">
-            Innovative product leader with over 8 years of experience building digital products 
-            that combine exceptional UX with technical excellence. Specializing in SaaS platforms, 
-            e-commerce solutions, and enterprise applications.
+            Product leader with experience building digital products across gaming, healthcare, fintech and logistics.
+            Specialized in connecting tech product design with real-world human experiences while driving business value.
           </p>
         </motion.div>
         
@@ -201,9 +216,14 @@ const Resume = () => {
             variants={itemAnimation}
             className="bg-slate-800 rounded-lg p-6 border border-slate-700/50"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">Certifications</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">Core Strengths</h2>
             <ul className="space-y-3">
-              {certifications.map((cert, index) => (
+              {[
+                "Vision + Execution - Ideation to delivery",
+                "Product-Led Growth - User and business value alignment",
+                "Multidomain Fluency - Gaming, Healthcare, SaaS, Logistics",
+                "People & Process - Team management and agile execution"
+              ].map((cert, index) => (
                 <li 
                   key={index} 
                   className="flex items-center bg-slate-700/50 p-3 rounded-lg border border-slate-600/50"

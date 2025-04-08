@@ -44,10 +44,19 @@ const Index = () => {
       const img = new Image();
       img.src = src;
     });
+
+    // Handle hash links for navigation
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900" ref={containerRef}>
+    <div className="min-h-screen bg-slate-900" ref={containerRef} id="home">
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600 origin-left z-50"
