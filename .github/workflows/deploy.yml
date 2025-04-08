@@ -11,6 +11,11 @@ permissions:
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,13 +41,6 @@ jobs:
       - name: Create .nojekyll file
         run: touch dist/.nojekyll
         
-      - name: Create docs directory if needed
-        run: |
-          mkdir -p docs
-          touch docs/.nojekyll
-          cp dist/index.html docs/
-          echo "This site is built with Vite and deployed directly from the /dist folder." > docs/README.md
-        
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
@@ -60,4 +58,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
