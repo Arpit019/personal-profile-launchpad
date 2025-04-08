@@ -1,0 +1,7 @@
+
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location (once you have one)
+# Sitemap: https://arpit019.github.io/personal-profile-launchpad/sitemap.xml
