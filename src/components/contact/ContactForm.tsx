@@ -71,7 +71,30 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submitToGoogleSheet = async (data: FormData) => {
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlTrdzAVaKP4jA9PqXLQdDJo5y-0zOTj6AuMAGWPc5jx-eVe1aTPOAcBHDOagbkW8/exec';
+    
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', data.name);
+    formDataToSend.append('email', data.email);
+    formDataToSend.append('subject', data.subject);
+    formDataToSend.append('message', data.message);
+    
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formDataToSend,
+        mode: 'no-cors'
+      });
+      
+      return true;
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -80,14 +103,16 @@ const ContactForm: React.FC = () => {
     
     setFormStatus("submitting");
     
-    // Simulate form submission
-    setTimeout(() => {
-      if (Math.random() > 0.1) { // 90% success rate for demo
-        setFormStatus("success");
-      } else {
-        setFormStatus("error");
-      }
-    }, 1500);
+    try {
+      const success = await submitToGoogleSheet(formData);
+      
+      // Since we're using no-cors, we don't get a valid response to check
+      // So we'll assume success if no exception was thrown
+      setFormStatus("success");
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setFormStatus("error");
+    }
   };
 
   const resetForm = () => {
@@ -190,7 +215,7 @@ const ContactForm: React.FC = () => {
         </motion.button>
         
         <div className="mt-4 text-xs text-slate-400 text-center">
-          * This form is for demonstration purposes only
+          * Your data will be saved to a Google Sheet
         </div>
       </form>
     </motion.div>
