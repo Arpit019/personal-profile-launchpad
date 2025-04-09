@@ -12,15 +12,16 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
   const [activating, setActivating] = useState(false);
   const [idleTimer, setIdleTimer] = useState<NodeJS.Timeout | null>(null);
 
-  // Create a simple lightsaber geometry since we don't have an actual model
+  // Set up the Stormtrooper character with dimensions of 7cm x 5cm (scaled in 3D space)
   useEffect(() => {
     if (group.current) {
-      group.current.scale.set(0.3, 0.3, 0.3);
+      // Scale to approximate 7cm x 5cm
+      group.current.scale.set(0.4, 0.4, 0.4);
       group.current.position.set(2, -1.5, 0);
     }
   }, []);
 
-  // Animation for idle movement
+  // Animation for movement
   useFrame((state) => {
     if (!group.current) return;
 
@@ -28,7 +29,7 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
     const x = (mousePosition.x / window.innerWidth) * 2 - 1;
     const y = -(mousePosition.y / window.innerHeight) * 2 + 1;
     
-    // Smooth rotation to follow cursor
+    // Smooth rotation to follow cursor - Stormtrooper head tracking
     const targetRotationY = x * 0.5;
     const targetRotationX = y * 0.25;
     
@@ -44,7 +45,7 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
       0.05
     );
     
-    // Gentle bobbing motion when idle
+    // Gentle hovering motion when idle
     if (!activating) {
       group.current.position.y = -1.5 + Math.sin(state.clock.elapsedTime) * 0.05;
     }
@@ -76,21 +77,44 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
 
   return (
     <group ref={group}>
-      {/* Simple lightsaber and character */}
+      {/* Stormtrooper body */}
       <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial color={0x8b5cf6} />
+        {/* Head - white helmet */}
+        <sphereGeometry args={[0.45, 32, 32]} />
+        <meshStandardMaterial color={0xffffff} />
       </mesh>
+      
+      {/* Visor/face area */}
+      <mesh position={[0, 0.05, 0.25]}>
+        <boxGeometry args={[0.7, 0.2, 0.1]} />
+        <meshStandardMaterial color={0x222222} />
+      </mesh>
+      
+      {/* Body */}
       <mesh position={[0, -0.7, 0]}>
-        <cylinderGeometry args={[0.2, 0.2, 1, 32]} />
-        <meshStandardMaterial color={0x1f2937} />
+        <cylinderGeometry args={[0.4, 0.3, 1, 32]} />
+        <meshStandardMaterial color={0xffffff} />
       </mesh>
+      
+      {/* Armor details */}
+      <mesh position={[0, -0.4, 0.3]}>
+        <boxGeometry args={[0.6, 0.2, 0.1]} />
+        <meshStandardMaterial color={0x333333} />
+      </mesh>
+      
+      {/* Lightsaber handle */}
+      <mesh position={[0.5, -0.6, 0.2]} rotation={[0, 0, Math.PI / 4]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.4, 16]} />
+        <meshStandardMaterial color={0x444444} />
+      </mesh>
+      
+      {/* Red lightsaber blade - appears when activating */}
       {activating && (
-        <mesh position={[0, 0.8, 0]}>
-          <cylinderGeometry args={[0.05, 0.05, 2, 16]} />
+        <mesh position={[0.8, -0.3, 0.2]} rotation={[0, 0, Math.PI / 4]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.5, 16]} />
           <meshStandardMaterial 
-            color={0x3b82f6} 
-            emissive={0x3b82f6}
+            color={0xff0000} 
+            emissive={0xff0000}
             emissiveIntensity={2}
           />
         </mesh>
