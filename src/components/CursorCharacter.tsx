@@ -6,11 +6,11 @@ import * as THREE from 'three';
 import GhoulLoader from './GhoulLoader';
 
 // Character component that follows the cursor
-const Character = ({ mousePosition }) => {
-  const group = useRef();
+const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => {
+  const group = useRef<THREE.Group>(null);
   const { viewport } = useThree();
   const [activating, setActivating] = useState(false);
-  const [idleTimer, setIdleTimer] = useState(null);
+  const [idleTimer, setIdleTimer] = useState<NodeJS.Timeout | null>(null);
 
   // Create a simple lightsaber geometry since we don't have an actual model
   useEffect(() => {
@@ -63,7 +63,7 @@ const Character = ({ mousePosition }) => {
 
   // Track when mouse stops moving
   useEffect(() => {
-    clearTimeout(idleTimer);
+    clearTimeout(idleTimer as NodeJS.Timeout);
     
     const timer = setTimeout(() => {
       setActivating(true);
@@ -100,7 +100,7 @@ const Character = ({ mousePosition }) => {
 };
 
 // Main component that tracks mouse and renders the 3D scene
-const ThreeDCharacter = ({ mousePosition }) => {
+const ThreeDCharacter = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 50 }}
@@ -114,14 +114,50 @@ const ThreeDCharacter = ({ mousePosition }) => {
   );
 };
 
+// Properly typed ErrorBoundary component
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  onError?: () => void;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+// Simple error boundary component
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    console.error("Error in 3D character:", error, errorInfo);
+    if (this.props.onError) {
+      this.props.onError();
+    }
+  }
+
+  render(): React.ReactNode {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 // Main component wrapper with error handling
 const CursorCharacter = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
   const [hasError, setHasError] = useState(false);
   
   // Track mouse position
   useEffect(() => {
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({
         x: event.clientX,
         y: event.clientY
@@ -150,32 +186,6 @@ const CursorCharacter = () => {
     </div>
   );
 };
-
-// Simple error boundary component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("Error in 3D character:", error, errorInfo);
-    if (this.props.onError) {
-      this.props.onError();
-    }
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return null;
-    }
-    return this.props.children;
-  }
-}
 
 // Dynamically load the component to avoid SSR issues
 const DynamicCursorCharacter = () => {
