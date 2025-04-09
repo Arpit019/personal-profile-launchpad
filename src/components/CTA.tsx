@@ -55,19 +55,44 @@ const CTA = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
+    try {
+      // Create FormData to submit to Google Sheet
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("subject", values.interest); // Using interest as subject
+      formData.append("message", values.message);
+      
+      // Submit to Google Sheet
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
+      
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+      
+      // Show success toast
       toast({
         title: "Engagement Successful!",
         description: "Thank you for reaching out. I'll respond within 24 hours.",
       });
+      
+      // Reset form
       form.reset();
-    }, 1500);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const containerAnimation = {
@@ -267,6 +292,8 @@ const CTA = () => {
                     <>
                       <motion.div 
                         className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-white animate-spin"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
                       Sending...
                     </>

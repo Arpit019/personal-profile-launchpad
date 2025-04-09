@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const linkItems = [
-    { icon: Linkedin, text: "LinkedIn", href: "https://linkedin.com/in/arpit-tripathi" },
+    { icon: Linkedin, text: "LinkedIn", href: "https://linkedin.com/in/arpittripathii" },
     { icon: Github, text: "GitHub", href: "https://github.com/arpittripathii" },
     { icon: Mail, text: "Email", href: "mailto:arpit01999@gmail.com" },
     { icon: ExternalLink, text: "Contact", href: "#contact" }

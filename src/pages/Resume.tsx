@@ -114,12 +114,12 @@ const Resume = () => {
         variants={containerAnimation}
       >
         <motion.div 
-          className="flex justify-between items-center mb-8"
+          className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8"
           variants={itemAnimation}
         >
           <Button 
             variant="outline" 
-            className="flex gap-2 items-center bg-slate-800 hover:bg-slate-700 border-slate-700"
+            className="flex gap-2 items-center bg-slate-800 hover:bg-slate-700 border-slate-700 w-full md:w-auto"
             asChild
           >
             <Link to="/">
@@ -129,7 +129,7 @@ const Resume = () => {
           </Button>
           
           <Button 
-            className="flex gap-2 items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border-0"
+            className="flex gap-2 items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border-0 w-full md:w-auto"
             onClick={() => window.open('/resume.pdf', '_blank')}
           >
             <Download size={16} />
