@@ -16,8 +16,9 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
   useEffect(() => {
     if (group.current) {
       // Scale to approximate 7cm x 5cm
-      group.current.scale.set(0.4, 0.4, 0.4);
-      group.current.position.set(2, -1.5, 0);
+      group.current.scale.set(0.5, 0.5, 0.5);
+      // Position it further from the corner for better visibility
+      group.current.position.set(1, -1, 0);
     }
   }, []);
 
@@ -30,24 +31,24 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
     const y = -(mousePosition.y / window.innerHeight) * 2 + 1;
     
     // Smooth rotation to follow cursor - Stormtrooper head tracking
-    const targetRotationY = x * 0.5;
-    const targetRotationX = y * 0.25;
+    const targetRotationY = x * 0.8; // Increased rotation range
+    const targetRotationX = y * 0.4; // Increased rotation range
     
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
       targetRotationY,
-      0.05
+      0.08 // Slightly faster tracking
     );
     
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,
       targetRotationX,
-      0.05
+      0.08
     );
     
     // Gentle hovering motion when idle
     if (!activating) {
-      group.current.position.y = -1.5 + Math.sin(state.clock.elapsedTime) * 0.05;
+      group.current.position.y = -1 + Math.sin(state.clock.elapsedTime) * 0.05;
     }
   });
 
@@ -57,7 +58,7 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
       // Lightsaber activation animation
       const timer = setTimeout(() => {
         setActivating(false);
-      }, 1000);
+      }, 1500); // Longer activation period
       return () => clearTimeout(timer);
     }
   }, [activating]);
@@ -77,46 +78,61 @@ const Character = ({ mousePosition }: { mousePosition: { x: number, y: number } 
 
   return (
     <group ref={group}>
-      {/* Stormtrooper body */}
-      <mesh position={[0, 0, 0]}>
-        {/* Head - white helmet */}
-        <sphereGeometry args={[0.45, 32, 32]} />
+      {/* Stormtrooper helmet */}
+      <mesh position={[0, 0.1, 0]}>
+        {/* Main white helmet */}
+        <sphereGeometry args={[0.5, 32, 32]} />
         <meshStandardMaterial color={0xffffff} />
       </mesh>
       
-      {/* Visor/face area */}
-      <mesh position={[0, 0.05, 0.25]}>
+      {/* Black visor area */}
+      <mesh position={[0, 0.1, 0.3]}>
         <boxGeometry args={[0.7, 0.2, 0.1]} />
-        <meshStandardMaterial color={0x222222} />
+        <meshStandardMaterial color={0x111111} />
       </mesh>
       
-      {/* Body */}
-      <mesh position={[0, -0.7, 0]}>
-        <cylinderGeometry args={[0.4, 0.3, 1, 32]} />
-        <meshStandardMaterial color={0xffffff} />
-      </mesh>
-      
-      {/* Armor details */}
-      <mesh position={[0, -0.4, 0.3]}>
-        <boxGeometry args={[0.6, 0.2, 0.1]} />
+      {/* Side helmet details - dark gray */}
+      <mesh position={[-0.35, 0.1, 0]}>
+        <boxGeometry args={[0.1, 0.3, 0.5]} />
         <meshStandardMaterial color={0x333333} />
       </mesh>
       
+      <mesh position={[0.35, 0.1, 0]}>
+        <boxGeometry args={[0.1, 0.3, 0.5]} />
+        <meshStandardMaterial color={0x333333} />
+      </mesh>
+      
+      {/* Mouth area detail */}
+      <mesh position={[0, -0.15, 0.3]}>
+        <boxGeometry args={[0.3, 0.1, 0.1]} />
+        <meshStandardMaterial color={0x333333} />
+      </mesh>
+      
+      {/* Body - just hint of neck/shoulders */}
+      <mesh position={[0, -0.5, 0]}>
+        <cylinderGeometry args={[0.3, 0.4, 0.4, 32]} />
+        <meshStandardMaterial color={0xffffff} />
+      </mesh>
+      
       {/* Lightsaber handle */}
-      <mesh position={[0.5, -0.6, 0.2]} rotation={[0, 0, Math.PI / 4]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.4, 16]} />
-        <meshStandardMaterial color={0x444444} />
+      <mesh position={[0.5, -0.4, 0.4]} rotation={[0, 0, Math.PI / 5]}>
+        <cylinderGeometry args={[0.07, 0.07, 0.5, 16]} />
+        <meshStandardMaterial color={0x555555} metalness={0.8} roughness={0.2} />
       </mesh>
       
       {/* Red lightsaber blade - appears when activating */}
       {activating && (
-        <mesh position={[0.8, -0.3, 0.2]} rotation={[0, 0, Math.PI / 4]}>
-          <cylinderGeometry args={[0.03, 0.03, 1.5, 16]} />
+        <mesh position={[0.9, 0, 0.6]} rotation={[0, 0, Math.PI / 5]}>
+          <cylinderGeometry args={[0.06, 0.06, 2.5, 16]} /> {/* Thicker and longer blade */}
           <meshStandardMaterial 
             color={0xff0000} 
             emissive={0xff0000}
-            emissiveIntensity={2}
+            emissiveIntensity={3} // Brighter glow
+            transparent={true}
+            opacity={0.9}
           />
+          {/* Inner glow core */}
+          <pointLight color={0xff0000} intensity={3} distance={2} decay={2} position={[0, 0, 0]} />
         </mesh>
       )}
     </group>
@@ -131,7 +147,7 @@ const ThreeDCharacter = ({ mousePosition }: { mousePosition: { x: number, y: num
       className="w-full h-full"
     >
       <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <directionalLight position={[10, 10, 5]} intensity={1.5} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />
       <Character mousePosition={mousePosition} />
     </Canvas>
@@ -195,17 +211,17 @@ const CursorCharacter = () => {
     };
   }, []);
 
-  // Error boundary for Three.js
-  if (hasError) {
-    return <GhoulLoader />;
-  }
-
+  // Position and size adjustments - larger size and better position for visibility
   return (
-    <div className="fixed bottom-0 right-0 w-64 h-64 z-40 pointer-events-none">
+    <div className="fixed bottom-0 right-0 w-72 h-72 z-40 pointer-events-none">
       <Suspense fallback={<GhoulLoader />}>
-        <ErrorBoundary onError={() => setHasError(true)}>
-          <ThreeDCharacter mousePosition={mousePosition} />
-        </ErrorBoundary>
+        {!hasError ? (
+          <ErrorBoundary onError={() => setHasError(true)}>
+            <ThreeDCharacter mousePosition={mousePosition} />
+          </ErrorBoundary>
+        ) : (
+          <GhoulLoader />
+        )}
       </Suspense>
     </div>
   );

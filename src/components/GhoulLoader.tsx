@@ -6,7 +6,7 @@ const GhoulLoader = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   useEffect(() => {
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({
         x: event.clientX,
         y: event.clientY
@@ -42,16 +42,18 @@ const GhoulLoader = () => {
         }}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
       >
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-700 to-blue-700 flex items-center justify-center relative overflow-hidden border-2 border-purple-500">
-          {/* Eyes */}
-          <div className="absolute w-3 h-3 bg-white rounded-full -top-1 -left-1 transform translate-x-5 translate-y-5"></div>
-          <div className="absolute w-3 h-3 bg-white rounded-full -top-1 -right-1 transform translate-x-1 translate-y-5"></div>
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center relative overflow-hidden border-2 border-gray-400">
+          {/* Eyes - black visor */}
+          <div className="absolute w-12 h-3 bg-black rounded-full top-6 transform translate-y-[-2px]"></div>
+          
+          {/* Helmet details */}
+          <div className="absolute w-16 h-8 bg-white rounded-t-full top-0"></div>
           
           {/* Lightsaber handle */}
           <motion.div 
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2 h-8 bg-gradient-to-b from-gray-900 to-gray-700 rounded-md"
+            className="absolute bottom-0 right-2 transform translate-y-2 w-2 h-8 bg-gradient-to-b from-gray-800 to-gray-600 rounded-md"
             initial={{ y: 0 }}
-            animate={{ y: [0, -5, 0] }}
+            animate={{ y: [0, -2, 0] }}
             transition={{ 
               duration: 2,
               repeat: Infinity,
@@ -60,23 +62,23 @@ const GhoulLoader = () => {
           >
             {/* Lightsaber blade */}
             <motion.div 
-              className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-1 h-12 bg-blue-500 rounded-full"
+              className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-2 h-12 bg-red-600 rounded-full"
               initial={{ opacity: 0, scaleY: 0 }}
               animate={{ 
                 opacity: [0, 1, 1, 0],
                 scaleY: [0, 1, 1, 0],
                 boxShadow: [
-                  "0 0 0px rgba(59, 130, 246, 0)",
-                  "0 0 5px rgba(59, 130, 246, 0.7)",
-                  "0 0 5px rgba(59, 130, 246, 0.7)",
-                  "0 0 0px rgba(59, 130, 246, 0)"
+                  "0 0 0px rgba(220, 38, 38, 0)",
+                  "0 0 8px rgba(220, 38, 38, 0.7)",
+                  "0 0 8px rgba(220, 38, 38, 0.7)",
+                  "0 0 0px rgba(220, 38, 38, 0)"
                 ]
               }}
               transition={{ 
-                duration: 6,
+                duration: 3,
                 times: [0, 0.1, 0.9, 1],
                 repeat: Infinity,
-                repeatDelay: 4
+                repeatDelay: 2
               }}
             />
           </motion.div>
