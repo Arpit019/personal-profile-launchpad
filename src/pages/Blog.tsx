@@ -43,28 +43,32 @@ const Blog: React.FC = () => {
               key={log.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.15 }}
-              className="bg-slate-900 border-2 border-slate-700 p-6 pixel-corners group hover:border-pink-500 hover:shadow-[0_0_20px_#ff003c] transition-all cursor-pointer relative"
+              transition={{ delay: index * 0.05 }}
             >
-              <div className="absolute top-0 right-0 bg-slate-800 text-slate-500 text-[10px] px-2 py-1 group-hover:bg-pink-500 group-hover:text-black transition-colors">
-                {log.id}
-              </div>
-              
-              <div className="flex items-center gap-2 text-xs text-slate-500 mb-4 font-bold border-b border-slate-800 pb-2">
-                <Terminal size={14} className="text-cyan-400" /> {log.date} // {log.category}
-              </div>
-              
-              <h3 className="text-xl font-orbitron font-bold text-white mb-3 group-hover:text-pink-400 transition-colors">
-                {log.title}
-              </h3>
-              
-              <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                {log.summary}
-              </p>
-              
-              <div className="flex items-center text-cyan-400 text-xs font-bold uppercase group-hover:text-white transition-colors">
-                DECRYPT_FILE <ArrowRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
-              </div>
+              <Link
+                to={`/blog/${log.id}`}
+                className="block bg-slate-900 border-2 border-slate-700 p-6 pixel-corners group hover:border-pink-500 hover:shadow-[0_0_20px_#ff003c] transition-all cursor-pointer relative h-full"
+              >
+                <div className="absolute top-0 right-0 bg-slate-800 text-slate-500 text-[10px] px-2 py-1 group-hover:bg-pink-500 group-hover:text-black transition-colors">
+                  {log.id}
+                </div>
+                
+                <div className="flex items-center gap-2 text-xs text-slate-500 mb-4 font-bold border-b border-slate-800 pb-2">
+                  <Terminal size={14} className="text-cyan-400" /> {log.date} // {log.category}
+                </div>
+                
+                <h3 className="text-xl font-orbitron font-bold text-white mb-3 group-hover:text-pink-400 transition-colors">
+                  {log.title}
+                </h3>
+                
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  {log.summary}
+                </p>
+                
+                <div className="flex items-center text-cyan-400 text-xs font-bold uppercase group-hover:text-white transition-colors mt-auto">
+                  DECRYPT_FILE <ArrowRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>

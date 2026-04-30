@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Resume from "./pages/Resume";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import CommandCenterLogin from "./pages/CommandCenterLogin";
 import CommandCenter from "./pages/CommandCenter";
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/command-center-login" element={<CommandCenterLogin />} />
           <Route path="/command-center" element={<CommandCenter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
