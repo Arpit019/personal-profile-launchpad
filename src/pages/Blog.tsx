@@ -23,53 +23,33 @@ const Blog: React.FC = () => {
   const blogPosts: BlogPost[] = [
     {
       id: 1,
-      title: "Revolutionizing Logistics: How We Reduced NDR from 70% to 25%",
-      excerpt: "In the competitive landscape of e-commerce, managing last-mile delivery and reducing non-delivery rates (NDR) remains a significant challenge. Here's how our innovative delivery model and prepaid wallet system transformed operations.",
-      date: "April 2, 2025",
+      title: "The Hierarchy of AI Knowledge: Evolution in 2024",
+      excerpt: "Exploring the difference between knowledge discovery and generative AI. How models like Claude and Gemini are changing the way product managers think about problem-solving and feature creation.",
+      date: "May 10, 2024",
       author: "Arpit Tripathi",
-      category: "E-commerce Logistics",
-      image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8",
-      readTime: "5 min read"
-    },
-    {
-      id: 2,
-      title: "Building Robust Hospital Management Systems: A Case Study",
-      excerpt: "Healthcare institutions face unique challenges when it comes to digitizing operations. Our HMS solution improved operational efficiency by 30% through streamlined patient management, billing, and inventory systems.",
-      date: "March 15, 2025",
-      author: "Arpit Tripathi",
-      category: "Healthcare Tech",
-      image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b",
-      readTime: "7 min read"
-    },
-    {
-      id: 3,
-      title: "The Future of Social Gaming: Engagement & Monetization Strategies",
-      excerpt: "Fantasy gaming platforms are revolutionizing how users interact with sports and entertainment. Discover how thoughtful UX design and innovative monetization approaches can create sustainable gaming ecosystems.",
-      date: "February 28, 2025",
-      author: "Arpit Tripathi",
-      category: "Game Development",
-      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420",
-      readTime: "6 min read"
-    },
-    {
-      id: 4,
-      title: "Leveraging AI in Product Strategy: Beyond the Buzzwords",
-      excerpt: "Artificial intelligence isn't just a trending topic—it's transforming how we approach product strategy and development. Learn how to practically implement AI solutions that drive real business value.",
-      date: "January 22, 2025",
-      author: "Arpit Tripathi",
-      category: "Product Strategy",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
+      category: "Artificial Intelligence",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
       readTime: "8 min read"
     },
     {
-      id: 5,
-      title: "From Concept to Execution: Building High-Performance Teams",
-      excerpt: "The journey from innovative concept to successful execution requires more than just technical skills. Discover strategies for building cross-functional teams that consistently deliver exceptional results.",
-      date: "December 12, 2024",
+      id: 2,
+      title: "Architecting a Real-Money Gaming Platform (AAG App)",
+      excerpt: "Building a secure and scalable real-money gaming platform requires robust architecture. A deep dive into the design choices behind the AAG App's multi-game ecosystem and payment wallet integration.",
+      date: "April 15, 2024",
       author: "Arpit Tripathi",
-      category: "Leadership",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      category: "Platform Architecture",
+      image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
       readTime: "6 min read"
+    },
+    {
+      id: 3,
+      title: "Streamlining Healthcare Operations: A 45% More Efficient HMS",
+      excerpt: "How mapping user journeys in hospitals led to a breakthrough in Hospital Management Systems. Lessons learned from reducing operational costs and improving patient flow.",
+      date: "March 20, 2024",
+      author: "Arpit Tripathi",
+      category: "Product Management",
+      image: "https://images.unsplash.com/photo-1576091160550-2173ff9e8eb8",
+      readTime: "5 min read"
     }
   ];
 
@@ -114,9 +94,9 @@ const Blog: React.FC = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-block text-4xl font-bold text-white mb-2 relative"
+              className="inline-block text-4xl font-orbitron font-bold text-white mb-2 relative tracking-wider"
             >
-              Knowledge Base
+              DATA LOGS
               <motion.span 
                 className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-600 to-blue-600"
                 initial={{ scaleX: 0 }}
@@ -159,7 +139,7 @@ const Blog: React.FC = () => {
                   type: "spring",
                   stiffness: 50 
                 }}
-                className="bg-slate-800/80 backdrop-blur-sm rounded-lg overflow-hidden border border-purple-900/30 shadow-lg hover:shadow-purple-900/20 transition-all duration-300"
+                className="bg-slate-900/60 backdrop-blur-md rounded-xl overflow-hidden border border-cyan-900/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:border-cyan-500/50 transition-all duration-300 group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 z-10" />
@@ -185,7 +165,7 @@ const Blog: React.FC = () => {
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-white mb-3">
+                  <h3 className="text-xl font-orbitron font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors">
                     {post.title}
                   </h3>
                   

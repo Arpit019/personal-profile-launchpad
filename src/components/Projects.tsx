@@ -1,113 +1,73 @@
-
 import React, { useRef, useState } from "react";
-import { ExternalLink, Github, Star, Code, Gamepad, Shield, X } from "lucide-react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ExternalLink, Github, Star, Gamepad, Shield, Code, X, Activity } from "lucide-react";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 
-// Define TypeScript interfaces for project data
 interface Project {
   title: string;
   description: string;
   image: string;
   technologies: string[];
-  liveLink: string;
-  githubLink: string;
+  liveLink?: string;
+  githubLink?: string;
   level: string;
   role: string;
 }
 
-interface ProjectModalProps {
-  project: Project | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-// ProjectModal component to display detailed project information
-const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
+const ProjectModal: React.FC<{ project: Project | null, isOpen: boolean, onClose: () => void }> = ({ project, isOpen, onClose }) => {
   if (!project) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={() => onClose()}>
-      <DialogContent className="bg-slate-800 border border-purple-900/30 text-white max-w-3xl">
+      <DialogContent className="bg-slate-900 border border-cyan-900/50 text-white max-w-3xl shadow-[0_0_30px_rgba(0,243,255,0.2)]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white flex items-center">
-            {project.title === "Fantasy Gaming Platform" ? (
-              <Gamepad size={20} className="mr-2 text-purple-400" />
-            ) : project.title === "Hospital Management System" ? (
-              <Shield size={20} className="mr-2 text-blue-400" />
-            ) : (
-              <Code size={20} className="mr-2 text-green-400" />
-            )}
+          <DialogTitle className="text-2xl font-orbitron font-bold text-white flex items-center">
+            {project.title.includes("Gaming") ? <Gamepad className="mr-3 text-purple-400" /> : 
+             project.title.includes("Hospital") ? <Shield className="mr-3 text-cyan-400" /> : 
+             <Code className="mr-3 text-pink-400" />}
             {project.title}
           </DialogTitle>
-          <DialogDescription className="text-slate-300">
-            Level: {project.level} | Role: {project.role}
+          <DialogDescription className="text-slate-400 font-mono mt-2">
+            CLASS: {project.level} | CLEARANCE: {project.role}
           </DialogDescription>
         </DialogHeader>
         
         <div className="mt-4">
-          <img 
-            src={project.image} 
-            alt={project.title} 
-            className="w-full h-64 object-cover rounded-lg mb-4"
-          />
-          
+          <img src={project.image} alt={project.title} className="w-full h-64 object-cover rounded-lg mb-4 border border-slate-700" />
           <div className="space-y-4">
-            <p className="text-slate-300">{project.description}</p>
-            
+            <p className="text-slate-300 leading-relaxed">{project.description}</p>
             <div>
-              <h4 className="text-blue-400 font-medium mb-2">Technologies</h4>
+              <h4 className="text-cyan-400 font-orbitron mb-2 tracking-widest text-sm">TECH_STACK</h4>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="bg-slate-700/50 text-purple-300 px-2 py-1 text-xs rounded-md border border-purple-800/20"
-                  >
+                  <span key={i} className="bg-slate-800 text-purple-300 px-3 py-1 text-xs rounded border border-purple-800/30 font-mono">
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
             
-            <div>
-              <h4 className="text-blue-400 font-medium mb-2">Key Achievements</h4>
-              <ul className="list-disc pl-5 text-slate-300 space-y-1">
-                <li>Successfully implemented core features ahead of schedule</li>
-                <li>Improved user engagement by 45% over previous version</li>
-                <li>Collaborated with cross-functional teams to ensure alignment</li>
-                <li>Leveraged data analytics to drive design decisions</li>
-              </ul>
-            </div>
-            
-            <div className="flex gap-3 pt-4">
-              <Button 
-                variant="outline" 
-                className="flex gap-2 items-center bg-blue-900/20 hover:bg-blue-800/30 border-blue-900/50"
-                asChild
-              >
-                <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink size={16} />
-                  View Live Project
-                </a>
-              </Button>
-              
-              <Button 
-                variant="outline"
-                className="flex gap-2 items-center bg-purple-900/20 hover:bg-purple-800/30 border-purple-900/50"
-                asChild
-              >
-                <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                  <Github size={16} />
-                  View Source Code
-                </a>
-              </Button>
+            <div className="flex gap-4 pt-4 border-t border-slate-800">
+              {project.liveLink && (
+                <Button variant="outline" className="flex gap-2 items-center bg-cyan-950/30 hover:bg-cyan-900/50 border-cyan-800 text-cyan-300 transition-all shadow-[0_0_10px_rgba(0,243,255,0.1)]" asChild>
+                  <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink size={16} /> LAUNCH_LIVE
+                  </a>
+                </Button>
+              )}
+              {project.githubLink && (
+                <Button variant="outline" className="flex gap-2 items-center bg-purple-950/30 hover:bg-purple-900/50 border-purple-800 text-purple-300 transition-all shadow-[0_0_10px_rgba(181,53,246,0.1)]" asChild>
+                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                    <Github size={16} /> VIEW_SOURCE
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
         </div>
-        
-        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-          <X className="h-4 w-4 text-white" />
+        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 text-slate-400 hover:text-white">
+          <X className="h-5 w-5" />
           <span className="sr-only">Close</span>
         </DialogClose>
       </DialogContent>
@@ -116,276 +76,152 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
 };
 
 const Projects: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  
-  // For parallax effect
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'deployed' | 'github'>('deployed');
 
-  const projects: Project[] = [
+  const deployedProjects: Project[] = [
     {
-      title: "Fantasy Gaming Platform",
-      description: "A comprehensive social and fantasy gaming platform with multiple game modes, monetization strategies, and social features.",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      technologies: ["Product Strategy", "Game Development", "UX Design", "Monetization"],
-      liveLink: "https://fantasy-gaming.arpittripathii.com",
-      githubLink: "https://github.com/arpittripathii",
-      level: "Legendary",
-      role: "Game Master"
+      title: "AAG App (Fantasy Gaming)",
+      description: "A comprehensive social and fantasy gaming platform with multiple game modes (Ludo, Fruit Ninja, Snake & Ladders), real-money gaming wallets, and creator monetization.",
+      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80",
+      technologies: ["React Native", "Node.js", "Payment Gateways", "Socket.io"],
+      liveLink: "#",
+      level: "ENTERPRISE",
+      role: "PRODUCT_OWNER"
     },
     {
       title: "Hospital Management System",
-      description: "A full-featured HMS that improved operational efficiency by 30%, streamlining patient management, billing, and inventory tracking.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      technologies: ["Healthcare Tech", "Data Management", "User Experience", "Process Automation"],
-      liveLink: "https://hms.arpittripathii.com",
-      githubLink: "https://github.com/arpittripathii",
-      level: "Epic",
-      role: "System Architect"
+      description: "A full-featured HMS covering admissions, referrals, prescriptions, diagnostics, and analytics. Reduced operational costs by 45%.",
+      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80",
+      technologies: ["React", "Python", "PostgreSQL", "Healthcare API"],
+      liveLink: "#",
+      level: "ENTERPRISE",
+      role: "PRODUCT_MANAGER"
     },
     {
-      title: "E-commerce Delivery Optimization",
-      description: "Reduced NDR from 70% to 25% through innovative delivery models and prepaid wallet systems for better cash flow management.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      technologies: ["Shopify", "Logistics", "Workflow Automation", "Analytics"],
-      liveLink: "https://ecommerce.arpittripathii.com",
-      githubLink: "https://github.com/arpittripathii",
-      level: "Rare",
-      role: "Tech Leader"
-    },
+      title: "Zippee Delivery Engine",
+      description: "Optimized non-deliverable returns (NDR) and built a prepaid wallet + ERP integration for billing. Grew revenue by 85% via efficient routing.",
+      image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80",
+      technologies: ["Shopify API", "Logistics SDK", "Automations", "Data Analytics"],
+      liveLink: "#",
+      level: "ENTERPRISE",
+      role: "PRODUCT_ANALYST"
+    }
   ];
 
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  // Animation config with proper TypeScript typing
-  const glowAnimation = {
-    animate: {
-      boxShadow: ["0 0 5px rgba(139, 92, 246, 0.3)", "0 0 20px rgba(139, 92, 246, 0.6)", "0 0 5px rgba(139, 92, 246, 0.3)"],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "loop" as const
-      }
+  const githubProjects: Project[] = [
+    {
+      title: "MedPredict",
+      description: "Multiple Disease Prediction Solution utilizing machine learning algorithms to assess patient health risks based on varied input vectors.",
+      image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80",
+      technologies: ["Python", "Scikit-Learn", "Flask", "Pandas"],
+      githubLink: "https://github.com/Arpit019/MedPredict",
+      level: "OPEN_SOURCE",
+      role: "LEAD_DEV"
+    },
+    {
+      title: "Personal Profile Launchpad",
+      description: "The very portfolio you are viewing. Built with a futuristic space theme, glassmorphism, and a custom Lightsaber Bot.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
+      technologies: ["React", "Vite", "TailwindCSS", "Framer Motion"],
+      githubLink: "https://github.com/Arpit019/personal-profile-launchpad",
+      level: "OPEN_SOURCE",
+      role: "ARCHITECT"
     }
-  };
+  ];
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const currentProjects = activeTab === 'deployed' ? deployedProjects : githubProjects;
 
   return (
-    <section id="projects" className="py-20 bg-slate-900 overflow-hidden relative">
-      {/* Animated Tech Pattern Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full opacity-20"
-            style={{
-              width: `${Math.random() * 300 + 50}px`,
-              height: `${Math.random() * 300 + 50}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              background: `radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 70%, rgba(0, 0, 0, 0) 100%)`,
-            }}
-            animate={{
-              y: [0, 30, 0],
-              transition: {
-                duration: Math.random() * 5 + 10,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }
-            }}
-          />
-        ))}
-      </div>
-
-      <motion.div 
-        ref={containerRef}
-        style={{ opacity, scale }}
-        className="container mx-auto px-4 md:px-6 relative z-10"
-      >
+    <section id="projects" className="py-20 bg-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-purple-900/20 to-slate-900" />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <motion.h2 
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="inline-block text-3xl font-bold text-white mb-2 relative"
-          >
-            Project Arsenal
-            <motion.span 
-              className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-600 to-blue-600"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            />
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-purple-300 text-lg font-mono mb-4"
-          >
-            Featured Work & Achievements
-          </motion.p>
+          <h2 className="inline-block text-3xl md:text-5xl font-orbitron font-bold text-white mb-2 relative tracking-wider">
+            PROJECT ARCHIVES
+            <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500 shadow-[0_0_15px_rgba(181,53,246,0.6)]" />
+          </h2>
+          <p className="text-cyan-400 text-lg font-mono mt-6">&gt; ACCESSING_DATABANKS...</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.5, 
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 50 
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-              whileHover={{ 
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: -5,
-                z: 20
-              }}
-              onClick={() => handleProjectClick(project)}
-              className="bg-slate-800/80 backdrop-blur-sm rounded-lg overflow-hidden border border-purple-900/30 shadow-lg hover:shadow-purple-900/20 transition-all duration-300 transform perspective-1000 cursor-pointer"
+        {/* Custom Tabs */}
+        <div className="flex justify-center mb-12">
+          <div className="glass-card p-1 rounded-lg flex gap-2 border border-slate-700 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+            <button
+              onClick={() => setActiveTab('deployed')}
+              className={`px-6 py-3 font-orbitron text-sm tracking-wider rounded transition-all duration-300 ${activeTab === 'deployed' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_10px_rgba(0,243,255,0.2)]' : 'text-slate-400 hover:text-slate-200'}`}
             >
-              <div className="relative h-48 overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 z-10" />
-                <motion.div
-                  className="absolute top-2 right-2 z-20 bg-slate-900/80 backdrop-blur-sm px-2 py-1 rounded-md border border-purple-800/30 text-xs font-mono text-purple-400 flex items-center"
-                  animate={glowAnimation.animate}
-                >
-                  <span className="mr-1">LVL:</span> {project.level}
-                </motion.div>
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.4 }}
-                />
-                <div className="absolute bottom-2 left-2 z-20 bg-blue-900/60 backdrop-blur-sm px-2 py-1 rounded-md border border-blue-800/30 text-xs font-mono text-blue-300 flex items-center">
-                  <Star size={12} className="mr-1 text-yellow-500" />
-                  {project.role}
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2 flex items-center">
-                  {project.title === "Fantasy Gaming Platform" ? (
-                    <Gamepad size={16} className="mr-2 text-purple-400" />
-                  ) : project.title === "Hospital Management System" ? (
-                    <Shield size={16} className="mr-2 text-blue-400" />
-                  ) : (
-                    <Code size={16} className="mr-2 text-green-400" />
-                  )}
-                  {project.title}
-                </h3>
-                <p className="text-slate-300 mb-4 text-sm">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, i) => (
-                    <motion.span
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 + i * 0.05 }}
-                      className="bg-slate-700/50 text-purple-300 px-2 py-1 text-xs rounded-md border border-purple-800/20"
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <motion.button
-                    className="flex items-center text-sm text-blue-400 hover:text-blue-300 transition-colors bg-slate-700/30 px-3 py-1 rounded-md border border-blue-900/30"
-                    whileHover={{ scale: 1.05, x: 3 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(project.liveLink, '_blank');
-                    }}
-                  >
-                    <ExternalLink size={14} className="mr-1" />
-                    Deploy
-                  </motion.button>
-                  <motion.button
-                    className="flex items-center text-sm text-purple-400 hover:text-purple-300 transition-colors bg-slate-700/30 px-3 py-1 rounded-md border border-purple-900/30"
-                    whileHover={{ scale: 1.05, x: 3 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(project.githubLink, '_blank');
-                    }}
-                  >
-                    <Github size={14} className="mr-1" />
-                    Source
-                  </motion.button>
-                </div>
-              </div>
-              
-              <motion.div 
-                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600"
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-          ))}
+              DEPLOYED_PRODUCTS
+            </button>
+            <button
+              onClick={() => setActiveTab('github')}
+              className={`px-6 py-3 font-orbitron text-sm tracking-wider rounded transition-all duration-300 ${activeTab === 'github' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/50 shadow-[0_0_10px_rgba(181,53,246,0.2)]' : 'text-slate-400 hover:text-slate-200'}`}
+            >
+              GITHUB_PROJECTS
+            </button>
+          </div>
         </div>
 
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <motion.a
-            href="#contact"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-700 to-blue-700 text-white rounded-md hover:from-purple-600 hover:to-blue-600 transition-all duration-300 shadow-lg shadow-purple-900/30"
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 8px 25px -5px rgba(139, 92, 246, 0.4)"
-            }}
-            whileTap={{ scale: 0.95 }}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTab}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <span>Contact Quest</span>
-            <motion.span 
-              className="ml-2"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              →
-            </motion.span>
-          </motion.a>
-        </motion.div>
-      </motion.div>
+            {currentProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                onClick={() => { setSelectedProject(project); setModalOpen(true); }}
+                className="glass-card rounded-xl overflow-hidden border border-slate-700 hover:border-cyan-500/50 cursor-pointer group transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,243,255,0.15)]"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 bg-slate-900/60 z-10 group-hover:bg-slate-900/20 transition-colors duration-300" />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute top-3 right-3 z-20 bg-slate-900/80 backdrop-blur-sm px-2 py-1 rounded border border-slate-700 text-xs font-mono text-slate-300">
+                    {project.level}
+                  </div>
+                </div>
+                <div className="p-6 relative">
+                  {/* Scanline */}
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <h3 className="text-xl font-orbitron font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="text-xs font-mono text-purple-400 bg-purple-950/30 px-2 py-1 rounded border border-purple-900/30">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <span className="text-xs font-mono text-slate-500 px-2 py-1">+{project.technologies.length - 3}</span>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-      {/* Project Modal */}
-      <ProjectModal 
-        project={selectedProject} 
-        isOpen={modalOpen} 
-        onClose={closeModal} 
-      />
+      <ProjectModal project={selectedProject} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 };

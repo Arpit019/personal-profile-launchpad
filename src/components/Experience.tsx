@@ -1,7 +1,6 @@
-
 import React, { useRef } from "react";
 import { Briefcase, Calendar, Building, Trophy } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 const Experience = () => {
   const containerRef = useRef(null);
@@ -14,70 +13,63 @@ const Experience = () => {
     {
       position: "Head of Product",
       company: "Celestial IT Verse Pvt. Ltd.",
-      period: "Current",
-      description: "Leading the firm's innovation division to bring bold ideas to life with product strategy, design systems, and full-stack implementation. Managing CRM development, marketplace integrations, hospital apps, and influencer tools. Driving adoption of agile, microservices, and cloud-native architecture.",
-      achievement: "Built scalable ecosystem of interconnected products"
-    },
-    {
-      position: "Head of Product - AAG App",
-      company: "Celestial IT Verse Pvt. Ltd.",
-      period: "2024",
-      description: "Led development of a social + fantasy gaming platform from scratch. Built architecture for multi-game logic (Ludo, Fruit Ninja, Snake & Ladders), enabled real-money gaming with secure wallet systems, designed vendor monetization models, and managed hiring for backend, Android, and design teams.",
-      achievement: "Launched platform with impressive user acquisition"
+      period: "Dec 2024 - Present",
+      description: "Directed end-to-end product lifecycle for 7+ B2C/B2B platforms. Launched 'Aajeevansang' mobile app acquiring 13,500+ users. Launched 'Driver Girl' ride-hailing platform. Owned 'Zoof' e-commerce from ground up, generating ₹10L+ revenue. Architected creator-first real-money gaming platform (AAG).",
+      achievement: "Led multiple platforms to commercial success"
     },
     {
       position: "Product Manager",
-      company: "Tap for Tech Pvt Ltd",
-      period: "2023-2024",
-      description: "Built Hospital Management System (HMS) covering admissions, referrals, prescriptions, diagnostics, and analytics. Launched Pinak Adventure Farms with influencer engagement, ticketing and operations. Delivered various service-based products for internal clients.",
-      achievement: "Reduced operational costs by 45% with HMS"
+      company: "Tap for Tech",
+      period: "July 2024 - Dec 2024",
+      description: "Led digital transformation for Pinak Adventure Farms developing a web portal and CRM, increasing bookings by 20%. Launched new membership programs accounting for 75% of revenue. Owned full lifecycle for vertical SaaS products (AASC, YOGC, AAL).",
+      achievement: "Acquired 35+ B2B clients in 6 months"
     },
     {
       position: "Product Analyst",
       company: "Zippee",
-      period: "2023",
-      description: "Developed prepaid wallet + ERP integration for billing and COD reconciliation. Built a Zipcode Validator App for Shopify. Automated workflows using Arigato, Mesa, and Thrive. Worked on QCF, P2P, SDD, and Hyperlocal delivery models to increase margins.",
-      achievement: "Grew revenue by 85% through delivery optimization"
+      period: "March 2023 - June 2024",
+      description: "Architected 'Blaze' prepaid wallet platform, migrating 300+ enterprise brands. Drove major reduction in RTO with automated reattempt workflows. Owned roadmap for core logistics delivering same-day/hyperlocal, live tracking, and skill-based route planning. Stabilized core WMS/OMS.",
+      achievement: "Significantly improved cash flow & delivery efficiency"
     },
     {
       position: "Script Developer",
       company: "Uplers",
-      period: "2022-2023",
-      description: "Led projects in CRM integration, campaign performance dashboards, and WordPress marketplaces. Delivered solutions for US, UK, and Australian clients. Built strength in product consulting, scope management, and digital transformation.",
-      achievement: "Created innovative solutions used by global clients"
+      period: "Dec 2022 - March 2023",
+      description: "Developed high-converting email templates for global clients, boosting open rates by 25% and CTR by 35% via interactive AMP emails. Streamlined end-to-end email development process.",
+      achievement: "Reduced production time by 30%"
     },
     {
-      position: "Associate Mission Control GTM",
+      position: "Senior Associate, Mission Control",
       company: "State Street",
-      period: "2021-2022",
-      description: "Gained exposure to financial services and asset management sector. Worked on tools used by global institutional investors. Learned risk frameworks, compliance mapping, and automation in large systems.",
-      achievement: "Contributed to process optimization and requirement gathering"
+      period: "Aug 2021 - July 2022",
+      description: "Led initiatives to re-engineer and optimize financial workflows. Managed financial reporting, reconciliations, and compliance applying data analysis to identify discrepancies.",
+      achievement: "Improved operational efficiency for global trade"
     },
     {
-      position: "ARO",
-      company: "Wiley",
-      period: "2020-2021",
-      description: "Developed understanding of structured corporate workflows and educational product landscapes. Worked on product lifecycle understanding in educational content. Learned project planning and customer journey design.",
-      achievement: "Built foundation in data-driven decision making"
+      position: "Application Reliability Officer",
+      company: "Wiley Mthree",
+      period: "May 2021 - Aug 2021",
+      description: "Provided critical technical expertise for a major client-facing application. Focused on proactive incident management and issue resolution.",
+      achievement: "15% reduction in system failures"
     },
   ];
 
   return (
-    <section id="experience" className="py-20 bg-slate-900 overflow-hidden relative">
-      {/* Gaming UI Background Elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
+    <section id="experience" className="py-20 bg-slate-900/50 backdrop-blur-md overflow-hidden relative border-t border-cyan-900/30">
+      {/* Space UI Background Elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
         <div className="grid-pattern">
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-full h-px bg-blue-600/20"
+              className="absolute w-full h-px bg-cyan-500/20"
               style={{ top: `${i * 10}%` }}
             />
           ))}
           {[...Array(10)].map((_, i) => (
             <div
               key={i + 'v'}
-              className="absolute h-full w-px bg-blue-600/20"
+              className="absolute h-full w-px bg-purple-500/20"
               style={{ left: `${i * 10}%` }}
             />
           ))}
@@ -95,11 +87,11 @@ const Experience = () => {
             initial={{ y: -50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block text-3xl font-bold text-white mb-2 relative"
+            className="inline-block text-3xl md:text-5xl font-orbitron font-bold text-white mb-2 relative"
           >
-            Career Quests
+            CAREER LOGS
             <motion.span 
-              className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-600 to-blue-600"
+              className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-600 shadow-[0_0_15px_#00f3ff]"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
@@ -110,9 +102,9 @@ const Experience = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-purple-300 text-lg font-mono mb-4"
+            className="text-cyan-400 text-lg font-mono mb-4 mt-6"
           >
-            Professional Journey & Achievements
+            &gt; INITIALIZING_PROFESSIONAL_JOURNEY...
           </motion.p>
         </motion.div>
 
@@ -133,7 +125,7 @@ const Experience = () => {
                 viewport={{ once: true, margin: "-100px" }}
               >
                 <motion.div 
-                  className="absolute -left-[41px] mt-1 w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20"
+                  className="absolute -left-[41px] mt-1 w-8 h-8 bg-slate-900 border-2 border-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_10px_#00f3ff] z-10"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   transition={{ 
@@ -144,39 +136,40 @@ const Experience = () => {
                   }}
                   viewport={{ once: true }}
                 >
-                  <Briefcase size={16} className="text-white" />
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
                 </motion.div>
+                
                 <motion.div 
-                  className="bg-slate-800/90 backdrop-blur-sm p-6 rounded-lg border border-purple-800/30 shadow-lg shadow-purple-900/10 hover:shadow-xl transition-all duration-300"
+                  className="glass-card p-6 rounded-lg border border-cyan-800/30 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)] transition-all duration-300 relative overflow-hidden group"
                   whileHover={{ 
                     y: -5,
-                    boxShadow: "0 20px 25px -5px rgba(139, 92, 246, 0.15), 0 10px 10px -5px rgba(139, 92, 246, 0.1)"
                   }}
                 >
-                  <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                  {/* Hover scanline effect */}
+                  <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400/50 opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_2s_linear_infinite]" />
+
+                  <h3 className="text-xl font-orbitron font-semibold text-white group-hover:text-cyan-400 transition-colors">
                     {exp.position}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-3 mt-1 mb-3">
-                    <span className="flex items-center text-purple-400 font-medium">
-                      <Building size={14} className="mr-1" /> {exp.company}
+                  <div className="flex flex-wrap items-center gap-3 mt-2 mb-4">
+                    <span className="flex items-center text-purple-400 font-medium font-mono text-sm">
+                      <Building size={14} className="mr-2" /> {exp.company}
                     </span>
-                    <span className="flex items-center bg-slate-700/50 text-blue-300 px-2 py-1 text-xs rounded-md border border-blue-800/30">
-                      <Calendar size={12} className="mr-1" /> {exp.period}
+                    <span className="flex items-center bg-slate-900/80 text-cyan-300 px-3 py-1 text-xs rounded border border-cyan-800/50 font-mono tracking-widest">
+                      <Calendar size={12} className="mr-2" /> {exp.period}
                     </span>
                   </div>
-                  <p className="text-slate-300 mb-3">{exp.description}</p>
-                  <div className="flex items-center text-green-400 text-sm font-medium">
-                    <Trophy size={14} className="mr-2" />
-                    <span className="bg-green-900/30 px-2 py-1 rounded-md border border-green-800/30">
-                      {exp.achievement}
-                    </span>
+                  <p className="text-slate-300 mb-4 font-light leading-relaxed">{exp.description}</p>
+                  <div className="flex items-center text-green-400 text-sm font-medium bg-green-950/30 w-max px-3 py-1.5 rounded border border-green-800/30">
+                    <Trophy size={14} className="mr-2 text-green-300" />
+                    <span>{exp.achievement}</span>
                   </div>
                 </motion.div>
               </motion.div>
             ))}
             
             <motion.div 
-              className="absolute h-full left-[-1px] w-0.5 bg-gradient-to-b from-purple-400 via-blue-500 to-purple-600"
+              className="absolute h-full left-[-1px] w-0.5 bg-gradient-to-b from-cyan-400 via-purple-500 to-pink-500"
               style={{ 
                 scaleY: scrollYProgress,
                 originY: 0
@@ -184,22 +177,6 @@ const Experience = () => {
             />
           </div>
         </div>
-        
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <a 
-            href="#projects" 
-            className="inline-flex items-center px-6 py-3 bg-transparent text-purple-400 border border-purple-500 rounded-md hover:bg-purple-900/20 transition-colors relative overflow-hidden group"
-          >
-            <span className="absolute inset-0 w-0 bg-gradient-to-r from-purple-800/40 to-blue-800/40 transition-all duration-300 group-hover:w-full"></span>
-            <span className="relative">Next Mission: Projects</span>
-          </a>
-        </motion.div>
       </motion.div>
     </section>
   );

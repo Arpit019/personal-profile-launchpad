@@ -1,7 +1,5 @@
-
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Progress } from "@/components/ui/progress";
 
 interface Skill {
   name: string;
@@ -17,36 +15,26 @@ const Skills: React.FC = () => {
   });
 
   const productSkills: Skill[] = [
+    { name: "Productboard & Miro", level: 90 },
+    { name: "Google Analytics & Mixpanel", level: 85 },
+    { name: "Jira & Confluence", level: 95 },
     { name: "Product Strategy", level: 95 },
-    { name: "UX/UI Design", level: 85 },
-    { name: "Roadmapping", level: 90 },
-    { name: "Cross-functional Leadership", level: 90 },
-    { name: "Go-to-Market Execution", level: 85 },
-    { name: "System Design", level: 90 },
-    { name: "Workflow Automation", level: 85 },
   ];
 
-  const techSkills: Skill[] = [
-    { name: "Java", level: 80 },
-    { name: "C++", level: 75 },
-    { name: "Python", level: 80 },
-    { name: "JavaScript", level: 85 },
-    { name: "HTML/CSS", level: 90 },
-    { name: "Shopify", level: 85 },
-    { name: "WordPress", level: 80 },
-  ];
-
-  const toolsSkills: Skill[] = [
-    { name: "Jira", level: 90 },
-    { name: "ProductPlan", level: 85 },
-    { name: "Figma", level: 80 },
-    { name: "Adobe XD", level: 85 },
+  const dataSkills: Skill[] = [
+    { name: "Tableau", level: 85 },
     { name: "Power BI", level: 80 },
-    { name: "Tableau", level: 75 },
-    { name: "Google Analytics", level: 85 },
+    { name: "SQL", level: 85 },
+    { name: "Figma & UX/UI", level: 90 },
   ];
 
-  // Animation variants
+  const platformSkills: Skill[] = [
+    { name: "Shopify & E-commerce", level: 95 },
+    { name: "API Integration & REST", level: 90 },
+    { name: "Claude, Gemini, Ollama", level: 85 },
+    { name: "Lovable & Emergent AI", level: 80 },
+  ];
+
   const containerAnimation = {
     hidden: { opacity: 0 },
     visible: {
@@ -62,49 +50,18 @@ const Skills: React.FC = () => {
     hidden: { 
       y: 50, 
       opacity: 0,
-      rotateY: 15,
-      rotateX: -10 
     },
     visible: (index: number) => ({
       y: 0,
       opacity: 1,
-      rotateY: 0,
-      rotateX: 0,
       transition: {
         duration: 0.6,
         delay: 0.1 * index,
         ease: "easeOut",
-        type: "spring",
-        stiffness: 100
       }
     })
   };
 
-  const titleAnimation = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const lineAnimation = {
-    hidden: { scaleX: 0 },
-    visible: { 
-      scaleX: 1,
-      transition: {
-        duration: 0.5,
-        delay: 0.3,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  // Function to render a skill category card
   const renderSkillCard = (
     title: string, 
     skills: Skill[], 
@@ -116,43 +73,30 @@ const Skills: React.FC = () => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={cardAnimation}
-      className="bg-slate-800/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-purple-900/20 hover:border-purple-500/30 transition-all duration-300"
-      whileHover={{ 
-        scale: 1.02, 
-        rotateY: 2,
-        rotateX: -2,
-        boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.3)" 
-      }}
+      className="glass-card p-8 rounded-xl border border-purple-900/30 hover:border-cyan-500/50 transition-all duration-300 relative group"
     >
-      <h3 className="text-xl font-semibold mb-6 text-blue-400 border-b border-slate-700 pb-3 flex items-center">
-        <span className={`${index === 0 ? "bg-blue-500/20" : index === 1 ? "bg-purple-500/20" : "bg-green-500/20"} w-8 h-8 rounded-lg flex items-center justify-center mr-2`}>
-          <motion.div
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            transition={{ delay: 0.5 + (index * 0.1), duration: 0.5 }}
-          >
-            {iconPath}
-          </motion.div>
+      <div className="absolute top-0 right-0 w-20 h-20 bg-cyan-500/5 rounded-bl-full pointer-events-none transition-colors group-hover:bg-cyan-500/10" />
+      
+      <h3 className="text-xl font-orbitron font-semibold mb-6 text-cyan-400 flex items-center tracking-wide">
+        <span className="w-10 h-10 bg-slate-900 border border-cyan-800 rounded-lg flex items-center justify-center mr-3 shadow-[0_0_10px_rgba(0,243,255,0.2)]">
+          {iconPath}
         </span>
         {title}
       </h3>
-      <div className="space-y-5">
+      
+      <div className="space-y-6">
         {skills.map((skill, skillIndex) => (
           <motion.div 
             key={skillIndex}
             initial={{ opacity: 0, x: -10 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-            transition={{ delay: 0.7 + index * 0.1 + skillIndex * 0.1, duration: 0.4 }}
+            transition={{ delay: 0.5 + index * 0.1 + skillIndex * 0.1, duration: 0.4 }}
           >
-            <div className="flex justify-between mb-1">
-              <span className="text-white">{skill.name}</span>
-              <span className="text-blue-400">{skill.level}%</span>
+            <div className="flex justify-between mb-2">
+              <span className="text-slate-200 font-medium tracking-wide">{skill.name}</span>
+              <span className="text-purple-400 font-mono text-sm">{skill.level}%</span>
             </div>
-            <div className="relative">
-              <Progress 
-                value={isInView ? skill.level : 0} 
-                className="h-2 bg-slate-700" 
-              />
+            <div className="relative h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: "0%" }}
                 animate={isInView ? { width: `${skill.level}%` } : { width: "0%" }}
@@ -161,35 +105,8 @@ const Skills: React.FC = () => {
                   delay: 0.8 + index * 0.1 + skillIndex * 0.1,
                   ease: "easeOut" 
                 }}
-                className="absolute top-0 left-0 h-2 rounded-full bg-gradient-to-r from-green-400 to-[#4eda80] z-10"
-                style={{
-                  boxShadow: "0 0 8px 1px rgba(78, 218, 128, 0.4)"
-                }}
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-purple-500 shadow-[0_0_10px_#00f3ff]"
               />
-              <motion.div
-                className="absolute top-0 left-0 h-2 w-full overflow-hidden"
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-              >
-                {[...Array(8)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute h-5 w-2 bg-white/30 rounded-full rotate-45 top-[-2px]"
-                    style={{ left: `${10 + i * 30}%` }}
-                    animate={{
-                      x: ["-400%", "400%"],
-                      opacity: [0, 0.8, 0]
-                    }}
-                    transition={{
-                      duration: 3,
-                      delay: 1 + i * 0.2,
-                      repeat: Infinity,
-                      repeatDelay: 5
-                    }}
-                  />
-                ))}
-              </motion.div>
             </div>
           </motion.div>
         ))}
@@ -198,8 +115,8 @@ const Skills: React.FC = () => {
   );
 
   return (
-    <section id="skills" className="py-20 bg-slate-900" ref={sectionRef}>
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="skills" className="py-20 bg-slate-950 relative" ref={sectionRef}>
+      <div className="container mx-auto px-4 md:px-6 z-10 relative">
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -207,85 +124,40 @@ const Skills: React.FC = () => {
           className="text-center mb-16"
         >
           <motion.h2 
-            variants={titleAnimation}
-            className="inline-block text-3xl font-bold text-white mb-4 relative"
+            className="inline-block text-3xl md:text-5xl font-orbitron font-bold text-white mb-2 relative"
           >
-            Skills & Expertise
+            TECH SPECS
             <motion.div 
-              variants={lineAnimation}
-              className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-blue-600"
+              className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-cyan-500 shadow-[0_0_15px_#ff003c]"
             />
           </motion.h2>
           <motion.p
-            variants={titleAnimation}
-            className="text-purple-300 text-lg font-mono mt-4"
+            className="text-pink-400 text-lg font-mono mt-6"
           >
-            My Digital Arsenal
+            &gt; SYSTEM_CAPABILITIES_DETECTED...
           </motion.p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Product Leadership Card */}
           {renderSkillCard(
-            "Product Leadership", 
+            "Product & Strategy", 
             productSkills, 
             0, 
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="18" 
-              height="18" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           )}
 
-          {/* Technical Skills Card */}
           {renderSkillCard(
-            "Technical Skills", 
-            techSkills, 
+            "Data & UX", 
+            dataSkills, 
             1, 
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="18" 
-              height="18" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path>
-              <path d="M2 20h20"></path>
-              <path d="M14 12v.01"></path>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
           )}
 
-          {/* Tools & Software Card */}
           {renderSkillCard(
-            "Tools & Software", 
-            toolsSkills, 
+            "Platform & AI", 
+            platformSkills, 
             2, 
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="18" 
-              height="18" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-400"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           )}
         </div>
       </div>

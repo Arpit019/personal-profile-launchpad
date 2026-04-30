@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import DynamicCursorCharacter from "@/components/CursorCharacter";
+import LightsaberBot from "@/components/LightsaberBot";
 
 // Lazy load non-critical components
 const About = lazy(() => import("@/components/About"));
@@ -106,6 +107,9 @@ const Index = () => {
 
       {/* 3D Character that follows cursor */}
       <DynamicCursorCharacter />
+      
+      {/* Lightsaber Bot in bottom left */}
+      <LightsaberBot />
 
       <Navbar />
       <Hero />
