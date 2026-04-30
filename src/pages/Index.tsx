@@ -1,13 +1,10 @@
-
-import React, { useRef, useEffect, lazy, Suspense } from "react";
+import React, { useRef, useEffect, lazy, Suspense, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
 import DynamicCursorCharacter from "@/components/CursorCharacter";
 import LightsaberBot from "@/components/LightsaberBot";
 
-// Lazy load non-critical components
 const About = lazy(() => import("@/components/About"));
 const Skills = lazy(() => import("@/components/Skills"));
 const Experience = lazy(() => import("@/components/Experience"));
@@ -16,12 +13,10 @@ const Contact = lazy(() => import("@/components/Contact"));
 const CTA = lazy(() => import("@/components/CTA"));
 const Footer = lazy(() => import("@/components/Footer"));
 
-// Loading component for suspense fallback
 const SectionLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-slate-900">
     <div className="text-center">
-      <div className="w-12 h-12 border-4 border-t-purple-500 border-r-transparent border-b-blue-500 border-l-transparent rounded-full mx-auto mb-4 animate-spin"></div>
-      <p className="text-purple-400 text-lg font-mono">Loading section...</p>
+      <div className="text-cyan-400 font-mono text-xl animate-pulse">&gt; LOADING_MODULE...</div>
     </div>
   </div>
 );
@@ -30,85 +25,78 @@ const Index = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [bootSequence, setBootSequence] = useState<string[]>([]);
+  const [bootComplete, setBootComplete] = useState(false);
 
-  // Monitor scroll progress to trigger animations
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest > 0.05 && !hasScrolled) {
       setHasScrolled(true);
     }
   });
 
-  // Preload critical assets
   useEffect(() => {
-    // Preload important images
-    const preloadImages = ['https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'];
-    preloadImages.forEach(src => {
-      const img = new Image();
-      img.src = src;
-    });
+    // BIOS Boot Sequence Simulation
+    const sequence = [
+      "ARPIT_OS v2.0.26 (C) Copyright 2026",
+      "BIOS Date 04/30/26 19:40:00 Ver 9.04",
+      "CPU: Product Strategist Processor @ 3.4GHz",
+      "Memory Test: 64000K OK",
+      " ",
+      "Loading System Drivers...",
+      "  [OK] Product_Leadership.sys",
+      "  [OK] Technical_Architecture.sys",
+      "  [OK] UX_Strategy.dll",
+      "  [OK] Gamification_Engine.exe",
+      " ",
+      "Mounting File Systems...",
+      "  /usr/projects/AAG_App ... MOUNTED",
+      "  /usr/projects/HMS ... MOUNTED",
+      "  /usr/projects/GitHub ... MOUNTED",
+      " ",
+      "Executing sequence: INTRODUCE_PLAYER_ONE",
+      "SYSTEM READY."
+    ];
 
-    // Handle hash links for navigation
-    if (window.location.hash) {
-      const id = window.location.hash.substring(1);
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      if (currentStep < sequence.length) {
+        setBootSequence(prev => [...prev, sequence[currentStep]]);
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => setBootComplete(true), 800);
       }
-    }
+    }, 150); // Fast but readable
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900" ref={containerRef} id="home">
+    <div className="min-h-screen bg-slate-950 font-sans" ref={containerRef} id="home">
+      {/* Global CRT Scanlines */}
+      <div className="scanlines" />
+
+      {/* BIOS Boot Overlay */}
+      {!bootComplete && (
+        <div className="fixed inset-0 bg-black z-[100] flex flex-col p-8 font-mono text-cyan-400">
+          {bootSequence.map((line, i) => (
+            <div key={i} className="mb-1 text-sm md:text-base">
+              {line}
+            </div>
+          ))}
+          {bootSequence.length < 18 && (
+            <div className="w-3 h-5 bg-cyan-400 animate-pulse mt-1" />
+          )}
+        </div>
+      )}
+
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 origin-left z-50"
         style={{ scaleX: scrollYProgress }}
       />
-      
-      {/* Game Loading Overlay - Shows only on initial load */}
-      <motion.div 
-        className="fixed inset-0 bg-slate-900 z-[100] flex flex-col items-center justify-center"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0, pointerEvents: "none" }}
-        transition={{ duration: 1.5, delay: 1 }}
-      >
-        <motion.div 
-          className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-6"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          PLAYER ONE: ARPIT TRIPATHI
-        </motion.div>
-        
-        <motion.div 
-          className="w-64 h-2 bg-slate-700 rounded-full overflow-hidden"
-          initial={{ width: "64px", opacity: 0 }}
-          animate={{ width: "256px", opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.6 }}
-        >
-          <motion.div 
-            className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1, delay: 0.7 }}
-          />
-        </motion.div>
-        
-        <motion.div 
-          className="text-sm text-slate-400 mt-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 1.2 }}
-        >
-          Loading experience...
-        </motion.div>
-      </motion.div>
 
-      {/* 3D Character that follows cursor */}
       <DynamicCursorCharacter />
-      
-      {/* Lightsaber Bot in bottom left */}
       <LightsaberBot />
 
       <Navbar />
@@ -142,19 +130,18 @@ const Index = () => {
         <Footer />
       </Suspense>
       
-      {/* Scroll To Top Button with gaming theme */}
       <motion.button
-        className="fixed bottom-6 right-6 w-12 h-12 rounded-lg bg-gradient-to-br from-purple-700 to-blue-700 text-white flex items-center justify-center shadow-lg z-40 border border-purple-500"
+        className="fixed bottom-6 right-6 w-12 h-12 rounded-none pixel-corners bg-purple-600 text-white flex items-center justify-center shadow-[0_0_15px_#b535f6] z-40 border border-purple-400"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ 
           opacity: scrollYProgress.get() > 0.2 ? 1 : 0,
           scale: scrollYProgress.get() > 0.2 ? 1 : 0,
         }}
-        whileHover={{ scale: 1.1, boxShadow: "0 0 15px rgba(139, 92, 246, 0.7)" }}
+        whileHover={{ scale: 1.1, backgroundColor: '#00f3ff', borderColor: '#fff', boxShadow: '0 0 20px #00f3ff', color: '#000' }}
         whileTap={{ scale: 0.9 }}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
           <path d="m18 15-6-6-6 6"/>
         </svg>
       </motion.button>

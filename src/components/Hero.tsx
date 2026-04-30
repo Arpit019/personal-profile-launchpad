@@ -1,18 +1,13 @@
-
 import React from "react";
-import { ArrowDown, Code, Globe, Laptop, Gamepad } from "lucide-react";
+import { ArrowDown, Code, Shield, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
+      transition: { delayChildren: 0.8, staggerChildren: 0.2 }
     }
   };
   
@@ -21,63 +16,11 @@ const Hero = () => {
     visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
   };
 
-  // Floating animation for background elements
-  const floatingAnimation = {
-    initial: {},
-    animate: {
-      y: [0, 15, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        repeatType: "reverse" as const
-      }
-    }
-  };
-
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center bg-slate-900 pt-16 relative overflow-hidden"
-    >
-      {/* 3D Grid Background */}
-      <div className="absolute inset-0 perspective-1000">
-        <div className="grid-lines">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-full h-px bg-purple-900/30"
-              style={{ top: `${i * 5}%`, transform: `translateZ(${i * -5}px)` }}
-            />
-          ))}
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i + 'v'}
-              className="absolute h-full w-px bg-purple-900/30"
-              style={{ left: `${i * 5}%`, transform: `translateZ(${i * -5}px)` }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: `${Math.random() * 200 + 50}px`,
-              height: `${Math.random() * 200 + 50}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              background: `radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 70%, rgba(0, 0, 0, 0) 100%)`,
-            }}
-            variants={floatingAnimation}
-            initial="initial"
-            animate="animate"
-            custom={i}
-          />
-        ))}
+    <section id="home" className="min-h-screen flex items-center justify-center bg-slate-950 pt-16 relative overflow-hidden">
+      {/* Retrowave Grid Background */}
+      <div className="absolute inset-0 perspective-[1000px] overflow-hidden">
+        <div className="absolute w-full h-[200%] bottom-[-50%] bg-[linear-gradient(transparent_95%,rgba(181,53,246,0.5)_100%),linear-gradient(90deg,transparent_95%,rgba(181,53,246,0.5)_100%)] bg-[length:40px_40px] animate-[grid-move_10s_linear_infinite]" style={{ transform: 'rotateX(60deg)' }} />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 z-10 relative">
@@ -87,106 +30,98 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          <motion.div variants={itemVariants} className="relative">
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono text-purple-500 bg-slate-950/70 px-3 py-1 rounded-full border border-purple-800/50">
-              PLAYER ONE
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight relative">
-              Arpit Tripathi
-              <span className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-blue-500"></span>
+          <motion.div variants={itemVariants} className="relative mb-6">
+            <motion.div 
+              className="inline-block text-xs font-orbitron font-bold text-black bg-cyan-400 px-4 py-1 pixel-corners shadow-[0_0_10px_#00f3ff] animate-pulse"
+              whileHover={{ scale: 1.1, backgroundColor: "#ff003c", color: "#fff", boxShadow: "0 0 15px #ff003c" }}
+            >
+              ► INSERT COIN
+            </motion.div>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="relative mb-2">
+            <h1 className="text-5xl md:text-8xl font-orbitron font-black text-white leading-tight uppercase glitch-text" data-text="ARPIT TRIPATHI">
+              ARPIT TRIPATHI
             </h1>
           </motion.div>
           
           <motion.div variants={itemVariants}>
-            <h2 className="text-xl md:text-2xl text-purple-400 font-medium mb-6 font-mono tracking-wide">
-              <span className="text-blue-400">Product Strategist</span> • 
-              <span className="text-green-400"> Builder</span> • 
-              <span className="text-pink-400"> Tech Leader</span>
+            <h2 className="text-xl md:text-2xl text-purple-400 font-orbitron font-medium mb-8 tracking-widest">
+              <span className="text-cyan-400 drop-shadow-[0_0_5px_#00f3ff]">PRODUCT_ARCHITECT</span> // 
+              <span className="text-pink-400 drop-shadow-[0_0_5px_#ff003c]"> TECH_LEADER</span> // 
+              <span className="text-purple-400 drop-shadow-[0_0_5px_#b535f6]"> GAMER</span>
             </h2>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <p className="text-slate-300 max-w-2xl mb-8 text-lg">
-              I'm a dynamic and impact-driven product leader with a strong engineering foundation. 
-              From gaming to healthcare tech and fintech, I craft digital experiences that 
-              solve real-world problems, delight users, and scale fast.
+            <p className="text-slate-300 max-w-2xl mb-12 text-lg font-mono leading-relaxed border-l-4 border-cyan-400 pl-4 text-left bg-slate-900/50 p-4 pixel-corners">
+              <span className="text-pink-400">&gt;</span> SYSTEM STATUS: ONLINE<br/>
+              <span className="text-pink-400">&gt;</span> MISSION: Craft digital experiences that solve real-world problems and scale fast.<br/>
+              <span className="text-pink-400">&gt;</span> DOMAINS: Gaming, Healthcare, Fintech, E-commerce.<br/>
+              <span className="text-cyan-400 animate-pulse">_</span>
             </p>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
-            className="flex gap-6 justify-center mb-12"
+            className="flex gap-6 justify-center mb-16"
           >
-            <motion.div 
-              className="flex flex-col items-center p-4 relative"
-              whileHover={{ y: -5 }}
-            >
-              <div className="absolute inset-0 bg-purple-900/20 rounded-lg -z-10 blur-md"></div>
-              <Code className="h-8 w-8 text-purple-400 mb-2" />
-              <span className="text-white text-sm">Strategy</span>
-            </motion.div>
-            <motion.div 
-              className="flex flex-col items-center p-4 relative"
-              whileHover={{ y: -5 }}
-            >
-              <div className="absolute inset-0 bg-blue-900/20 rounded-lg -z-10 blur-md"></div>
-              <Globe className="h-8 w-8 text-blue-400 mb-2" />
-              <span className="text-white text-sm">Leadership</span>
-            </motion.div>
-            <motion.div 
-              className="flex flex-col items-center p-4 relative"
-              whileHover={{ y: -5 }}
-            >
-              <div className="absolute inset-0 bg-green-900/20 rounded-lg -z-10 blur-md"></div>
-              <Gamepad className="h-8 w-8 text-green-400 mb-2" />
-              <span className="text-white text-sm">Gaming</span>
-            </motion.div>
+            <div className="flex flex-col items-center group cursor-crosshair">
+              <div className="w-16 h-16 bg-slate-900 border-2 border-cyan-500 pixel-corners flex items-center justify-center mb-2 group-hover:bg-cyan-500 group-hover:shadow-[0_0_20px_#00f3ff] transition-all">
+                <Code className="h-8 w-8 text-cyan-400 group-hover:text-black transition-colors" />
+              </div>
+              <span className="text-cyan-400 font-mono text-xs">STRATEGY</span>
+            </div>
+            <div className="flex flex-col items-center group cursor-crosshair">
+              <div className="w-16 h-16 bg-slate-900 border-2 border-purple-500 pixel-corners flex items-center justify-center mb-2 group-hover:bg-purple-500 group-hover:shadow-[0_0_20px_#b535f6] transition-all">
+                <Shield className="h-8 w-8 text-purple-400 group-hover:text-black transition-colors" />
+              </div>
+              <span className="text-purple-400 font-mono text-xs">LEADERSHIP</span>
+            </div>
+            <div className="flex flex-col items-center group cursor-crosshair">
+              <div className="w-16 h-16 bg-slate-900 border-2 border-pink-500 pixel-corners flex items-center justify-center mb-2 group-hover:bg-pink-500 group-hover:shadow-[0_0_20px_#ff003c] transition-all">
+                <Gamepad className="h-8 w-8 text-pink-400 group-hover:text-black transition-colors" />
+              </div>
+              <span className="text-pink-400 font-mono text-xs">GAMING</span>
+            </div>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-4 justify-center relative"
+            className="flex flex-wrap gap-6 justify-center"
           >
-            <motion.a
-              href="#contact"
-              className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors shadow-lg relative overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative">Contact Me</span>
-            </motion.a>
-            <motion.a
+            <a
               href="#projects"
-              className="px-6 py-3 bg-transparent text-purple-400 border border-purple-500 rounded-md hover:bg-purple-900/30 transition-colors relative overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-cyan-500 text-black font-orbitron font-bold pixel-corners hover:bg-white hover:shadow-[0_0_20px_#fff] transition-all"
             >
-              <span className="absolute inset-0 w-0 bg-purple-900/40 group-hover:w-full transition-all duration-300"></span>
-              <span className="relative">View Projects</span>
-            </motion.a>
+              START_GAME
+            </a>
+            <a
+              href="#contact"
+              className="px-8 py-3 bg-transparent text-pink-400 border-2 border-pink-500 font-orbitron font-bold pixel-corners hover:bg-pink-500 hover:text-black hover:shadow-[0_0_20px_#ff003c] transition-all"
+            >
+              MULTIPLAYER
+            </a>
           </motion.div>
         </motion.div>
       </div>
       
-      {/* Move scroll arrow below content */}
       <motion.a
-        initial={{ opacity: 0, y: 0 }}
-        animate={{ 
-          opacity: 1, 
-          y: [0, 10, 0],
-          transition: {
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "loop"
-          }
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ delay: 2, duration: 1.5, repeat: Infinity }}
         href="#about"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
-        aria-label="Scroll down"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-crosshair"
       >
-        <ArrowDown className="text-purple-400" />
+        <ArrowDown className="text-cyan-400 h-8 w-8 drop-shadow-[0_0_5px_#00f3ff]" />
       </motion.a>
+      
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes grid-move {
+          0% { transform: rotateX(60deg) translateY(0); }
+          100% { transform: rotateX(60deg) translateY(40px); }
+        }
+      `}} />
     </section>
   );
 };

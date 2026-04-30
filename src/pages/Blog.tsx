@@ -1,246 +1,124 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, User, ArrowRight, Book } from "lucide-react";
+import { Database, Terminal, FileText, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import DynamicCursorCharacter from "@/components/CursorCharacter";
+import LightsaberBot from "@/components/LightsaberBot";
 
-interface BlogPost {
-  id: number;
+interface LogEntry {
+  id: string;
   title: string;
-  excerpt: string;
+  summary: string;
   date: string;
-  author: string;
   category: string;
-  image: string;
-  readTime: string;
 }
 
 const Blog: React.FC = () => {
-  // Blog posts with data from LinkedIn profile
-  const blogPosts: BlogPost[] = [
+  const dataLogs: LogEntry[] = [
     {
-      id: 1,
+      id: "LOG_001",
       title: "The Hierarchy of AI Knowledge: Evolution in 2024",
-      excerpt: "Exploring the difference between knowledge discovery and generative AI. How models like Claude and Gemini are changing the way product managers think about problem-solving and feature creation.",
-      date: "May 10, 2024",
-      author: "Arpit Tripathi",
-      category: "Artificial Intelligence",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
-      readTime: "8 min read"
+      summary: "Exploring the difference between knowledge discovery and generative AI. How models are changing product management problem-solving.",
+      date: "2024.05.10",
+      category: "ARTIFICIAL_INTELLIGENCE"
     },
     {
-      id: 2,
+      id: "LOG_002",
       title: "Architecting a Real-Money Gaming Platform (AAG App)",
-      excerpt: "Building a secure and scalable real-money gaming platform requires robust architecture. A deep dive into the design choices behind the AAG App's multi-game ecosystem and payment wallet integration.",
-      date: "April 15, 2024",
-      author: "Arpit Tripathi",
-      category: "Platform Architecture",
-      image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
-      readTime: "6 min read"
+      summary: "A deep dive into the design choices behind a multi-game ecosystem and secure payment wallet integration.",
+      date: "2024.04.15",
+      category: "PLATFORM_ARCHITECTURE"
     },
     {
-      id: 3,
+      id: "LOG_003",
       title: "Streamlining Healthcare Operations: A 45% More Efficient HMS",
-      excerpt: "How mapping user journeys in hospitals led to a breakthrough in Hospital Management Systems. Lessons learned from reducing operational costs and improving patient flow.",
-      date: "March 20, 2024",
-      author: "Arpit Tripathi",
-      category: "Product Management",
-      image: "https://images.unsplash.com/photo-1576091160550-2173ff9e8eb8",
-      readTime: "5 min read"
+      summary: "Mapping user journeys in hospitals to achieve a breakthrough in Hospital Management Systems. Lessons learned from reducing operational costs.",
+      date: "2024.03.20",
+      category: "PRODUCT_MANAGEMENT"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-slate-950 font-mono relative">
+      <div className="scanlines" />
+      <DynamicCursorCharacter />
+      <LightsaberBot />
       <Navbar />
       
-      <div className="pt-28 pb-20 px-4 md:px-6 relative overflow-hidden">
-        {/* Animated Tech Pattern Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+      <div className="pt-32 pb-20 px-4 md:px-6 relative z-10 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12 border-b-2 border-slate-800 pb-6 flex items-end justify-between"
+        >
+          <div>
+            <h1 className="text-4xl md:text-5xl font-orbitron font-bold text-white uppercase glitch-text" data-text="DATA_LOGS">
+              DATA_LOGS
+            </h1>
+            <p className="text-cyan-400 mt-2 flex items-center gap-2">
+              <Database size={16} /> ACCESSING_MAIN_DATABANKS...
+            </p>
+          </div>
+          <Link to="/" className="hidden md:flex items-center gap-2 text-pink-400 hover:text-white transition-colors bg-slate-900 border border-slate-700 px-4 py-2 pixel-corners">
+            RETURN_TO_BASE
+          </Link>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {dataLogs.map((log, index) => (
             <motion.div
-              key={i}
-              className="absolute rounded-full opacity-20"
-              style={{
-                width: `${Math.random() * 300 + 50}px`,
-                height: `${Math.random() * 300 + 50}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                background: `radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 70%, rgba(0, 0, 0, 0) 100%)`,
-              }}
-              animate={{
-                y: [0, 30, 0],
-                transition: {
-                  duration: Math.random() * 5 + 10,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }
-              }}
-            />
+              key={log.id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.15 }}
+              className="bg-slate-900 border-2 border-slate-700 p-6 pixel-corners group hover:border-pink-500 hover:shadow-[0_0_20px_#ff003c] transition-all cursor-pointer relative"
+            >
+              <div className="absolute top-0 right-0 bg-slate-800 text-slate-500 text-[10px] px-2 py-1 group-hover:bg-pink-500 group-hover:text-black transition-colors">
+                {log.id}
+              </div>
+              
+              <div className="flex items-center gap-2 text-xs text-slate-500 mb-4 font-bold border-b border-slate-800 pb-2">
+                <Terminal size={14} className="text-cyan-400" /> {log.date} // {log.category}
+              </div>
+              
+              <h3 className="text-xl font-orbitron font-bold text-white mb-3 group-hover:text-pink-400 transition-colors">
+                {log.title}
+              </h3>
+              
+              <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                {log.summary}
+              </p>
+              
+              <div className="flex items-center text-cyan-400 text-xs font-bold uppercase group-hover:text-white transition-colors">
+                DECRYPT_FILE <ArrowRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="container mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <motion.h1 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-block text-4xl font-orbitron font-bold text-white mb-2 relative tracking-wider"
-            >
-              DATA LOGS
-              <motion.span 
-                className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-600 to-blue-600"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              />
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-purple-300 text-lg font-mono mb-4"
-            >
-              Insights and Solutions from My Journey
-            </motion.p>
-
-            <motion.div 
-              className="flex justify-center items-center gap-2 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <Link to="/" className="text-purple-300 hover:text-purple-200 transition-colors">
-                Home
-              </Link>
-              <span className="text-slate-500">/</span>
-              <span className="text-white">Blog</span>
-            </motion.div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 50 
-                }}
-                className="bg-slate-900/60 backdrop-blur-md rounded-xl overflow-hidden border border-cyan-900/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:border-cyan-500/50 transition-all duration-300 group"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 z-10" />
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-110"
-                  />
-                  <div className="absolute top-2 right-2 z-20 bg-purple-900/60 backdrop-blur-sm px-2 py-1 rounded-md border border-purple-800/30 text-xs font-mono text-purple-300">
-                    {post.category}
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center text-xs text-slate-400 mb-3 gap-4">
-                    <div className="flex items-center">
-                      <Calendar size={12} className="mr-1" />
-                      {post.date}
-                    </div>
-                    <div className="flex items-center">
-                      <Book size={12} className="mr-1" />
-                      {post.readTime}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-xl font-orbitron font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-slate-300 mb-4 text-sm line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-purple-700 flex items-center justify-center text-white">
-                        <User size={14} />
-                      </div>
-                      <span className="ml-2 text-sm text-slate-300">{post.author}</span>
-                    </div>
-                    
-                    <Button 
-                      variant="link" 
-                      className="text-purple-400 hover:text-purple-300 p-0 h-auto font-medium"
-                    >
-                      <span>Read more</span>
-                      <ArrowRight size={14} className="ml-1" />
-                    </Button>
-                  </div>
-                </div>
-                
-                <motion.div 
-                  className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.div>
-            ))}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-16 bg-slate-900 border border-slate-700 p-8 text-center pixel-corners"
+        >
+          <FileText size={32} className="mx-auto text-purple-400 mb-4" />
+          <h3 className="text-2xl font-orbitron font-bold text-white mb-2">SUBSCRIBE_TO_LOGS</h3>
+          <p className="text-slate-400 mb-6 max-w-md mx-auto">Receive encrypted transmissions regarding product strategy, tech leadership, and AI evolution.</p>
+          
+          <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-lg mx-auto">
+            <input 
+              type="email" 
+              placeholder="ENTER_COMM_LINK..."
+              className="flex-1 bg-slate-950 border-2 border-slate-700 text-white px-4 py-3 font-mono focus:outline-none focus:border-cyan-400 pixel-corners"
+            />
+            <button className="bg-cyan-500 text-black font-orbitron font-bold px-8 py-3 hover:bg-white transition-colors pixel-corners">
+              TRANSMIT
+            </button>
           </div>
-
-          <div className="text-center mt-16">
-            <Separator className="mb-16 bg-slate-700/50" />
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="max-w-2xl mx-auto"
-            >
-              <h3 className="text-2xl font-bold text-white mb-4">Subscribe to My Newsletter</h3>
-              <p className="text-slate-300 mb-6">Get the latest insights on product strategy, tech leadership, and innovation directly in your inbox.</p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email"
-                  className="px-4 py-2 rounded-md bg-slate-700 border border-slate-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                />
-                <Button className="bg-gradient-to-r from-purple-700 to-blue-700 hover:from-purple-600 hover:to-blue-600">
-                  Subscribe
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div 
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            <Link 
-              to="/"
-              className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
-            >
-              <span className="mr-2">←</span>
-              <span>Back to Home</span>
-            </Link>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
       
       <Footer />
