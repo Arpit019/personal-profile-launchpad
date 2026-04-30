@@ -86,7 +86,7 @@ const CommandCenterLogin: React.FC = () => {
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className={`text-sm ${line.includes("✓") ? "text-green-400" : "text-cyan-400"}`}
+                  className={`text-sm ${line?.includes("✓") ? "text-green-400" : "text-cyan-400"}`}
                 >
                   {line}
                 </motion.div>
