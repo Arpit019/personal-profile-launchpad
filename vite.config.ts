@@ -5,24 +5,27 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  base: "/personal-profile-launchpad/", // Base path for GitHub Pages
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode }) => {
+  const isVercel = process.env.VERCEL === '1';
+  return {
+    base: isVercel ? "/" : "/personal-profile-launchpad/",
+    server: {
+      host: "::",
+      port: 8080,
     },
-  },
-  build: {
-    outDir: "docs", // Build directly to docs folder instead of dist
-    emptyOutDir: true,
-  },
-}));
+    plugins: [
+      react(),
+      mode === 'development' &&
+      componentTagger(),
+    ].filter(Boolean),
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+    build: {
+      outDir: isVercel ? "dist" : "docs",
+      emptyOutDir: true,
+    },
+  };
+});
