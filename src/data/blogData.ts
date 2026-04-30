@@ -15,7 +15,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Exploring the difference between knowledge discovery and generative AI. How models are changing product management problem-solving.",
     date: "2024.05.10",
     category: "ARTIFICIAL_INTELLIGENCE",
-    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?artificial-intelligence,abstract",
     content: "<h3>The Shift from Search to Synthesis</h3><p>For the last two decades, product managers have relied on search engines to discover knowledge. We were expert 'finders'. However, 2024 marks the definitive shift from knowledge discovery to knowledge synthesis. Large Language Models (LLMs) don't just find information; they synthesize it into contextual answers.</p><h3>Why Product Managers Must Adapt</h3><p>If your product strategy still revolves around making users search for things, you are building for the past. The new hierarchy of AI knowledge dictates that users expect the system to do the heavy lifting. Instead of a dashboard with 50 filters, users want a single text box that says: 'Show me the most critical alerts from yesterday and suggest fixes.'</p><ul><li><strong>Level 1: Basic Retrieval (Legacy)</strong> - Traditional databases and elastic search.</li><li><strong>Level 2: Semantic Search (Current)</strong> - Vector databases understanding intent.</li><li><strong>Level 3: Generative Synthesis (Future)</strong> - AI agents acting on intent without explicit instructions.</li></ul><p>As PMs, we need to architect our systems for Level 3 immediately.</p>"
   },
   {
@@ -24,7 +24,7 @@ export const dataLogs: LogEntry[] = [
     summary: "A deep dive into the design choices behind a multi-game ecosystem and secure payment wallet integration.",
     date: "2024.04.15",
     category: "PLATFORM_ARCHITECTURE",
-    imageUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?server,casino",
     content: "<h3>The Core Challenge</h3><p>Building a Real-Money Gaming (RMG) platform is fundamentally different from casual gaming. The moment real money is involved, latency, fairness, and security become mission-critical. When architecting the AAG App, we had to solve for three primary vectors: Game state synchronization, wallet ledger integrity, and anti-fraud mechanics.</p><h3>The Wallet Ledger Architecture</h3><p>We opted for an event-sourced ledger architecture for the wallet. Traditional CRUD databases fail under high concurrency when thousands of players are betting simultaneously. By using event sourcing, every transaction is an immutable event appending to a log. If a discrepancy occurs, we can replay the entire history of the wallet to find the exact millisecond a race condition was attempted.</p><h3>Anti-Fraud via Heuristics</h3><p>RMG platforms are prime targets for collusion. We implemented a background worker that analyzes betting patterns across Ludo and Fruit Ninja. If two players consistently end up in the same high-stakes lobbies and one disproportionately loses, the system flags the accounts for manual review and pauses withdrawals.</p>"
   },
   {
@@ -33,7 +33,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Mapping user journeys in hospitals to achieve a breakthrough in Hospital Management Systems. Lessons learned from reducing operational costs.",
     date: "2024.03.20",
     category: "PRODUCT_MANAGEMENT",
-    imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?hospital,technology",
     content: "<h3>The Broken Patient Journey</h3><p>Hospitals are incredibly complex ecosystems where life-or-death decisions are made daily. Yet, the software running them often feels like it was built in the 1990s. When we set out to build a modern Hospital Management System (HMS), we didn't start by looking at competitors; we started by shadowing nurses.</p><h3>The 'Three Clicks' Rule</h3><p>We found that nurses were spending up to 30% of their shift documenting instead of caring. We implemented a strict 'Three Clicks' rule: Any critical action (administering meds, checking vitals, updating status) must take no more than three clicks from the main dashboard.</p><h3>Results and Operational Efficiency</h3><p>By streamlining the UI, utilizing barcode scanning for medication, and creating automated handover sheets for shift changes, we reduced the average time spent in the software by 45%. This directly translated to lower operational costs and, more importantly, reduced burnout among healthcare professionals.</p>"
   },
   {
@@ -42,7 +42,7 @@ export const dataLogs: LogEntry[] = [
     summary: "How LLMs are automating feature prioritization and helping teams focus on high-impact user stories.",
     date: "2024.06.01",
     category: "PRODUCT_STRATEGY",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?code,data",
     content: "<h3>The Black Hole of the Backlog</h3><p>Every Product Manager knows the feeling: a Jira backlog with 800 tickets where good ideas go to die. Traditional grooming sessions take hours of engineering time. We decided to experiment with an AI-driven approach.</p><h3>The Automated Scoring Model</h3><p>We built a lightweight integration that feeds new feature requests into an LLM, alongside our quarterly OKRs. The AI scores the ticket on a scale of 1-10 for 'Strategic Alignment' and 'Estimated Effort' based on historical data. While it's not perfect, it immediately flags the bottom 40% of noise, allowing human PMs to focus only on the top-tier ideas during grooming sessions.</p>"
   },
   {
@@ -51,7 +51,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Moving beyond DAU/MAU to measure true user engagement and product-market fit.",
     date: "2024.06.15",
     category: "ANALYTICS",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?analytics,graph",
     content: "<h3>Death of the DAU</h3><p>Daily Active Users (DAU) is a vanity metric that masks poor retention. A user logging in to clear a notification is 'active', but they aren't extracting value. In modern product management, we must shift to measuring 'Core Actions'.</p><h3>Measuring the 'Aha!' Moment</h3><p>Instead of tracking logins, track the specific action that correlates with long-term retention. For a gaming app, it's completing 3 multiplayer matches. For a SaaS tool, it's inviting a team member. If your dashboard doesn't highlight the velocity at which users hit their 'Aha!' moment, you are flying blind.</p>"
   },
   {
@@ -60,7 +60,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Validating product-market fit without engineering resources using modern no-code stacks.",
     date: "2024.07.02",
     category: "INNOVATION",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?prototype,design",
     content: "<h3>Speed over Polish</h3><p>The biggest mistake early-stage founders and PMs make is waiting 3 months to build an MVP. By utilizing tools like Bubble, Webflow, and Zapier, we can deploy a functional prototype in 72 hours.</p><h3>The Strategy</h3><p>The goal of an MVP is not to scale; it is to validate. If users won't use a slightly clunky no-code version of your product, they won't use a highly polished React version either. Save engineering resources for scaling what actually works.</p>"
   },
   {
@@ -69,7 +69,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Driving retention through behavioral psychology, leaderboards, and meaningful rewards.",
     date: "2024.07.20",
     category: "UX_DESIGN",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?videogame,ui",
     content: "<h3>Beyond Badges and Points</h3><p>True gamification is not just slapping a leaderboard onto a B2B app. It's about understanding intrinsic vs extrinsic motivation. Duolingo doesn't work just because of points; it works because it leverages the 'loss aversion' psychological trigger via Streaks.</p><h3>Implementing Meaningful Progression</h3><p>When designing non-gaming apps, create a 'Player Journey'. Users should feel like they are leveling up their own real-world skills through your software. Celebrate their milestones visually, but ensure the reward ties back to the core utility of the product.</p>"
   },
   {
@@ -78,7 +78,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Adapting roadmaps to exponential tech curves and avoiding the 'AI-wrapper' trap.",
     date: "2024.08.05",
     category: "ARTIFICIAL_INTELLIGENCE",
-    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?robot,circuit",
     content: "<h3>The AI Wrapper Trap</h3><p>Thousands of startups are building thin UI wrappers over OpenAI's API. This is not a sustainable product strategy because OpenAI's next update will likely render those wrappers obsolete. To survive, you must have proprietary data or a deeply entrenched workflow.</p><h3>Building Defensive Moats</h3><p>If you are integrating AI, use it to enhance an existing workflow where you already own the user distribution. The AI should reduce friction, not be the entire selling point. The real value is the context your application provides that a raw LLM does not possess.</p>"
   },
   {
@@ -87,7 +87,7 @@ export const dataLogs: LogEntry[] = [
     summary: "The secret weapon of elite Product Managers in aligning engineering, design, and sales.",
     date: "2024.08.22",
     category: "LEADERSHIP",
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?teamwork,neon",
     content: "<h3>The PM as a Translator</h3><p>A Product Manager without authority must lead through influence. The only way to build influence is through extreme cross-functional empathy. You must understand what keeps your lead engineer awake at night, and what quota your sales director is terrified of missing.</p><h3>Speaking Their Language</h3><p>When talking to engineering, discuss technical debt and system stability. When talking to design, discuss user friction and cognitive load. When talking to sales, discuss churn and competitive blockers. Tailor your message to their incentives.</p>"
   },
   {
@@ -96,7 +96,7 @@ export const dataLogs: LogEntry[] = [
     summary: "Building products *with* users, not just *for* them, through weekly touchpoints.",
     date: "2024.09.10",
     category: "USER_RESEARCH",
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
+    imageUrl: "https://images.unsplash.com/featured/?research,data",
     content: "<h3>The Danger of Big Upfront Research</h3><p>Spending 6 weeks doing user research before writing a line of code is an outdated waterfall metric. Continuous discovery means having at least one conversation with a customer every single week, continuously feeding insights into the product trio (PM, Design, Engineering).</p><h3>Automating the Pipeline</h3><p>Set up an automated email campaign that invites a small percentage of active users to a 15-minute chat every week. Never stop interviewing. The moment you stop talking to customers, your product starts drifting from market reality.</p>"
   },
   // We will generate the rest using a similar compact structure
