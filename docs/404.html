@@ -1,21 +1,55 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirecting...</title>
-  <script>
-    // GitHub Pages SPA redirect
-    // Converts path to query param so index.html can handle it
-    var pathSegmentsToKeep = 1; // /personal-profile-launchpad
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
-  </script>
-</head>
-<body></body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arpit Tripathi - Personal Portfolio</title>
+    <meta name="description" content="Professional portfolio showcasing Arpit Tripathi's skills, projects, and experience" />
+    <meta name="author" content="Arpit Tripathi" />
+
+    <meta property="og:title" content="Arpit Tripathi - Professional Portfolio" />
+    <meta property="og:description" content="Explore my skills, projects, and professional experience" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://arpit019.github.io/personal-profile-launchpad/og-image.jpg" />
+    <meta property="og:url" content="https://arpit019.github.io/personal-profile-launchpad/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@arpittripathi" />
+    <meta name="twitter:image" content="https://arpit019.github.io/personal-profile-launchpad/og-image.jpg" />
+    
+    <!-- Prevent Jekyll processing -->
+    <script>
+      // GitHub Pages SPA redirect handler
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/personal-profile-launchpad/favicon.ico" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" />
+    <script type="module" crossorigin src="/personal-profile-launchpad/assets/index-D5_sN22K.js"></script>
+    <link rel="stylesheet" crossorigin href="/personal-profile-launchpad/assets/index-DI7qCU5k.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </body>
 </html>
