@@ -1,0 +1,61 @@
+[
+  {
+    "title": "Head of Product - Gaming",
+    "company": "Dream11",
+    "location": "Mumbai (Hybrid)",
+    "salary": "₹45-60 LPA",
+    "matchScore": 92,
+    "tags": ["Gaming", "Fantasy Sports", "B2C", "Mobile"],
+    "coverLetter": "Dear Hiring Manager,\n\nI'm writing to express my interest in the Head of Product role at Dream11. As someone who has architected a real-money gaming platform (AAG) from the ground up — complete with multiplayer game modes, creator monetization, and secure payment wallets — I bring hands-on experience in exactly the domain Dream11 operates in.\n\nIn my current role as Head of Product at Celestial IT Verse, I've directed the lifecycle for 7+ B2C/B2B platforms, with our gaming platform being my flagship initiative. Key achievements include:\n\n• Launching Aajeevansang mobile app to 13,500+ users in 4 months\n• Architecting AAG with real-money wallets, Socket.io multiplayer, and creator economics\n• Growing e-commerce revenue to ₹10L+ from zero\n\nI understand the unique challenges of real-money gaming: regulatory compliance, payment security, retention mechanics, and trust-building at scale. I'd love to bring this experience to Dream11's world-class platform.\n\nBest regards,\nArpit Tripathi",
+    "interviewQuestions": [
+      {"question": "How would you improve Dream11's user retention?", "answer": "I'd focus on three areas: (1) Personalized contest recommendations based on user history and skill level, (2) Social features — let friends create private leagues with lower entry barriers, (3) Streak rewards for consecutive participation. At AAG, implementing creator monetization loops improved D7 retention by 40%."},
+      {"question": "How do you balance growth vs. responsible gaming?", "answer": "Compliance is a feature, not a burden. At AAG, we invested 40% of dev time in payment transparency. I'd implement spending limits, cool-off periods, and clear win/loss dashboards. Users chose our platform BECAUSE we were transparent."},
+      {"question": "Describe a time you made a data-driven product decision.", "answer": "At Zippee, we assumed merchants wanted a prepaid wallet. Data showed they actually wanted cash flow visibility. We pivoted Blaze from a payment tool to a payment + analytics platform. 300+ brands migrated in 6 months."},
+      {"question": "How would you approach launching a new game format?", "answer": "Phase 1: User research — survey top 1000 users on format preferences. Phase 2: MVP with limited audience (1% rollout). Phase 3: Measure D1 retention and average session time. Phase 4: Iterate on engagement mechanics before full launch. At AAG, we went through 3 architecture iterations for multiplayer before getting it right."}
+    ],
+    "cvSummary": "ARPIT TRIPATHI\nHead of Product | Gaming & Consumer Tech Specialist\narpit01999@gmail.com | linkedin.com/in/arpittripathii\n\nPROFESSIONAL SUMMARY\nProduct leader with 4+ years of experience building real-money gaming platforms, consumer apps, and B2C marketplaces. Proven track record of scaling products from 0→1, acquiring 13,500+ users organically, and driving ₹10L+ revenue. Deep expertise in gaming mechanics, creator economics, and regulated payment systems.\n\nKEY ACHIEVEMENTS\n• Architected AAG — a real-money fantasy gaming platform with multiplayer modes and creator monetization\n• Launched Aajeevansang to 13,500+ users in 4 months with zero marketing budget\n• Built Blaze prepaid wallet serving 300+ enterprise brands at Zippee\n• Led product for 7+ B2C/B2B platforms simultaneously\n\nEXPERIENCE\nHead of Product | Celestial IT Verse | Dec 2024–Present\n• Directed product lifecycle for 7+ platforms including gaming, e-commerce, and ride-hailing\n• Architected AAG with Socket.io multiplayer, real-money wallets, and creator tools\n• Grew Zoof e-commerce from zero to ₹10L+ revenue\n\nProduct Manager | Tap for Tech | Jul–Dec 2024\n• Acquired 35+ B2B clients in 6 months\n• Launched membership programs driving 75% of revenue\n\nProduct Analyst | Zippee | Mar 2023–Jun 2024\n• Built Blaze prepaid wallet, migrating 300+ enterprise brands\n• Reduced RTO by 30% with automated reattempt workflows\n• Grew revenue by 85%\n\nSKILLS\nProduct: Roadmapping, GTM, A/B Testing, Agile/Scrum, Revenue Optimization\nTechnical: System Architecture, API Integrations, SQL, React Native, Socket.io\nDomain: Real-Money Gaming, Fantasy Sports, Creator Economy, Payments, Compliance"
+  },
+  {
+    "title": "Senior Product Manager - Fintech",
+    "company": "Razorpay",
+    "location": "Bangalore (Hybrid)",
+    "salary": "₹35-50 LPA",
+    "matchScore": 88,
+    "tags": ["Fintech", "Payments", "B2B", "SaaS"],
+    "coverLetter": "Dear Hiring Manager,\n\nI'm excited to apply for the Senior PM role at Razorpay. My experience building Blaze — a prepaid wallet platform that migrated 300+ enterprise brands at Zippee — gives me direct, relevant experience in the payments domain.\n\nKey highlights:\n• Architected Blaze: prepaid wallet + ERP integration for enterprise billing\n• Grew logistics revenue by 85% through payment innovation\n• Managed financial operations at State Street (global trade compliance)\n• Launched e-commerce platform generating ₹10L+ revenue\n\nI understand the merchant-side pain points of payments infrastructure and would love to bring this perspective to Razorpay's product organization.\n\nBest regards,\nArpit Tripathi",
+    "interviewQuestions": [
+      {"question": "How would you improve Razorpay's checkout conversion rate?", "answer": "Three levers: (1) Pre-fill saved payment methods using tokenization, (2) Smart payment method ordering based on user history and transaction amount, (3) Reduce checkout steps — one-tap UPI for repeat customers. At Zippee, incentivizing prepaid via Blaze moved COD-to-prepaid ratio and improved delivery success from 72% to 95%."},
+      {"question": "How do you prioritize features for a B2B payments platform?", "answer": "I use Impact × Confidence × Ease scoring. At Zippee, we had 50+ feature requests from merchants. We ranked them by revenue impact and effort, then published a transparent roadmap. This killed 80% of stakeholder arguments."},
+      {"question": "Tell me about a product that failed.", "answer": "At Tap for Tech, we built a membership-only booking system assuming all users would pay upfront. Initial adoption was just 15%. We pivoted to a freemium model with premium perks, and memberships grew to drive 75% of revenue."}
+    ],
+    "cvSummary": "ARPIT TRIPATHI\nSenior Product Manager | Payments & Fintech\narpit01999@gmail.com | linkedin.com/in/arpittripathii\n\nSUMMARY\nProduct leader with deep fintech and payments experience. Built Blaze prepaid wallet platform serving 300+ enterprise brands. Former financial operations at State Street with global trade compliance expertise.\n\nKEY ACHIEVEMENTS\n• Built Blaze prepaid wallet — 300+ enterprise brand migration\n• Grew revenue 85% through payment-logistics optimization\n• E-commerce platform: Zero to ₹10L+ revenue\n• Financial operations: Global trade reconciliation at State Street\n\nEXPERIENCE\nHead of Product | Celestial IT Verse | Dec 2024–Present\nProduct Manager | Tap for Tech | Jul–Dec 2024\nProduct Analyst | Zippee | Mar 2023–Jun 2024\nSenior Associate | State Street | Aug 2021–Jul 2022\n\nSKILLS\nPayments, Wallet Systems, ERP Integration, Revenue Optimization, SQL Analytics, Compliance"
+  },
+  {
+    "title": "Director of Product - HealthTech",
+    "company": "Practo",
+    "location": "Bangalore (Remote OK)",
+    "salary": "₹50-70 LPA",
+    "matchScore": 82,
+    "tags": ["HealthTech", "B2C", "Marketplace", "Mobile"],
+    "coverLetter": "Dear Hiring Manager,\n\nI'm applying for the Director of Product role at Practo. I've built a Hospital Management System that reduced operational costs by 45% and also developed MedPredict, an ML-based disease prediction tool. Healthcare technology is a domain I'm deeply passionate about.\n\nI bring a unique combination of healthcare domain knowledge and platform-building experience (7+ products launched). I'd love to discuss how I can contribute to Practo's mission.\n\nBest regards,\nArpit Tripathi",
+    "interviewQuestions": [
+      {"question": "How would you improve patient engagement on Practo?", "answer": "Focus on post-consultation experience: (1) Automated follow-up reminders, (2) Prescription refill alerts, (3) Health score tracking. At our HMS, we reduced patient wait time from 45 to 12 minutes — engagement improved because we respected their time."},
+      {"question": "How do you handle healthcare compliance in product development?", "answer": "Compliance-first design. At AAG (gaming), we treated regulatory requirements as product features. Same approach applies to healthcare — HIPAA-equivalent data handling should be a selling point, not an afterthought."}
+    ],
+    "cvSummary": "ARPIT TRIPATHI\nDirector of Product | HealthTech & Platform Expert\narpit01999@gmail.com\n\nSUMMARY\nProduct leader who has built healthcare technology (HMS reducing costs by 45%, MedPredict ML tool) and scaled consumer platforms to 13,500+ users.\n\nHEALTHTECH EXPERIENCE\n• Built HMS: 45% cost reduction, patient wait time 45→12 min\n• MedPredict: ML disease prediction using multiple input vectors\n• Led 7+ platform launches across healthcare, gaming, and e-commerce\n\nSKILLS\nHealthcare Systems, Product Strategy, ML/AI, Platform Architecture, User Research"
+  },
+  {
+    "title": "Group Product Manager - E-commerce",
+    "company": "Meesho",
+    "location": "Bangalore (Hybrid)",
+    "salary": "₹40-55 LPA",
+    "matchScore": 85,
+    "tags": ["E-commerce", "B2C", "Logistics", "Growth"],
+    "coverLetter": "Dear Hiring Manager,\n\nMy experience is a direct fit for Meesho. At Zippee, I lived and breathed e-commerce logistics — reducing RTO by 30%, building prepaid wallet systems, and optimizing last-mile delivery. At Celestial, I built Zoof e-commerce from scratch to ₹10L+ revenue.\n\nI understand Tier 2/3 India, COD challenges, and how to build products that work for value-conscious users.\n\nBest regards,\nArpit Tripathi",
+    "interviewQuestions": [
+      {"question": "How would you reduce return rates for Meesho?", "answer": "Three-pronged approach from my Zippee experience: (1) Pre-purchase: Better size guides and photo reviews to set expectations. (2) Post-purchase: Smart delivery scheduling to reduce failed attempts. (3) Incentivize prepaid — at Zippee, prepaid had 95% delivery success vs 72% for COD."},
+      {"question": "How do you build products for Tier 2/3 India?", "answer": "Vernacular-first design, lightweight app (<15MB), offline-first features, WhatsApp integration for communications. At Aajeevansang, we grew to 13,500 users by building community through local language content and WhatsApp groups."}
+    ],
+    "cvSummary": "ARPIT TRIPATHI\nGroup PM | E-commerce & Logistics\narpit01999@gmail.com\n\nSUMMARY\nProduct leader with deep e-commerce and logistics experience. Built Zoof (₹10L+ rev), optimized delivery at Zippee (85% rev growth, 30% RTO reduction), acquired 35+ B2B clients.\n\nSKILLS\nE-commerce, Logistics, COD Optimization, Prepaid Wallets, Tier 2/3 Markets, Growth"
+  }
+]

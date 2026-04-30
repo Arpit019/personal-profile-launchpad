@@ -1,0 +1,88 @@
+{
+  "name": "Arpit Tripathi",
+  "headline": "Head of Product | Celestial IT Verse Pvt. Ltd.",
+  "location": "Gurugram, Haryana, India",
+  "email": "arpit01999@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/arpittripathii/",
+  "github": "https://github.com/Arpit019",
+  "followers": 2000,
+  "connections": 500,
+  "summary": "Dynamic and results-driven product leader with a strong background in software engineering, product management, and application reliability. Specialized in connecting dots across users, tech, design, and business. Equipped with a versatile skillset spanning Gaming, Healthcare Tech, Fintech, and E-commerce.",
+  "currentRole": {
+    "title": "Head of Product",
+    "company": "Celestial IT Verse Pvt. Ltd.",
+    "since": "Dec 2024"
+  },
+  "experience": [
+    {
+      "position": "Head of Product",
+      "company": "Celestial IT Verse Pvt. Ltd.",
+      "period": "Dec 2024 - Present",
+      "description": "Directed end-to-end product lifecycle for 7+ B2C/B2B platforms. Launched 'Aajeevansang' mobile app acquiring 13,500+ users. Launched 'Driver Girl' ride-hailing platform. Owned 'Zoof' e-commerce from ground up, generating ₹10L+ revenue. Architected creator-first real-money gaming platform (AAG).",
+      "keyMetrics": ["7+ platforms", "13,500+ users", "₹10L+ revenue"]
+    },
+    {
+      "position": "Product Manager",
+      "company": "Tap for Tech",
+      "period": "July 2024 - Dec 2024",
+      "description": "Led digital transformation for Pinak Adventure Farms developing a web portal and CRM, increasing bookings by 20%. Launched new membership programs accounting for 75% of revenue. Owned full lifecycle for vertical SaaS products (AASC, YOGC, AAL).",
+      "keyMetrics": ["20% booking increase", "75% revenue from memberships", "35+ B2B clients"]
+    },
+    {
+      "position": "Product Analyst",
+      "company": "Zippee",
+      "period": "March 2023 - June 2024",
+      "description": "Architected 'Blaze' prepaid wallet platform, migrating 300+ enterprise brands. Drove major reduction in RTO with automated reattempt workflows. Owned roadmap for core logistics delivering same-day/hyperlocal, live tracking, and skill-based route planning.",
+      "keyMetrics": ["300+ enterprise brands", "85% revenue growth", "RTO reduction"]
+    },
+    {
+      "position": "Script Developer",
+      "company": "Uplers",
+      "period": "Dec 2022 - March 2023",
+      "description": "Developed high-converting email templates for global clients, boosting open rates by 25% and CTR by 35% via interactive AMP emails.",
+      "keyMetrics": ["25% open rate boost", "35% CTR increase", "30% production time reduction"]
+    },
+    {
+      "position": "Senior Associate, Mission Control",
+      "company": "State Street",
+      "period": "Aug 2021 - July 2022",
+      "description": "Led initiatives to re-engineer and optimize financial workflows. Managed financial reporting, reconciliations, and compliance.",
+      "keyMetrics": ["Global trade operations", "Financial compliance"]
+    },
+    {
+      "position": "Application Reliability Officer",
+      "company": "Wiley Mthree",
+      "period": "May 2021 - Aug 2021",
+      "description": "Provided critical technical expertise for a major client-facing application. Focused on proactive incident management and issue resolution.",
+      "keyMetrics": ["15% reduction in system failures"]
+    }
+  ],
+  "education": {
+    "degree": "B.Tech",
+    "institution": "ABES Institute of Technology",
+    "period": "2017 - 2021",
+    "gpa": "8.1"
+  },
+  "skills": {
+    "productStrategy": ["Product Roadmapping", "Go-to-Market (GTM)", "Agile/Scrum", "Stakeholder Management", "A/B Testing", "Revenue Optimization"],
+    "dataAndUX": ["User Journey Mapping", "Prototyping", "Data Analytics (SQL)", "Market Research", "Mixpanel / GA"],
+    "platformAndAI": ["System Architecture", "API Integrations", "Generative AI Tools", "Prompt Engineering", "Web/Mobile Delivery"]
+  },
+  "certifications": [
+    "Product Analytics (PAC)™️",
+    "IBM Data Science Professional Certificate",
+    "Python Certification (Cisco)",
+    "Google Digital Marketing",
+    "ICIP (OPSWAT)"
+  ],
+  "projects": [
+    { "name": "AAG App (Fantasy Gaming)", "type": "Enterprise", "tech": ["React Native", "Node.js", "Socket.io"] },
+    { "name": "Hospital Management System", "type": "Enterprise", "tech": ["React", "Python", "PostgreSQL"] },
+    { "name": "Zippee Delivery Engine", "type": "Enterprise", "tech": ["Shopify API", "Logistics SDK", "Analytics"] },
+    { "name": "MedPredict", "type": "Open Source", "tech": ["TypeScript", "Machine Learning"] },
+    { "name": "Automated Bulk Mailer", "type": "Open Source", "tech": ["Python", "Automation"] }
+  ],
+  "targetRoles": ["Head of Product", "VP Product", "Director of Product", "Senior Product Manager", "Group Product Manager"],
+  "targetIndustries": ["Gaming", "Fintech", "E-commerce", "SaaS", "Healthcare Tech"],
+  "targetLocations": ["Remote", "Gurugram", "Bangalore", "Hyderabad", "Mumbai", "Delhi NCR"]
+}

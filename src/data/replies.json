@@ -1,0 +1,56 @@
+[
+  {
+    "scenario": "Someone got promoted / new role",
+    "context": "Congratulate while positioning yourself as a peer leader",
+    "templates": [
+      "Huge congratulations! 🎉 Having led similar transitions myself, I know how much goes into earning a role like this. The best part? The real learning starts now. Wishing you an incredible journey ahead!",
+      "Well deserved! Your work on [mention their project if visible] clearly set the stage for this. I've seen how impactful product leaders in this space can be — excited to see what you build next.",
+      "This is inspiring. Your trajectory from [previous role] to this is proof that consistent impact gets noticed. Congratulations and looking forward to learning from your journey!"
+    ]
+  },
+  {
+    "scenario": "Industry insight / thought leadership post",
+    "context": "Add value with your unique perspective to increase visibility",
+    "templates": [
+      "Really insightful take. I'd add one nuance from my experience building in this space: [add specific insight]. The gap between theory and execution is where most teams struggle, and your point about [specific element] nails it.",
+      "This resonates deeply. When we built [relevant project — Blaze/AAG/HMS], we faced exactly this challenge. What worked for us was [specific approach]. Would love to hear if you've seen similar patterns.",
+      "Bookmarking this. One thing I'd push back on slightly: [respectful contrarian point]. In my experience leading product for 7+ platforms, I've found that [your perspective]. What do you think?"
+    ]
+  },
+  {
+    "scenario": "Someone sharing a product launch",
+    "context": "Show genuine interest while establishing credibility",
+    "templates": [
+      "This is impressive execution! Curious about your discovery process — how did you validate the initial hypothesis? When I launched Aajeevansang (13,500+ users), the biggest surprise was how different real user behavior was from our assumptions.",
+      "Love the approach. The hardest part of any launch is the first 1,000 users. What's been your primary acquisition channel? Would be happy to share some growth playbooks that worked well for our consumer launches.",
+      "Congrats on the launch! 🚀 Quick question — how are you thinking about retention vs. acquisition in the early phase? I've found that obsessing over D7 retention early on compounds significantly vs. pure growth."
+    ]
+  },
+  {
+    "scenario": "Someone asking for advice / help",
+    "context": "Be genuinely helpful to build goodwill and visibility",
+    "templates": [
+      "Great question. Based on my experience, I'd recommend: [specific actionable advice]. Happy to chat more about this — feel free to DM. I've navigated similar situations at [relevant company/project].",
+      "I faced exactly this when [relevant personal experience]. Three things that helped: (1) [tip], (2) [tip], (3) [tip]. The most counterintuitive lesson was [insight]. Hope this helps!",
+      "This is something I'm passionate about. Quick framework that's served me well: [share a simple framework]. I wrote about this in more detail [reference your post if applicable]. Let me know if you'd like to discuss further."
+    ]
+  },
+  {
+    "scenario": "Someone sharing a failure / learning",
+    "context": "Build connection through shared vulnerability",
+    "templates": [
+      "Respect the honesty here. I've had similar moments — we once assumed merchants wanted a prepaid wallet when they actually wanted cash flow visibility. The pivot cost us 2 months but led to 300+ brand migrations. Failures are just data points.",
+      "This is the content LinkedIn needs more of. Every successful product I've built had at least 2-3 failed assumptions underneath. The willingness to share these publicly shows real leadership. Thank you for this.",
+      "Incredible self-awareness. The line between a good PM and a great one is exactly this — the ability to recognize what's not working and pivot without ego. Thanks for sharing so openly."
+    ]
+  },
+  {
+    "scenario": "Job posting / hiring announcement",
+    "context": "Engage strategically to boost visibility with hiring managers",
+    "templates": [
+      "Great opportunity! The focus on [specific requirement mentioned] is spot on. In my experience leading product for gaming/e-commerce/healthtech platforms, this skill is what separates good PMs from great ones. Sharing for my network.",
+      "Interesting role. For anyone considering this — the best preparation is having real shipping experience. Case studies and frameworks matter, but nothing beats having built and scaled products from 0→1. Good luck to all applicants!",
+      "Love that you're hiring for [specific quality]. This is exactly the kind of role where [your relevant experience/insight] becomes critical. Rooting for the team to find the right person!"
+    ]
+  }
+]
