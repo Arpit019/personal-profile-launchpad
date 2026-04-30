@@ -36,7 +36,8 @@ const Navbar: React.FC = () => {
     { name: "Projects", path: "/#projects" },
     { name: "Blog", path: "/blog" },
     { name: "Resume", path: "/resume" },
-    { name: "Contact", path: "/#contact" }
+    { name: "Contact", path: "/#contact" },
+    { name: "Login", path: "/command-center-login" }
   ];
 
   const toggleMobileMenu = () => {

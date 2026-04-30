@@ -15,6 +15,12 @@ const CommandCenterLogin: React.FC = () => {
   const [authenticating, setAuthenticating] = useState(false);
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    if (sessionStorage.getItem("cc_auth") === "true") {
+      navigate("/command-center");
+    }
+  }, [navigate]);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");

@@ -1,0 +1,59 @@
+Retrieving project…
+Deploying arpit-tripathis-projects-a0a77e15/personal-profile-launchpad
+Inspect: https://vercel.com/arpit-tripathis-projects-a0a77e15/personal-profile-launchpad/sNmVZf8P12yBred2gmGE1F4DWmKE [3s]
+Production: https://personal-profile-launchpad-h3o7tlk5t.vercel.app [3s]
+https://personal-profile-launchpad-h3o7tlk5t.vercel.appBuilding...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 220 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 51.6.1
+Building: Installing dependencies...
+Building: npm warn deprecated lodash.omit@4.5.0: This package is deprecated. Use destructuring assignment syntax instead.
+Building: npm warn deprecated lodash.pick@4.4.0: This package is deprecated. Use destructuring assignment syntax instead.
+Building: added 563 packages in 11s
+Building: 170 packages are looking for funding
+Building: run `npm fund` for details
+Building: Running "npm run build"
+Building: > vite_react_shadcn_ts@0.0.0 build
+Building: > tsc -b && vite build
+Building: vite v5.4.10 building for production...
+Building: transforming...
+Building: Browserslist: browsers data (caniuse-lite) is 18 months old. Please run:
+Building: npx update-browserslist-db@latest
+Building: Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Building: ✓ 2449 modules transformed.
+Building: rendering chunks...
+Building: [plugin:vite:reporter] [plugin vite:reporter]
+Building: (!) /vercel/path0/src/components/Footer.tsx is dynamically imported by /vercel/path0/src/pages/Index.tsx but also statically imported by /vercel/path0/src/pages/Blog.tsx, /vercel/path0/src/pages/BlogPost.tsx, /vercel/path0/src/pages/Resume.tsx, dynamic import will not move module into another chunk.
+Building: computing gzip size...
+Building: dist/index.html                          2.48 kB │ gzip:   1.06 kB
+Building: dist/assets/index-DI7qCU5k.css          92.28 kB │ gzip:  15.07 kB
+Building: dist/assets/trophy-xLtGiXvA.js           0.63 kB │ gzip:   0.39 kB
+Building: dist/assets/use-in-view-CiAL7pdR.js      0.81 kB │ gzip:   0.48 kB
+Building: dist/assets/Skills-D-rmRP0J.js           3.53 kB │ gzip:   1.57 kB
+Building: dist/assets/Experience-Dsnvu-ju.js       6.12 kB │ gzip:   2.58 kB
+Building: dist/assets/Projects-Bqh6pHpu.js         8.45 kB │ gzip:   2.91 kB
+Building: dist/assets/About-TQcquUfk.js           10.85 kB │ gzip:   2.89 kB
+Building: dist/assets/Contact-DpIjjhqp.js         13.01 kB │ gzip:   4.06 kB
+Building: dist/assets/CTA-BIub_isZ.js            129.36 kB │ gzip:  39.21 kB
+Building: dist/assets/index-DNC89qI7.js        1,092.96 kB │ gzip: 337.44 kB
+Building: ✓ built in 7.64s
+Building: (!) Some chunks are larger than 500 kB after minification. Consider:
+Building: - Using dynamic import() to code-split the application
+Building: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+Building: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+Building: Build Completed in /vercel/output [28s]
+Building: Deploying outputs...
+Building: Deployment completed
+Building: Creating build cache...
+[2K[1A[2K[GProduction: https://personal-profile-launchpad-h3o7tlk5t.vercel.app [41s]
+Completing...
+Aliased: https://personal-profile-launchpad.vercel.app [41s]
+
+Common next commands:
+- `vercel inspect personal-profile-launchpad-h3o7tlk5t.vercel.app --logs`
+- `vercel redeploy personal-profile-launchpad-h3o7tlk5t.vercel.app`
