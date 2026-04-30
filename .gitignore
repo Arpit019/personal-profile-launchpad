@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 linkedin-command-center/
+.vercel
+.env*.local
+
+.env
+.env.local
