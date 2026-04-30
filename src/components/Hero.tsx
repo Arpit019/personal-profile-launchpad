@@ -1,8 +1,11 @@
 import React from "react";
 import { ArrowDown, Code, Shield, Gamepad } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePortfolioContent } from "@/hooks/useCommandData";
 
 const Hero = () => {
+  const { hero } = usePortfolioContent();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,17 +50,14 @@ const Hero = () => {
           
           <motion.div variants={itemVariants}>
             <h2 className="text-xl md:text-2xl text-purple-400 font-orbitron font-medium mb-8 tracking-widest">
-              <span className="text-cyan-400 drop-shadow-[0_0_5px_#00f3ff]">PRODUCT_ARCHITECT</span> // 
-              <span className="text-pink-400 drop-shadow-[0_0_5px_#ff003c]"> TECH_LEADER</span> // 
-              <span className="text-purple-400 drop-shadow-[0_0_5px_#b535f6]"> GAMER</span>
+              {hero?.title || "PRODUCT_ARCHITECT // TECH_LEADER // GAMER"}
             </h2>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <p className="text-slate-300 max-w-2xl mb-12 text-lg font-mono leading-relaxed border-l-4 border-cyan-400 pl-4 text-left bg-slate-900/50 p-4 pixel-corners">
-              <span className="text-pink-400">&gt;</span> SYSTEM STATUS: ONLINE<br/>
-              <span className="text-pink-400">&gt;</span> MISSION: Craft digital experiences that solve real-world problems and scale fast.<br/>
-              <span className="text-pink-400">&gt;</span> DOMAINS: Gaming, Healthcare, Fintech, E-commerce.<br/>
+              <span className="text-pink-400">&gt;</span> SYSTEM STATUS: {hero?.status || "ONLINE"}<br/>
+              <span className="text-pink-400">&gt;</span> MISSION: {hero?.tagline || "Craft digital experiences that solve real-world problems and scale fast."}<br/>
               <span className="text-cyan-400 animate-pulse">_</span>
             </p>
           </motion.div>

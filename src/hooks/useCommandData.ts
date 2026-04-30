@@ -107,6 +107,44 @@ export function useProfile() {
   return { profile, setProfile: update };
 }
 
+import { defaultHero, defaultAbout } from "../data/portfolio";
+
+export function usePortfolioContent() {
+  const [hero, setHero] = useState<any>(load("cc_hero", defaultHero));
+  const [about, setAbout] = useState<any>(load("cc_about", defaultAbout));
+
+  useEffect(() => {
+    if (hasSupabaseConfig && supabase) {
+      supabase.from('portfolio_content').select('*').then(({ data }) => {
+        if (data && data.length > 0) {
+          const heroData = data.find(d => d.section_id === 'hero');
+          const aboutData = data.find(d => d.section_id === 'about');
+          if (heroData) setHero(heroData.content);
+          if (aboutData) setAbout(aboutData.content);
+        }
+      });
+    }
+  }, []);
+
+  const updateHero = useCallback(async (newHero: any) => {
+    setHero(newHero);
+    save("cc_hero", newHero);
+    if (hasSupabaseConfig && supabase) {
+      await supabase.from('portfolio_content').upsert([{ section_id: 'hero', content: newHero }]);
+    }
+  }, []);
+
+  const updateAbout = useCallback(async (newAbout: any) => {
+    setAbout(newAbout);
+    save("cc_about", newAbout);
+    if (hasSupabaseConfig && supabase) {
+      await supabase.from('portfolio_content').upsert([{ section_id: 'about', content: newAbout }]);
+    }
+  }, []);
+
+  return { hero, updateHero, about, updateAbout };
+}
+
 export function refreshFromLinkedIn(): Promise<boolean> {
   // Opens LinkedIn profile in a new tab for manual data sync
   window.open("https://www.linkedin.com/in/arpittripathii/", "_blank");

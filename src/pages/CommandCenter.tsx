@@ -6,9 +6,9 @@ import {
   UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar,
   MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X
 } from "lucide-react";
-import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn } from "../hooks/useCommandData";
+import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent } from "../hooks/useCommandData";
 
-type Tab = "posts" | "jobs" | "engage" | "profile";
+type Tab = "posts" | "jobs" | "engage" | "profile" | "cms";
 
 const CopyBtn = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -33,6 +33,7 @@ const CommandCenter: React.FC = () => {
   const jobsHook = useJobs();
   const repliesHook = useReplies();
   const profileHook = useProfile();
+  const portfolioHook = usePortfolioContent();
 
   useEffect(() => {
     if (sessionStorage.getItem("cc_auth") !== "true") {
@@ -56,6 +57,7 @@ const CommandCenter: React.FC = () => {
     { id: "jobs", label: "JOB_RADAR", icon: <Briefcase size={16}/> },
     { id: "engage", label: "FEED_OPS", icon: <MessageSquare size={16}/> },
     { id: "profile", label: "PROFILE_AUDIT", icon: <UserCheck size={16}/> },
+    { id: "cms", label: "PORTFOLIO_CMS", icon: <FileText size={16}/> },
   ];
 
   return (
@@ -113,8 +115,83 @@ const CommandCenter: React.FC = () => {
           {tab === "jobs" && <JobsTab selectedJob={selectedJob} setSelectedJob={setSelectedJob} {...jobsHook} />}
           {tab === "engage" && <EngageTab {...repliesHook} />}
           {tab === "profile" && <ProfileTab {...profileHook} />}
+          {tab === "cms" && <CmsTab {...portfolioHook} />}
         </div>
       </div>
+    </div>
+  );
+};
+
+/* ========== CMS TAB ========== */
+const CmsTab = ({ hero, updateHero, about, updateAbout }: any) => {
+  const [editingSection, setEditingSection] = useState<string | null>(null);
+
+  const heroFields = [
+    { key: "title", label: "HERO_TITLE", value: hero?.title || "" },
+    { key: "tagline", label: "HERO_TAGLINE", value: hero?.tagline || "" },
+    { key: "status", label: "CURRENT_STATUS", value: hero?.status || "" },
+  ];
+
+  const aboutFields = [
+    { key: "bio", label: "BIOGRAPHY", value: about?.bio || "", multiline: true },
+    { key: "Level", label: "STAT_LEVEL", value: about?.stats?.Level || "" },
+    { key: "Class", label: "STAT_CLASS", value: about?.stats?.Class || "" },
+    { key: "HP", label: "STAT_HP", value: about?.stats?.HP || "" },
+  ];
+
+  const handleSaveHero = (data: Record<string, string>) => {
+    updateHero({ ...hero, ...data });
+    setEditingSection(null);
+  };
+
+  const handleSaveAbout = (data: Record<string, string>) => {
+    updateAbout({ 
+      bio: data.bio, 
+      stats: { Level: data.Level, Class: data.Class, HP: data.HP } 
+    });
+    setEditingSection(null);
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold tracking-widest text-white mb-6" style={{fontFamily:"'Orbitron',sans-serif"}}>
+        <FileText size={18} className="inline mr-2 text-cyan-400"/>PORTFOLIO_CMS
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* HERO SECTION */}
+        <div className="bg-slate-900 border border-slate-700 p-6 relative group hover:border-cyan-800 transition-all">
+          <button onClick={() => setEditingSection("hero")} className="absolute top-4 right-4 text-xs bg-slate-800 hover:bg-cyan-500 hover:text-black text-cyan-400 px-3 py-1.5 transition-all">
+            <Edit3 size={12} className="inline mr-1"/> EDIT
+          </button>
+          <h3 className="text-sm text-slate-500 uppercase tracking-widest mb-4">HERO_SECTION</h3>
+          <p className="text-xl font-bold text-white mb-1">{hero?.title}</p>
+          <p className="text-sm text-cyan-400 mb-4">{hero?.tagline}</p>
+          <div className="inline-block bg-green-900/30 text-green-400 border border-green-800/50 px-2 py-1 text-xs">
+            {hero?.status}
+          </div>
+        </div>
+
+        {/* ABOUT SECTION */}
+        <div className="bg-slate-900 border border-slate-700 p-6 relative group hover:border-cyan-800 transition-all">
+          <button onClick={() => setEditingSection("about")} className="absolute top-4 right-4 text-xs bg-slate-800 hover:bg-cyan-500 hover:text-black text-cyan-400 px-3 py-1.5 transition-all">
+            <Edit3 size={12} className="inline mr-1"/> EDIT
+          </button>
+          <h3 className="text-sm text-slate-500 uppercase tracking-widest mb-4">ABOUT_SECTION</h3>
+          <p className="text-sm text-slate-300 mb-4 line-clamp-3">{about?.bio}</p>
+          <div className="flex gap-4">
+            <div className="text-xs text-slate-500">LEVEL: <span className="text-cyan-400">{about?.stats?.Level}</span></div>
+            <div className="text-xs text-slate-500">CLASS: <span className="text-purple-400">{about?.stats?.Class}</span></div>
+          </div>
+        </div>
+      </div>
+
+      {editingSection === "hero" && (
+        <InlineEdit title="EDIT_HERO_CONTENT" fields={heroFields} onSave={handleSaveHero} onClose={() => setEditingSection(null)} />
+      )}
+      {editingSection === "about" && (
+        <InlineEdit title="EDIT_ABOUT_CONTENT" fields={aboutFields} onSave={handleSaveAbout} onClose={() => setEditingSection(null)} />
+      )}
     </div>
   );
 };

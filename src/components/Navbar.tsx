@@ -44,6 +44,21 @@ const Navbar: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (path.startsWith("/#") && location.pathname === "/") {
+      e.preventDefault();
+      const targetId = path.substring(2); // remove /#
+      
+      // Dispatch GTA Transition
+      window.dispatchEvent(new CustomEvent('gta-transition', { detail: targetId }));
+      
+      // Update URL hash without scrolling natively
+      window.history.pushState(null, '', path);
+    }
+    
+    if (isMobileMenuOpen) toggleMobileMenu();
+  };
+
   return (
     <motion.nav
       className={`fixed top-0 left-0 w-full py-4 px-6 md:px-10 z-50 transition-all duration-300 ${
@@ -79,6 +94,7 @@ const Navbar: React.FC = () => {
               <motion.li key={link.name} whileHover={{ scale: 1.05 }}>
                 <Link
                   to={link.path}
+                  onClick={(e) => handleNavClick(e, link.path)}
                   className={`text-sm font-medium transition-colors relative ${
                     isActive ? "text-purple-400" : "text-slate-300 hover:text-white"
                   }`}
@@ -97,6 +113,7 @@ const Navbar: React.FC = () => {
           <motion.li whileHover={{ scale: 1.05 }}>
             <a
               href="/#contact"
+              onClick={(e) => handleNavClick(e, "/#contact")}
               className="px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500 transition-all duration-300"
             >
               Let's Connect
@@ -143,7 +160,7 @@ const Navbar: React.FC = () => {
                       className={`text-lg font-medium ${
                         isActive ? "text-purple-400" : "text-slate-300"
                       }`}
-                      onClick={toggleMobileMenu}
+                      onClick={(e) => handleNavClick(e, link.path)}
                     >
                       {link.name}
                     </Link>
@@ -157,7 +174,7 @@ const Navbar: React.FC = () => {
                 <a
                   href="/#contact"
                   className="px-6 py-3 rounded-md bg-gradient-to-r from-purple-600 to-blue-600 text-white"
-                  onClick={toggleMobileMenu}
+                  onClick={(e) => handleNavClick(e, "/#contact")}
                 >
                   Let's Connect
                 </a>

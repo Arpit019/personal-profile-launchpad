@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, lazy, Suspense, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, useAnimation } from "framer-motion";
 import DynamicCursorCharacter from "@/components/CursorCharacter";
 import LightsaberBot from "@/components/LightsaberBot";
 
@@ -27,12 +27,53 @@ const Index = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [bootSequence, setBootSequence] = useState<string[]>([]);
   const [bootComplete, setBootComplete] = useState(false);
+  const controls = useAnimation();
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest > 0.05 && !hasScrolled) {
       setHasScrolled(true);
     }
   });
+
+  useEffect(() => {
+    const handleGtaTransition = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const targetId = customEvent.detail;
+      
+      // GTA V Style Transition Sequence
+      const sequence = async () => {
+        // 1. Zoom Out and Blur (Fly up)
+        await controls.start({ 
+          scale: 0.6, 
+          filter: "blur(12px) brightness(0.5)", 
+          y: -100,
+          transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } 
+        });
+        
+        // 2. Instantly move to target while zoomed out
+        const element = document.getElementById(targetId);
+        if (element) {
+          window.scrollTo({ top: element.offsetTop - 80 });
+        }
+        
+        // Brief pause in the "clouds"
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        // 3. Zoom In and Unblur (Drop down)
+        await controls.start({ 
+          scale: 1, 
+          filter: "blur(0px) brightness(1)", 
+          y: 0,
+          transition: { duration: 0.6, ease: "easeOut", type: "spring", stiffness: 120 } 
+        });
+      };
+      
+      sequence();
+    };
+
+    window.addEventListener("gta-transition", handleGtaTransition);
+    return () => window.removeEventListener("gta-transition", handleGtaTransition);
+  }, [controls]);
 
   useEffect(() => {
     // BIOS Boot Sequence Simulation
@@ -72,9 +113,12 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans" ref={containerRef} id="home">
+    <div className="min-h-screen bg-slate-950 font-sans overflow-x-hidden" ref={containerRef} id="home">
       {/* Global CRT Scanlines */}
-      <div className="scanlines" />
+      <div className="scanlines z-50 pointer-events-none" />
+
+      {/* Grid Map Background (visible when zoomed out) */}
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(0,243,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,243,255,0.05)_1px,transparent_1px)] bg-[size:100px_100px] z-[-1]" />
 
       {/* BIOS Boot Overlay */}
       {!bootComplete && (
@@ -100,39 +144,47 @@ const Index = () => {
       <LightsaberBot />
 
       <Navbar />
-      <Hero />
       
-      <Suspense fallback={<SectionLoader />}>
-        <About />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <Skills />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <Experience />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <Projects />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <CTA />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <Contact />
-      </Suspense>
-      
-      <Suspense fallback={<div className="h-20 bg-slate-900" />}>
-        <Footer />
-      </Suspense>
+      {/* GTA V Transition Wrapper */}
+      <motion.div 
+        animate={controls}
+        className="origin-center w-full"
+        style={{ perspective: 1000 }}
+      >
+        <Hero />
+        
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <Skills />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <Experience />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <Projects />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <CTA />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <Contact />
+        </Suspense>
+        
+        <Suspense fallback={<div className="h-20 bg-slate-900" />}>
+          <Footer />
+        </Suspense>
+      </motion.div>
       
       <motion.button
         className="fixed bottom-6 right-6 w-12 h-12 rounded-none pixel-corners bg-purple-600 text-white flex items-center justify-center shadow-[0_0_15px_#b535f6] z-40 border border-purple-400"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => window.dispatchEvent(new CustomEvent('gta-transition', { detail: 'home' }))}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ 
           opacity: scrollYProgress.get() > 0.2 ? 1 : 0,
