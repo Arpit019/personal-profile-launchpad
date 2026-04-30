@@ -7,38 +7,9 @@ import Footer from "@/components/Footer";
 import DynamicCursorCharacter from "@/components/CursorCharacter";
 import LightsaberBot from "@/components/LightsaberBot";
 
-interface LogEntry {
-  id: string;
-  title: string;
-  summary: string;
-  date: string;
-  category: string;
-}
+import { dataLogs } from "@/data/blogData";
 
 const Blog: React.FC = () => {
-  const dataLogs: LogEntry[] = [
-    {
-      id: "LOG_001",
-      title: "The Hierarchy of AI Knowledge: Evolution in 2024",
-      summary: "Exploring the difference between knowledge discovery and generative AI. How models are changing product management problem-solving.",
-      date: "2024.05.10",
-      category: "ARTIFICIAL_INTELLIGENCE"
-    },
-    {
-      id: "LOG_002",
-      title: "Architecting a Real-Money Gaming Platform (AAG App)",
-      summary: "A deep dive into the design choices behind a multi-game ecosystem and secure payment wallet integration.",
-      date: "2024.04.15",
-      category: "PLATFORM_ARCHITECTURE"
-    },
-    {
-      id: "LOG_003",
-      title: "Streamlining Healthcare Operations: A 45% More Efficient HMS",
-      summary: "Mapping user journeys in hospitals to achieve a breakthrough in Hospital Management Systems. Lessons learned from reducing operational costs.",
-      date: "2024.03.20",
-      category: "PRODUCT_MANAGEMENT"
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-slate-950 font-mono relative">
