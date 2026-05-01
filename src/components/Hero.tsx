@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { usePortfolioContent } from "@/hooks/useCommandData";
 import { Canvas } from "@react-three/fiber";
 import { Float, Environment, ContactShadows } from "@react-three/drei";
-import CyberDrone from "./CyberDrone";
+const CyberDrone = React.lazy(() => import("./CyberDrone"));
 
 const Hero = () => {
   const { hero } = usePortfolioContent();

@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Lock, User, AlertTriangle, Terminal, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const VALID_USER = "not_sosocial";
-const VALID_PASS = "ARA0211man1902@";
+import { supabase } from "../lib/supabase";
 
 const CommandCenterLogin: React.FC = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
@@ -16,38 +14,57 @@ const CommandCenterLogin: React.FC = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (sessionStorage.getItem("cc_auth") === "true") {
-      navigate("/command-center");
-    }
+    // Check active session on load
+    const checkSession = async () => {
+      const { data } = await supabase?.auth.getSession() || { data: { session: null } };
+      if (data.session) {
+        navigate("/command-center");
+      }
+    };
+    checkSession();
   }, [navigate]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (username === VALID_USER && password === VALID_PASS) {
-      setAuthenticating(true);
-      const lines = [
-        "> VERIFYING_CREDENTIALS...",
-        "> IDENTITY_CONFIRMED: ARPIT_TRIPATHI",
-        "> CLEARANCE_LEVEL: COMMANDER",
-        "> DECRYPTING_COMMAND_CENTER...",
-        "> ACCESS_GRANTED ✓",
-      ];
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < lines.length) {
-          setBootLines((prev) => [...prev, lines[i]]);
-          i++;
-        } else {
-          clearInterval(interval);
-          sessionStorage.setItem("cc_auth", "true");
-          setTimeout(() => navigate("/command-center"), 600);
-        }
-      }, 400);
-    } else {
-      setError("ACCESS_DENIED: Invalid credentials");
+    if (!supabase) {
+      setError("SYSTEM_ERROR: Supabase connection not established.");
+      return;
     }
+
+    setAuthenticating(true);
+    setBootLines(["> INITIATING_SECURE_HANDSHAKE..."]);
+
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (authError) {
+      setAuthenticating(false);
+      setError(`ACCESS_DENIED: ${authError.message}`);
+      return;
+    }
+
+    const lines = [
+      "> VERIFYING_CREDENTIALS...",
+      `> IDENTITY_CONFIRMED: ${data.user?.email}`,
+      "> CLEARANCE_LEVEL: COMMANDER",
+      "> DECRYPTING_COMMAND_CENTER...",
+      "> ACCESS_GRANTED ✓",
+    ];
+    
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < lines.length) {
+        setBootLines((prev) => [...prev, lines[i]]);
+        i++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => navigate("/command-center"), 600);
+      }
+    }, 400);
   };
 
   return (
@@ -103,16 +120,16 @@ const CommandCenterLogin: React.FC = () => {
             </div>
           ) : (
             <form onSubmit={handleLogin} className="space-y-6">
-              {/* Username */}
+              {/* Email */}
               <div>
                 <label className="block text-xs text-slate-500 uppercase tracking-widest mb-2">
-                  <User size={12} className="inline mr-1" /> AGENT_ID
+                  <User size={12} className="inline mr-1" /> AGENT_EMAIL
                 </label>
                 <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username..."
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email..."
                   className="w-full bg-slate-950 border-2 border-slate-700 text-white px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 transition-colors placeholder:text-slate-600"
                   autoFocus
                 />

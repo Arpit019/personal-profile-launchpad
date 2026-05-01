@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
-import CyberDrone from '../components/CyberDrone';
+const CyberDrone = React.lazy(() => import('../components/CyberDrone'));
 
 const Sandbox3D = () => {
   return (

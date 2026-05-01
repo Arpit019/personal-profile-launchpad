@@ -7,6 +7,7 @@ import {
   MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X
 } from "lucide-react";
 import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent } from "../hooks/useCommandData";
+import { supabase } from "../lib/supabase";
 
 type Tab = "posts" | "jobs" | "engage" | "profile" | "cms";
 
@@ -36,9 +37,13 @@ const CommandCenter: React.FC = () => {
   const portfolioHook = usePortfolioContent();
 
   useEffect(() => {
-    if (sessionStorage.getItem("cc_auth") !== "true") {
-      navigate("/command-center-login");
-    }
+    const checkSession = async () => {
+      const { data } = await supabase?.auth.getSession() || { data: { session: null } };
+      if (!data.session) {
+        navigate("/command-center-login");
+      }
+    };
+    checkSession();
   }, [navigate]);
 
   const handleRefresh = () => {
@@ -47,8 +52,8 @@ const CommandCenter: React.FC = () => {
     setTimeout(() => setRefreshing(false), 2000);
   };
 
-  const logout = () => {
-    sessionStorage.removeItem("cc_auth");
+  const logout = async () => {
+    if (supabase) await supabase.auth.signOut();
     navigate("/command-center-login");
   };
 
