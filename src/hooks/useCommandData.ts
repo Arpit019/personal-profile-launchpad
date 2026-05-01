@@ -101,6 +101,20 @@ export function useMessages() {
   return { messages, markAsRead, deleteMessage };
 }
 
+export function useSubscribers() {
+  const [subscribers, setSubscribers] = useState<any[]>(load("cc_subscribers", []));
+
+  useEffect(() => {
+    if (hasSupabaseConfig && supabase) {
+      supabase.from('blog_subscribers').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+        if (data && data.length > 0) setSubscribers(data);
+      });
+    }
+  }, []);
+
+  return { subscribers };
+}
+
 export function useReplies() {
   const [replies, setReplies] = useState<any[]>(load("cc_replies", defaultReplies));
 

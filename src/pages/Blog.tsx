@@ -8,8 +8,32 @@ import DynamicCursorCharacter from "@/components/CursorCharacter";
 import LightsaberBot from "@/components/LightsaberBot";
 
 import { dataLogs } from "@/data/blogData";
+import { supabase } from "@/lib/supabase";
 
 const Blog: React.FC = () => {
+  const [email, setEmail] = React.useState('');
+  const [status, setStatus] = React.useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) return;
+    
+    setStatus('submitting');
+    try {
+      if (!supabase) throw new Error("Supabase client not initialized");
+      
+      const { error } = await supabase.from('blog_subscribers').insert([{ email }]);
+      // If error code is 23505, it means unique constraint violation (already subscribed)
+      // We can just treat it as success for user experience to prevent leaking subscriber emails
+      if (error && error.code !== '23505') throw error;
+      
+      setStatus('success');
+      setEmail('');
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 font-mono relative">
@@ -83,16 +107,26 @@ const Blog: React.FC = () => {
           <h3 className="text-2xl font-orbitron font-bold text-white mb-2">SUBSCRIBE_TO_LOGS</h3>
           <p className="text-slate-400 mb-6 max-w-md mx-auto">Receive encrypted transmissions regarding product strategy, tech leadership, and AI evolution.</p>
           
-          <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-lg mx-auto">
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 justify-center max-w-lg mx-auto">
             <input 
               type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="ENTER_COMM_LINK..."
-              className="flex-1 bg-slate-950 border-2 border-slate-700 text-white px-4 py-3 font-mono focus:outline-none focus:border-cyan-400 pixel-corners"
+              required
+              disabled={status === 'submitting' || status === 'success'}
+              className="flex-1 bg-slate-950 border-2 border-slate-700 text-white px-4 py-3 font-mono focus:outline-none focus:border-cyan-400 pixel-corners disabled:opacity-50"
             />
-            <button className="bg-cyan-500 text-black font-orbitron font-bold px-8 py-3 hover:bg-white transition-colors pixel-corners">
-              TRANSMIT
+            <button 
+              type="submit"
+              disabled={status === 'submitting' || status === 'success'}
+              className="bg-cyan-500 text-black font-orbitron font-bold px-8 py-3 hover:bg-white transition-colors pixel-corners disabled:bg-slate-700 disabled:text-slate-500"
+            >
+              {status === 'submitting' ? 'TRANSMITTING...' : status === 'success' ? 'RECEIVED' : 'TRANSMIT'}
             </button>
-          </div>
+          </form>
+          {status === 'error' && <p className="text-red-500 text-xs font-mono mt-3">TRANSMISSION_FAILED: Connection lost.</p>}
+          {status === 'success' && <p className="text-cyan-400 text-xs font-mono mt-3">COMM_LINK_ESTABLISHED.</p>}
         </motion.div>
       </div>
       

@@ -72,12 +72,13 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  const submitToSupabase = async (data: FormData) => {
+  const submitForm = async (data: FormData) => {
     if (!supabase) {
       throw new Error("Supabase is not initialized.");
     }
     
     try {
+      // 1. Submit to Supabase
       const { error } = await supabase.from('contact_messages').insert([
         {
           name: data.name,
@@ -89,6 +90,18 @@ const ContactForm: React.FC = () => {
       ]);
       
       if (error) throw error;
+
+      // 2. Dual-Write Backup to Google Sheets
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', data.name);
+      formDataToSend.append('email', data.email);
+      formDataToSend.append('subject', data.subject);
+      formDataToSend.append('message', data.message);
+      
+      // Fire and forget fetch (no await needed since no-cors means opaque response anyway, 
+      // and we don't want it to block the main success toast if it fails silently)
+      fetch(SCRIPT_URL, { method: 'POST', body: formDataToSend, mode: 'no-cors' }).catch(e => console.error("Sheets backup failed:", e));
       
       toast({
         title: "Message Transmitted!",
@@ -96,7 +109,7 @@ const ContactForm: React.FC = () => {
       });
       return true;
     } catch (error) {
-      console.error('Error submitting form to Supabase:', error);
+      console.error('Error submitting form:', error);
       toast({
         title: "Transmission Failed",
         description: "There was an error sending your message. Please try again.",
@@ -116,7 +129,7 @@ const ContactForm: React.FC = () => {
     setFormStatus("submitting");
     
     try {
-      const success = await submitToSupabase(formData);
+      const success = await submitForm(formData);
       if (success) {
         setFormStatus("success");
       } else {

@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   RefreshCw, LogOut, PenLine, Briefcase, MessageSquare,
-  UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar,
+  Users, UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar,
   MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X
 } from "lucide-react";
-import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent, useMessages } from "../hooks/useCommandData";
+import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent, useMessages, useSubscribers } from "../hooks/useCommandData";
 import { supabase } from "../lib/supabase";
 
-type Tab = "inbox" | "posts" | "jobs" | "engage" | "profile" | "cms";
+type Tab = "inbox" | "posts" | "jobs" | "engage" | "audience" | "profile" | "cms";
 
 const CopyBtn = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -32,6 +32,7 @@ const CommandCenter: React.FC = () => {
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
   
   const messagesHook = useMessages();
+  const subscribersHook = useSubscribers();
   const postsHook = usePosts();
   const jobsHook = useJobs();
   const repliesHook = useReplies();
@@ -71,6 +72,7 @@ const CommandCenter: React.FC = () => {
     { id: "posts", label: "DAILY_POSTS", icon: <PenLine size={16}/> },
     { id: "jobs", label: "JOB_RADAR", icon: <Briefcase size={16}/> },
     { id: "engage", label: "FEED_OPS", icon: <Send size={16}/> },
+    { id: "audience", label: "AUDIENCE", icon: <Users size={16}/>, badge: subscribersHook.subscribers.length },
     { id: "profile", label: "PROFILE_AUDIT", icon: <UserCheck size={16}/> },
     { id: "cms", label: "PORTFOLIO_CMS", icon: <FileText size={16}/> },
   ];
@@ -132,9 +134,49 @@ const CommandCenter: React.FC = () => {
           {tab === "posts" && <PostsTab {...postsHook} />}
           {tab === "jobs" && <JobsTab selectedJob={selectedJob} setSelectedJob={setSelectedJob} {...jobsHook} />}
           {tab === "engage" && <EngageTab {...repliesHook} />}
+          {tab === "audience" && <AudienceTab {...subscribersHook} />}
           {tab === "profile" && <ProfileTab {...profileHook} />}
           {tab === "cms" && <CmsTab {...portfolioHook} />}
         </div>
+      </div>
+    </div>
+  );
+};
+
+/* ========== AUDIENCE TAB ========== */
+const AudienceTab = ({ subscribers }: any) => {
+  return (
+    <div>
+      <h2 className="text-xl font-bold tracking-widest text-white mb-6" style={{fontFamily:"'Orbitron',sans-serif"}}>
+        <Users size={18} className="inline mr-2 text-cyan-400"/>AUDIENCE_TRACKER
+      </h2>
+      
+      <div className="bg-slate-900 border border-slate-700 p-6 mb-6">
+        <h3 className="text-sm font-bold text-white mb-4">SUBSCRIBER_DATABASE</h3>
+        {subscribers.length === 0 ? (
+          <p className="text-slate-500 text-sm">No active subscribers found.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-300">
+              <thead className="text-xs text-slate-500 uppercase bg-slate-950 border-b border-slate-700">
+                <tr>
+                  <th className="px-4 py-3">COMM_LINK (EMAIL)</th>
+                  <th className="px-4 py-3">CONNECTION_DATE</th>
+                  <th className="px-4 py-3">STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {subscribers.map((s: any) => (
+                  <tr key={s.id} className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="px-4 py-3 font-mono text-cyan-400">{s.email}</td>
+                    <td className="px-4 py-3">{new Date(s.created_at || Date.now()).toLocaleDateString()}</td>
+                    <td className="px-4 py-3"><span className="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded">ACTIVE</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -156,7 +198,15 @@ const InboxTab = ({ messages, markAsRead, deleteMessage }: any) => {
               <p className="text-xs text-slate-500 mt-1">{new Date(selectedMessage.created_at || Date.now()).toLocaleString()}</p>
             </div>
             <div className="flex gap-2">
-              <button onClick={() => { markAsRead(selectedMessage.id); setSelectedMessage({...selectedMessage, status: 'read'}); }} className="text-xs bg-slate-800 hover:bg-green-500 hover:text-black text-green-400 px-3 py-1.5 transition-all">MARK_READ</button>
+              <a 
+                href={`mailto:${selectedMessage.email}?subject=REPLY: ${encodeURIComponent(selectedMessage.subject)}&body=${encodeURIComponent(`Hello ${selectedMessage.name},\n\n`)}`}
+                className="text-xs flex items-center gap-1 bg-slate-800 hover:bg-blue-500 hover:text-black text-blue-400 px-3 py-1.5 transition-all"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Send size={12}/> REPLY
+              </a>
+              <button onClick={() => { markAsRead(selectedMessage.id); setSelectedMessage({...selectedMessage, status: 'read'}); }} className="text-xs flex items-center gap-1 bg-slate-800 hover:bg-green-500 hover:text-black text-green-400 px-3 py-1.5 transition-all"><Check size={12}/> READ</button>
               <button onClick={() => { deleteMessage(selectedMessage.id); setSelectedMessage(null); }} className="text-xs bg-slate-800 hover:bg-red-500 hover:text-black text-red-400 px-3 py-1.5 transition-all"><Trash2 size={14}/></button>
             </div>
           </div>
