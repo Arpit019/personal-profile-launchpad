@@ -94,23 +94,25 @@ const Sandbox3D = () => {
 
       <div className="w-full h-full relative z-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b535f6" />
-          <pointLight position={[10, -10, 10]} intensity={0.5} color="#00f3ff" />
-          
-          <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-            <CyberDrone />
-          </Float>
+          <React.Suspense fallback={null}>
+            <ambientLight intensity={0.5} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b535f6" />
+            <pointLight position={[10, -10, 10]} intensity={0.5} color="#00f3ff" />
+            
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+              <CyberDrone />
+            </Float>
 
-          {/* Environment for nice reflections */}
-          <Environment preset="city" />
-          
-          {/* Ground shadow */}
-          <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#00f3ff" />
-          
-          {/* Allow user to rotate the camera slightly for fun in sandbox */}
-          <OrbitControls enableZoom={false} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
+            {/* Environment for nice reflections */}
+            <Environment preset="city" />
+            
+            {/* Ground shadow */}
+            <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#00f3ff" />
+            
+            {/* Allow user to rotate the camera slightly for fun in sandbox */}
+            <OrbitControls enableZoom={false} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
+          </React.Suspense>
         </Canvas>
       </div>
       

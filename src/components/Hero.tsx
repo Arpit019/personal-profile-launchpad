@@ -119,17 +119,19 @@ const Hero = () => {
             transition={{ delay: 1, duration: 1 }}
           >
             <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-              <ambientLight intensity={0.5} />
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b535f6" />
-              <pointLight position={[10, -10, 10]} intensity={0.5} color="#00f3ff" />
-              
-              <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-                <CyberDrone />
-              </Float>
+              <React.Suspense fallback={null}>
+                <ambientLight intensity={0.5} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b535f6" />
+                <pointLight position={[10, -10, 10]} intensity={0.5} color="#00f3ff" />
+                
+                <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+                  <CyberDrone />
+                </Float>
 
-              <Environment preset="city" />
-              <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#00f3ff" />
+                <Environment preset="city" />
+                <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#00f3ff" />
+              </React.Suspense>
             </Canvas>
           </motion.div>
 
