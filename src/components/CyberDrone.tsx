@@ -4,7 +4,7 @@ import * as THREE from 'three';
 
 const CyberDrone = () => {
   const groupRef = useRef<THREE.Group>(null);
-  const headRef = useRef<THREE.Mesh>(null);
+  const headRef = useRef<THREE.Group>(null);
   const eyeRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
