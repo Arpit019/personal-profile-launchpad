@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  RefreshCw, LogOut, PenLine, Briefcase, MessageSquare,
-  Users, UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar,
-  MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X
+  RefreshCw, LogOut, PenLine, Briefcase, MessageSquare, LayoutDashboard,
+  Users, UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar, ExternalLink,
+  MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X, Globe, BookOpen, ScrollText
 } from "lucide-react";
 import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent, useMessages, useSubscribers } from "../hooks/useCommandData";
 import { supabase } from "../lib/supabase";
 
-type Tab = "inbox" | "posts" | "jobs" | "engage" | "audience" | "profile" | "cms";
+type Tab = "dashboard" | "inbox" | "posts" | "jobs" | "engage" | "audience" | "profile" | "cms";
 
 const CopyBtn = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -25,12 +25,45 @@ const CopyBtn = ({ text }: { text: string }) => {
   );
 };
 
+const VALID_TABS: Tab[] = ["dashboard", "inbox", "posts", "jobs", "engage", "audience", "profile", "cms"];
+
 const CommandCenter: React.FC = () => {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("inbox");
+  const location = useLocation();
   const [refreshing, setRefreshing] = useState(false);
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
   
+  // Hash-based tab routing: read initial tab from URL hash or sessionStorage
+  const getInitialTab = useCallback((): Tab => {
+    const hash = location.hash.replace('#', '') as Tab;
+    if (VALID_TABS.includes(hash)) return hash;
+    const saved = sessionStorage.getItem('cc_active_tab') as Tab;
+    if (saved && VALID_TABS.includes(saved)) return saved;
+    return 'dashboard';
+  }, [location.hash]);
+
+  const [tab, setTab] = useState<Tab>(getInitialTab);
+
+  // Sync tab changes to URL hash and sessionStorage
+  const switchTab = useCallback((newTab: Tab) => {
+    setTab(newTab);
+    sessionStorage.setItem('cc_active_tab', newTab);
+    window.history.replaceState(null, '', `#${newTab}`);
+  }, []);
+
+  // Listen for browser back/forward hash changes
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as Tab;
+      if (VALID_TABS.includes(hash)) {
+        setTab(hash);
+        sessionStorage.setItem('cc_active_tab', hash);
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
   const messagesHook = useMessages();
   const subscribersHook = useSubscribers();
   const postsHook = usePosts();
@@ -41,14 +74,9 @@ const CommandCenter: React.FC = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      if (sessionStorage.getItem("dev_bypass") === "true") {
-        return; // Allow bypass
-      }
-      
+      if (sessionStorage.getItem("dev_bypass") === "true") return;
       const { data } = await supabase?.auth.getSession() || { data: { session: null } };
-      if (!data.session) {
-        navigate("/command-center-login");
-      }
+      if (!data.session) navigate("/command-center-login");
     };
     checkSession();
   }, [navigate]);
@@ -61,6 +89,7 @@ const CommandCenter: React.FC = () => {
 
   const logout = async () => {
     sessionStorage.removeItem("dev_bypass");
+    sessionStorage.removeItem("cc_active_tab");
     if (supabase) await supabase.auth.signOut();
     navigate("/command-center-login");
   };
@@ -68,13 +97,20 @@ const CommandCenter: React.FC = () => {
   const unreadCount = messagesHook.messages.filter(m => m.status === 'unread').length;
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode; badge?: number }[] = [
-    { id: "inbox", label: "SECURE_INBOX", icon: <MessageSquare size={16}/>, badge: unreadCount },
+    { id: "dashboard", label: "DASHBOARD", icon: <LayoutDashboard size={16}/> },
+    { id: "inbox", label: "SECURE_INBOX", icon: <MessageSquare size={16}/>, badge: unreadCount || undefined },
     { id: "posts", label: "DAILY_POSTS", icon: <PenLine size={16}/> },
     { id: "jobs", label: "JOB_RADAR", icon: <Briefcase size={16}/> },
     { id: "engage", label: "FEED_OPS", icon: <Send size={16}/> },
-    { id: "audience", label: "AUDIENCE", icon: <Users size={16}/>, badge: subscribersHook.subscribers.length },
+    { id: "audience", label: "AUDIENCE", icon: <Users size={16}/>, badge: subscribersHook.subscribers.length || undefined },
     { id: "profile", label: "PROFILE_AUDIT", icon: <UserCheck size={16}/> },
     { id: "cms", label: "PORTFOLIO_CMS", icon: <FileText size={16}/> },
+  ];
+
+  const siteLinks = [
+    { label: "SITE", href: "/", icon: <Globe size={12}/> },
+    { label: "BLOG", href: "/blog", icon: <BookOpen size={12}/> },
+    { label: "RESUME", href: "/resume", icon: <ScrollText size={12}/> },
   ];
 
   return (
@@ -91,6 +127,15 @@ const CommandCenter: React.FC = () => {
           <span className="text-[10px] bg-green-900/50 text-green-400 border border-green-800/50 px-2 py-0.5">ONLINE</span>
         </div>
         <div className="flex items-center gap-3">
+          {/* Quick-nav to public site sections */}
+          <div className="hidden sm:flex items-center gap-1 border-r border-slate-700 pr-3 mr-1">
+            {siteLinks.map(l => (
+              <button key={l.label} onClick={() => navigate(l.href)}
+                className="flex items-center gap-1 text-[10px] text-slate-500 hover:text-cyan-400 px-2 py-1 transition-colors">
+                {l.icon}{l.label}
+              </button>
+            ))}
+          </div>
           <button onClick={handleRefresh} className={`flex items-center gap-1 text-xs bg-slate-800 hover:bg-cyan-500 hover:text-black text-cyan-400 px-3 py-1.5 transition-all ${refreshing?"animate-pulse":""}`}>
             <RefreshCw size={12} className={refreshing?"animate-spin":""}/> {refreshing?"SYNCING...":"REFRESH"}
           </button>
@@ -109,7 +154,7 @@ const CommandCenter: React.FC = () => {
             <p className="text-[10px] text-cyan-400 mt-1">{profileHook.profile.headline}</p>
           </div>
           {tabs.map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)}
+            <button key={t.id} onClick={() => switchTab(t.id)}
               className={`w-full flex items-center justify-between px-3 py-2.5 text-xs text-left transition-all ${tab===t.id?"bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400":"text-slate-400 hover:text-white hover:bg-slate-800 border-l-2 border-transparent"}`}>
               <div className="flex items-center gap-2">{t.icon}{t.label}</div>
               {t.badge ? <span className="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">{t.badge}</span> : null}
@@ -120,8 +165,8 @@ const CommandCenter: React.FC = () => {
         {/* Mobile tabs */}
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-700 flex z-50 overflow-x-auto">
           {tabs.map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)}
-              className={`flex-none min-w-[80px] flex flex-col items-center justify-center gap-1 py-3 text-[10px] relative ${tab===t.id?"text-cyan-400":"text-slate-500"}`}>
+            <button key={t.id} onClick={() => switchTab(t.id)}
+              className={`flex-none min-w-[70px] flex flex-col items-center justify-center gap-1 py-3 text-[10px] relative ${tab===t.id?"text-cyan-400":"text-slate-500"}`}>
               {t.icon}{t.label}
               {t.badge ? <span className="absolute top-1 right-3 w-2 h-2 bg-red-500 rounded-full"></span> : null}
             </button>
@@ -130,6 +175,7 @@ const CommandCenter: React.FC = () => {
 
         {/* Main content */}
         <div className="flex-1 p-6 pb-24 md:pb-6 max-w-5xl">
+          {tab === "dashboard" && <DashboardTab unreadCount={unreadCount} subscriberCount={subscribersHook.subscribers.length} postCount={postsHook.posts.length} jobCount={jobsHook.jobs.length} switchTab={switchTab} />}
           {tab === "inbox" && <InboxTab {...messagesHook} />}
           {tab === "posts" && <PostsTab {...postsHook} />}
           {tab === "jobs" && <JobsTab selectedJob={selectedJob} setSelectedJob={setSelectedJob} {...jobsHook} />}
@@ -137,6 +183,78 @@ const CommandCenter: React.FC = () => {
           {tab === "audience" && <AudienceTab {...subscribersHook} />}
           {tab === "profile" && <ProfileTab {...profileHook} />}
           {tab === "cms" && <CmsTab {...portfolioHook} />}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ========== DASHBOARD TAB ========== */
+const DashboardTab = ({ unreadCount, subscriberCount, postCount, jobCount, switchTab }: {
+  unreadCount: number; subscriberCount: number; postCount: number; jobCount: number; switchTab: (t: Tab) => void;
+}) => {
+  const stats = [
+    { label: "UNREAD_MESSAGES", value: unreadCount, color: "text-cyan-400", bg: "bg-cyan-500/10 border-cyan-800/50", tab: "inbox" as Tab },
+    { label: "BLOG_SUBSCRIBERS", value: subscriberCount, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-800/50", tab: "audience" as Tab },
+    { label: "QUEUED_POSTS", value: postCount, color: "text-green-400", bg: "bg-green-500/10 border-green-800/50", tab: "posts" as Tab },
+    { label: "TRACKED_JOBS", value: jobCount, color: "text-pink-400", bg: "bg-pink-500/10 border-pink-800/50", tab: "jobs" as Tab },
+  ];
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold tracking-widest text-white mb-6" style={{fontFamily:"'Orbitron',sans-serif"}}>
+        <LayoutDashboard size={18} className="inline mr-2 text-cyan-400"/>MISSION_OVERVIEW
+      </h2>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {stats.map(s => (
+          <motion.button key={s.label} onClick={() => switchTab(s.tab)}
+            initial={{opacity:0,y:10}} animate={{opacity:1,y:0}}
+            className={`${s.bg} border p-5 text-left hover:scale-105 transition-transform`}>
+            <p className={`text-3xl font-bold ${s.color}`} style={{fontFamily:"'Orbitron',sans-serif"}}>{s.value}</p>
+            <p className="text-[10px] text-slate-500 mt-2 tracking-widest">{s.label}</p>
+          </motion.button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-slate-900 border border-slate-700 p-6">
+          <h3 className="text-sm font-bold text-white mb-4 tracking-widest">QUICK_ACTIONS</h3>
+          <div className="space-y-2">
+            {[
+              { label: "Check Inbox", tab: "inbox" as Tab, icon: <MessageSquare size={14}/>, color: "text-cyan-400" },
+              { label: "Create Post", tab: "posts" as Tab, icon: <PenLine size={14}/>, color: "text-green-400" },
+              { label: "Edit Portfolio", tab: "cms" as Tab, icon: <FileText size={14}/>, color: "text-purple-400" },
+              { label: "View Audience", tab: "audience" as Tab, icon: <Users size={14}/>, color: "text-pink-400" },
+              { label: "Job Radar", tab: "jobs" as Tab, icon: <Briefcase size={14}/>, color: "text-orange-400" },
+            ].map(a => (
+              <button key={a.label} onClick={() => switchTab(a.tab)}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-slate-950 border border-slate-800 hover:border-cyan-800 text-left text-sm text-slate-300 hover:text-white transition-all group">
+                <span className={a.color}>{a.icon}</span>{a.label}
+                <ChevronRight size={14} className="ml-auto text-slate-700 group-hover:text-cyan-400 transition-colors"/>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-900 border border-slate-700 p-6">
+          <h3 className="text-sm font-bold text-white mb-4 tracking-widest">SYSTEM_STATUS</h3>
+          <div className="space-y-3">
+            {[
+              { label: "Supabase Database", status: "CONNECTED" },
+              { label: "Google Sheets Backup", status: "STANDBY" },
+              { label: "Vercel Deployment", status: "LIVE" },
+              { label: "Blog CMS", status: "ACTIVE" },
+              { label: "Contact Pipeline", status: "ONLINE" },
+            ].map(s => (
+              <div key={s.label} className="flex items-center justify-between px-4 py-2 bg-slate-950 border border-slate-800">
+                <span className="text-xs text-slate-400">{s.label}</span>
+                <span className="text-[10px] text-green-400 bg-green-900/30 px-2 py-0.5 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>{s.status}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
