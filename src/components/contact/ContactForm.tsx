@@ -73,46 +73,65 @@ const ContactForm: React.FC = () => {
   };
 
   const submitForm = async (data: FormData) => {
-    if (!supabase) {
-      throw new Error("Supabase is not initialized.");
-    }
-    
-    try {
-      // 1. Submit to Supabase
-      const { error } = await supabase.from('contact_messages').insert([
-        {
-          name: data.name,
-          email: data.email,
-          subject: data.subject,
-          message: data.message,
-          status: 'unread'
-        }
-      ]);
-      
-      if (error) throw error;
+    let supabaseSuccess = false;
+    let sheetsBackupUsed = false;
 
-      // 2. Dual-Write Backup to Google Sheets
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', data.name);
-      formDataToSend.append('email', data.email);
-      formDataToSend.append('subject', data.subject);
-      formDataToSend.append('message', data.message);
-      
-      // Fire and forget fetch (no await needed since no-cors means opaque response anyway, 
-      // and we don't want it to block the main success toast if it fails silently)
-      fetch(SCRIPT_URL, { method: 'POST', body: formDataToSend, mode: 'no-cors' }).catch(e => console.error("Sheets backup failed:", e));
-      
+    // 1. PRIMARY: Attempt Supabase Submission
+    try {
+      if (supabase) {
+        const { error } = await supabase.from('contact_messages').insert([
+          {
+            name: data.name,
+            email: data.email,
+            subject: data.subject,
+            message: data.message,
+            status: 'unread'
+          }
+        ]);
+        if (!error) {
+          supabaseSuccess = true;
+        } else {
+          console.warn("Supabase transmission failed, falling back to backup...");
+        }
+      }
+    } catch (err) {
+      console.warn("Supabase connection error, falling back to backup...");
+    }
+
+    // 2. BACKUP: Attempt Google Sheets ONLY IF Supabase failed
+    if (!supabaseSuccess) {
+      try {
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', data.name);
+        formDataToSend.append('email', data.email);
+        formDataToSend.append('subject', data.subject);
+        formDataToSend.append('message', data.message);
+        
+        await fetch(SCRIPT_URL, { method: 'POST', body: formDataToSend, mode: 'no-cors' });
+        sheetsBackupUsed = true;
+      } catch (err) {
+        console.error("Critical Failure: Sheets backup also failed:", err);
+      }
+    }
+
+    // 3. Final Feedback
+    if (supabaseSuccess) {
       toast({
         title: "Message Transmitted!",
-        description: "Your quest details have been received securely.",
+        description: "Secure link established via primary Supabase channel.",
       });
       return true;
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } else if (sheetsBackupUsed) {
       toast({
-        title: "Transmission Failed",
-        description: "There was an error sending your message. Please try again.",
+        title: "Backup Link Active",
+        description: "Primary channel offline. Message securely rerouted to Google Sheets backup.",
+      });
+      return true;
+    } else {
+      toast({
+        title: "Transmission Error",
+        description: "All communication channels are offline. Please try again later.",
         variant: "destructive",
       });
       return false;
@@ -121,13 +140,9 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
     
     setFormStatus("submitting");
-    
     try {
       const success = await submitForm(formData);
       if (success) {
