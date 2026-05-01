@@ -12,6 +12,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CommandCenterLogin from "./pages/CommandCenterLogin";
 import CommandCenter from "./pages/CommandCenter";
+import Sandbox3D from "./pages/Sandbox3D";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/command-center-login" element={<CommandCenterLogin />} />
             <Route path="/command-center" element={<CommandCenter />} />
+            <Route path="/sandbox" element={<Sandbox3D />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
