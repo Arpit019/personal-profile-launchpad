@@ -136,16 +136,16 @@ const CommandCenterLogin: React.FC = () => {
             </div>
           ) : (
             <form onSubmit={handleLogin} className="space-y-6">
-              {/* Email */}
+              {/* Account Name */}
               <div>
                 <label className="block text-xs text-slate-500 uppercase tracking-widest mb-2">
-                  <User size={12} className="inline mr-1" /> AGENT_EMAIL
+                  <User size={12} className="inline mr-1" /> AGENT_ID
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email..."
+                  placeholder="Enter account name..."
                   className="w-full bg-slate-950 border-2 border-slate-700 text-white px-4 py-3 text-sm focus:outline-none focus:border-cyan-400 transition-colors placeholder:text-slate-600"
                   autoFocus
                 />
