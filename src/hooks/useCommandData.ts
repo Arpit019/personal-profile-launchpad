@@ -63,6 +63,44 @@ export function useJobs() {
   return { jobs, setJobs: update };
 }
 
+export function useMessages() {
+  const [messages, setMessages] = useState<any[]>(load("cc_messages", []));
+
+  useEffect(() => {
+    if (hasSupabaseConfig && supabase) {
+      supabase.from('contact_messages').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+        if (data && data.length > 0) setMessages(data);
+      });
+    }
+  }, []);
+
+  const update = useCallback(async (newMessages: any[]) => {
+    setMessages(newMessages);
+    save("cc_messages", newMessages);
+    // Real updates would happen individually (mark as read, delete)
+  }, []);
+
+  const markAsRead = async (id: string) => {
+    const updated = messages.map(m => m.id === id ? { ...m, status: 'read' } : m);
+    setMessages(updated);
+    save("cc_messages", updated);
+    if (hasSupabaseConfig && supabase) {
+      await supabase.from('contact_messages').update({ status: 'read' }).eq('id', id);
+    }
+  };
+
+  const deleteMessage = async (id: string) => {
+    const updated = messages.filter(m => m.id !== id);
+    setMessages(updated);
+    save("cc_messages", updated);
+    if (hasSupabaseConfig && supabase) {
+      await supabase.from('contact_messages').delete().eq('id', id);
+    }
+  };
+
+  return { messages, markAsRead, deleteMessage };
+}
+
 export function useReplies() {
   const [replies, setReplies] = useState<any[]>(load("cc_replies", defaultReplies));
 

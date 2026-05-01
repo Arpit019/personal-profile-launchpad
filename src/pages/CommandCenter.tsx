@@ -6,10 +6,10 @@ import {
   UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar,
   MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X
 } from "lucide-react";
-import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent } from "../hooks/useCommandData";
+import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent, useMessages } from "../hooks/useCommandData";
 import { supabase } from "../lib/supabase";
 
-type Tab = "posts" | "jobs" | "engage" | "profile" | "cms";
+type Tab = "inbox" | "posts" | "jobs" | "engage" | "profile" | "cms";
 
 const CopyBtn = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -27,9 +27,11 @@ const CopyBtn = ({ text }: { text: string }) => {
 
 const CommandCenter: React.FC = () => {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("posts");
+  const [tab, setTab] = useState<Tab>("inbox");
   const [refreshing, setRefreshing] = useState(false);
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
+  
+  const messagesHook = useMessages();
   const postsHook = usePosts();
   const jobsHook = useJobs();
   const repliesHook = useReplies();
@@ -62,10 +64,13 @@ const CommandCenter: React.FC = () => {
     navigate("/command-center-login");
   };
 
-  const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
+  const unreadCount = messagesHook.messages.filter(m => m.status === 'unread').length;
+
+  const tabs: { id: Tab; label: string; icon: React.ReactNode; badge?: number }[] = [
+    { id: "inbox", label: "SECURE_INBOX", icon: <MessageSquare size={16}/>, badge: unreadCount },
     { id: "posts", label: "DAILY_POSTS", icon: <PenLine size={16}/> },
     { id: "jobs", label: "JOB_RADAR", icon: <Briefcase size={16}/> },
-    { id: "engage", label: "FEED_OPS", icon: <MessageSquare size={16}/> },
+    { id: "engage", label: "FEED_OPS", icon: <Send size={16}/> },
     { id: "profile", label: "PROFILE_AUDIT", icon: <UserCheck size={16}/> },
     { id: "cms", label: "PORTFOLIO_CMS", icon: <FileText size={16}/> },
   ];
@@ -103,24 +108,27 @@ const CommandCenter: React.FC = () => {
           </div>
           {tabs.map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={`w-full flex items-center gap-2 px-3 py-2.5 text-xs text-left transition-all ${tab===t.id?"bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400":"text-slate-400 hover:text-white hover:bg-slate-800 border-l-2 border-transparent"}`}>
-              {t.icon}{t.label}
+              className={`w-full flex items-center justify-between px-3 py-2.5 text-xs text-left transition-all ${tab===t.id?"bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400":"text-slate-400 hover:text-white hover:bg-slate-800 border-l-2 border-transparent"}`}>
+              <div className="flex items-center gap-2">{t.icon}{t.label}</div>
+              {t.badge ? <span className="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">{t.badge}</span> : null}
             </button>
           ))}
         </div>
 
         {/* Mobile tabs */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-700 flex z-50">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-700 flex z-50 overflow-x-auto">
           {tabs.map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] ${tab===t.id?"text-cyan-400":"text-slate-500"}`}>
+              className={`flex-none min-w-[80px] flex flex-col items-center justify-center gap-1 py-3 text-[10px] relative ${tab===t.id?"text-cyan-400":"text-slate-500"}`}>
               {t.icon}{t.label}
+              {t.badge ? <span className="absolute top-1 right-3 w-2 h-2 bg-red-500 rounded-full"></span> : null}
             </button>
           ))}
         </div>
 
         {/* Main content */}
         <div className="flex-1 p-6 pb-24 md:pb-6 max-w-5xl">
+          {tab === "inbox" && <InboxTab {...messagesHook} />}
           {tab === "posts" && <PostsTab {...postsHook} />}
           {tab === "jobs" && <JobsTab selectedJob={selectedJob} setSelectedJob={setSelectedJob} {...jobsHook} />}
           {tab === "engage" && <EngageTab {...repliesHook} />}
@@ -128,6 +136,65 @@ const CommandCenter: React.FC = () => {
           {tab === "cms" && <CmsTab {...portfolioHook} />}
         </div>
       </div>
+    </div>
+  );
+};
+
+/* ========== INBOX TAB ========== */
+const InboxTab = ({ messages, markAsRead, deleteMessage }: any) => {
+  const [selectedMessage, setSelectedMessage] = useState<any>(null);
+
+  if (selectedMessage) {
+    return (
+      <div>
+        <button onClick={() => setSelectedMessage(null)} className="flex items-center gap-1 text-xs text-cyan-400 hover:text-white mb-6 transition-colors"><ArrowLeft size={14}/> BACK</button>
+        <div className="bg-slate-900 border-2 border-cyan-800/50 p-6 mb-6">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h2 className="text-xl font-bold text-white mb-1">{selectedMessage.subject}</h2>
+              <p className="text-cyan-400 text-sm">{selectedMessage.name} &lt;{selectedMessage.email}&gt;</p>
+              <p className="text-xs text-slate-500 mt-1">{new Date(selectedMessage.created_at || Date.now()).toLocaleString()}</p>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={() => { markAsRead(selectedMessage.id); setSelectedMessage({...selectedMessage, status: 'read'}); }} className="text-xs bg-slate-800 hover:bg-green-500 hover:text-black text-green-400 px-3 py-1.5 transition-all">MARK_READ</button>
+              <button onClick={() => { deleteMessage(selectedMessage.id); setSelectedMessage(null); }} className="text-xs bg-slate-800 hover:bg-red-500 hover:text-black text-red-400 px-3 py-1.5 transition-all"><Trash2 size={14}/></button>
+            </div>
+          </div>
+          <div className="bg-slate-950 border border-slate-800 p-4">
+            <pre className="text-sm text-slate-300 whitespace-pre-wrap font-mono">{selectedMessage.message}</pre>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold tracking-widest text-white mb-6" style={{fontFamily:"'Orbitron',sans-serif"}}>
+        <MessageSquare size={18} className="inline mr-2 text-cyan-400"/>SECURE_INBOX
+      </h2>
+      
+      {messages.length === 0 ? (
+        <div className="text-center p-12 bg-slate-900 border border-slate-800">
+          <p className="text-slate-500 text-sm font-mono">NO_INCOMING_TRANSMISSIONS</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {messages.map((m: any) => (
+            <div key={m.id} onClick={() => setSelectedMessage(m)}
+              className={`bg-slate-900 border ${m.status === 'unread' ? 'border-l-4 border-l-cyan-400 border-t-slate-700 border-r-slate-700 border-b-slate-700' : 'border-slate-800'} p-4 hover:bg-slate-800/80 transition-all cursor-pointer flex justify-between items-center group`}>
+              <div>
+                <h3 className={`text-sm ${m.status === 'unread' ? 'text-white font-bold' : 'text-slate-300 font-medium'}`}>{m.subject}</h3>
+                <p className="text-xs text-slate-500 mt-1">{m.name} • {new Date(m.created_at || Date.now()).toLocaleDateString()}</p>
+              </div>
+              <div className="flex items-center gap-4">
+                {m.status === 'unread' && <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>}
+                <ChevronRight size={16} className="text-slate-600 group-hover:text-cyan-400 transition-colors"/>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

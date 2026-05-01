@@ -1,9 +1,9 @@
-
 import React, { useState, useRef } from "react";
 import { Send } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import ContactStatusOverlay from "./ContactStatusOverlay";
 import { toast } from "@/components/ui/use-toast";
+import { supabase } from "@/lib/supabase";
 
 interface FormData {
   name: string;
@@ -72,34 +72,33 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  const submitToGoogleSheet = async (data: FormData) => {
-    // Updated with the new Google Script Web App URL provided by the user
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8i5akBxotg5HDeRtI7-6gAG8cGkKouSuy491R4Y8CEORvQISOA1_SfnrzV7Cxgwb50Q/exec';
-    
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', data.name);
-    formDataToSend.append('email', data.email);
-    formDataToSend.append('subject', data.subject);
-    formDataToSend.append('message', data.message);
+  const submitToSupabase = async (data: FormData) => {
+    if (!supabase) {
+      throw new Error("Supabase is not initialized.");
+    }
     
     try {
-      const response = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: formDataToSend,
-        mode: 'no-cors'
-      });
+      const { error } = await supabase.from('contact_messages').insert([
+        {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+          status: 'unread'
+        }
+      ]);
       
-      // Since we're using no-cors, we don't get a valid response to check
-      // So we'll assume success if no exception was thrown
+      if (error) throw error;
+      
       toast({
-        title: "Message Sent!",
-        description: "We've received your message. We'll get back to you soon.",
+        title: "Message Transmitted!",
+        description: "Your quest details have been received securely.",
       });
       return true;
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error submitting form to Supabase:', error);
       toast({
-        title: "Message Failed",
+        title: "Transmission Failed",
         description: "There was an error sending your message. Please try again.",
         variant: "destructive",
       });
@@ -117,11 +116,12 @@ const ContactForm: React.FC = () => {
     setFormStatus("submitting");
     
     try {
-      const success = await submitToGoogleSheet(formData);
-      
-      // Since we're using no-cors, we don't get a valid response to check
-      // So we'll assume success if no exception was thrown
-      setFormStatus("success");
+      const success = await submitToSupabase(formData);
+      if (success) {
+        setFormStatus("success");
+      } else {
+        setFormStatus("error");
+      }
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus("error");
