@@ -38,6 +38,10 @@ const CommandCenter: React.FC = () => {
 
   useEffect(() => {
     const checkSession = async () => {
+      if (sessionStorage.getItem("dev_bypass") === "true") {
+        return; // Allow bypass
+      }
+      
       const { data } = await supabase?.auth.getSession() || { data: { session: null } };
       if (!data.session) {
         navigate("/command-center-login");
@@ -53,6 +57,7 @@ const CommandCenter: React.FC = () => {
   };
 
   const logout = async () => {
+    sessionStorage.removeItem("dev_bypass");
     if (supabase) await supabase.auth.signOut();
     navigate("/command-center-login");
   };

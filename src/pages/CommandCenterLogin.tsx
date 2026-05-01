@@ -28,6 +28,22 @@ const CommandCenterLogin: React.FC = () => {
     e.preventDefault();
     setError("");
 
+    // HARDCODED BYPASS FOR TESTING
+    if ((email === "not_sosocial" || email === "noy_sosocial") && password === "ARA0211man1902@") {
+      setAuthenticating(true);
+      setBootLines([
+        "> INITIATING_SECURE_HANDSHAKE...",
+        "> VERIFYING_MASTER_CREDENTIALS...",
+        "> IDENTITY_CONFIRMED: ADMIN_OVERRIDE",
+        "> CLEARANCE_LEVEL: COMMANDER",
+        "> ACCESS_GRANTED ✓",
+      ]);
+      
+      sessionStorage.setItem("dev_bypass", "true");
+      setTimeout(() => navigate("/command-center"), 2000);
+      return;
+    }
+
     if (!supabase) {
       setError("SYSTEM_ERROR: Supabase connection not established.");
       return;
