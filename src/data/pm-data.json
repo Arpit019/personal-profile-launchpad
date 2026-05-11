@@ -1,0 +1,182 @@
+{
+  "ideas": [
+    {
+      "id": "idea-001",
+      "title": "AI-Powered Micro-Review Assistant",
+      "problem": "Gen Z shoppers face choice overload with 500+ reviews per product. They abandon carts when they can't quickly assess if a product matches their specific needs.",
+      "persona": "Gen Z online shoppers (18-25) buying fashion/electronics on marketplaces",
+      "viability": 7,
+      "feasibility": 8,
+      "desirability": 9,
+      "status": "validated",
+      "stage": "research",
+      "assumptions": [
+        "Users trust AI-summarized reviews as much as reading 10+ reviews",
+        "Conversion rate increases by 15%+ when review friction is reduced"
+      ],
+      "created_at": "2026-05-01",
+      "updated_at": "2026-05-10"
+    },
+    {
+      "id": "idea-002",
+      "title": "Predictive Churn Prevention Dashboard",
+      "problem": "SaaS companies lose 5-7% MRR monthly to churn they could have predicted. PMs lack real-time signals to identify at-risk users before they cancel.",
+      "persona": "SaaS Product Managers managing products with 10K+ users",
+      "viability": 8,
+      "feasibility": 6,
+      "desirability": 8,
+      "status": "exploring",
+      "stage": "ideation",
+      "assumptions": [
+        "Usage pattern changes precede churn by 14+ days",
+        "PMs will act on churn alerts within 48 hours"
+      ],
+      "created_at": "2026-05-05",
+      "updated_at": "2026-05-09"
+    },
+    {
+      "id": "idea-003",
+      "title": "Cross-Platform Content Repurposing Engine",
+      "problem": "Content creators spend 6+ hours per piece repurposing for different platforms. Each platform has unique format requirements that manual adaptation misses.",
+      "persona": "Content creators and marketing PMs managing multi-platform presence",
+      "viability": 7,
+      "feasibility": 7,
+      "desirability": 8,
+      "status": "draft",
+      "stage": "ideation",
+      "assumptions": [
+        "Platform-specific formatting is the #1 time drain",
+        "AI-adapted content performs within 80% of manually crafted posts"
+      ],
+      "created_at": "2026-05-08",
+      "updated_at": "2026-05-08"
+    }
+  ],
+  "research": [
+    {
+      "id": "research-001",
+      "title": "E-commerce Review UX — Competitive Landscape",
+      "type": "competitive",
+      "status": "completed",
+      "summary": "Analyzed review presentation across Amazon, Flipkart, Myntra, and Meesho. Found that AI-summarized reviews (Amazon's approach) reduce decision time by 40% but trust drops 15% without source attribution.",
+      "competitors": ["Amazon", "Flipkart", "Myntra", "Meesho"],
+      "keyFindings": [
+        "Amazon's AI review summary has 72% user trust (Baymard Institute 2025)",
+        "Flipkart's photo reviews get 3x more engagement than text",
+        "Myntra's style-match ratings reduce returns by 22%"
+      ],
+      "linkedIdea": "idea-001",
+      "created_at": "2026-05-03"
+    },
+    {
+      "id": "research-002",
+      "title": "SaaS Churn Prediction — TAM Analysis",
+      "type": "market-sizing",
+      "status": "in-progress",
+      "summary": "Estimating TAM for predictive churn analytics tools. Bottom-up: 180K SaaS companies × $5K avg annual spend = $900M TAM. Cross-referenced with Gartner 2025 customer analytics market report.",
+      "competitors": ["Gainsight", "ChurnZero", "Totango", "Mixpanel"],
+      "keyFindings": [
+        "Customer success software market: $2.1B (Gartner 2025)",
+        "Only 23% of SaaS companies use predictive churn tools",
+        "Average ROI of churn prevention: 5x cost of tool"
+      ],
+      "linkedIdea": "idea-002",
+      "created_at": "2026-05-06"
+    }
+  ],
+  "roadmap": [
+    {
+      "id": "milestone-001",
+      "title": "Q2 2026 — Discovery & Validation",
+      "theme": "Validate core hypotheses",
+      "status": "active",
+      "startDate": "2026-04-01",
+      "endDate": "2026-06-30",
+      "features": [
+        { "name": "User interview framework", "priority": "Must Have", "rice": 92, "status": "completed" },
+        { "name": "Competitive analysis report", "priority": "Must Have", "rice": 88, "status": "completed" },
+        { "name": "MVP prototype (clickable)", "priority": "Must Have", "rice": 85, "status": "in-progress" },
+        { "name": "Landing page + waitlist", "priority": "Should Have", "rice": 72, "status": "not-started" }
+      ]
+    },
+    {
+      "id": "milestone-002",
+      "title": "Q3 2026 — Build & Beta",
+      "theme": "Ship MVP to beta users",
+      "status": "upcoming",
+      "startDate": "2026-07-01",
+      "endDate": "2026-09-30",
+      "features": [
+        { "name": "Core review AI engine", "priority": "Must Have", "rice": 95, "status": "not-started" },
+        { "name": "Browser extension MVP", "priority": "Must Have", "rice": 90, "status": "not-started" },
+        { "name": "Analytics dashboard", "priority": "Should Have", "rice": 68, "status": "not-started" },
+        { "name": "Beta feedback system", "priority": "Must Have", "rice": 82, "status": "not-started" }
+      ]
+    }
+  ],
+  "prds": [
+    {
+      "id": "prd-001",
+      "title": "PRD: AI Review Summarizer — Browser Extension MVP",
+      "product": "BuyWise",
+      "version": "1.0",
+      "status": "draft",
+      "author": "Arpit Tripathi",
+      "lastUpdated": "2026-05-10",
+      "problemStatement": "Online shoppers spend 23 minutes average reading reviews before purchase decisions. 67% of cart abandonments cite 'too many conflicting reviews' as a factor.",
+      "goals": [
+        "Reduce review reading time by 60% for target users",
+        "Achieve 70%+ trust score for AI-generated summaries",
+        "Drive 15% increase in add-to-cart conversion rate"
+      ],
+      "nonGoals": [
+        "Not building a full e-commerce platform",
+        "Not replacing existing review systems",
+        "Not handling seller-facing analytics in v1"
+      ],
+      "userStoryCount": 8,
+      "completeness": 65
+    }
+  ],
+  "prototypes": [
+    {
+      "id": "proto-001",
+      "title": "BuyWise Extension — Review Summary Card",
+      "version": "v2",
+      "status": "testing",
+      "linkedPrd": "prd-001",
+      "feedbackCount": 3,
+      "lastTested": "2026-05-08",
+      "testResults": "4/5 users found summaries helpful. 1 user wanted source attribution for each point."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "metric-001",
+      "name": "Review Read Time Reduction",
+      "type": "north-star",
+      "current": "23 min avg",
+      "target": "< 9 min avg",
+      "status": "tracking",
+      "linkedProduct": "BuyWise"
+    },
+    {
+      "id": "metric-002",
+      "name": "AI Summary Trust Score",
+      "type": "health",
+      "current": "Baseline TBD",
+      "target": "> 70%",
+      "status": "needs-instrumentation",
+      "linkedProduct": "BuyWise"
+    },
+    {
+      "id": "metric-003",
+      "name": "Cart Conversion Lift",
+      "type": "input",
+      "current": "Baseline TBD",
+      "target": "+15%",
+      "status": "needs-instrumentation",
+      "linkedProduct": "BuyWise"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "caseStudies": [
+    {
+      "id": "feat-001",
+      "title": "Driver Gill Ecosystem",
+      "tagline": "Two-sided ride-hailing marketplace scaling driver and rider acquisition",
+      "company": "Driver Gill",
+      "role": "Product Manager",
+      "duration": "2024 - Present",
+      "skills": ["Multi-sided Marketplace", "Geospatial Routing", "Growth Strategy", "Mobile Architecture"],
+      "context": "The local mobility market was fragmented, with drivers dissatisfied with high commission rates from established players and riders facing inconsistent availability. We needed a disruptive solution that incentivized driver loyalty while providing riders with a seamless booking experience.",
+      "problem": "Building a ride-hailing platform requires solving the classic 'chicken-and-egg' problem: riders won't use an app without drivers, and drivers won't stay active without ride requests. Furthermore, balancing real-time geospatial tracking with battery optimization on lower-end devices was a massive technical hurdle.",
+      "process": "Spearheaded the development of a dual-app architecture: 'Driver Gill' (Consumer app) and 'Driver Gill Sarthi' (Driver app). Mapped core user journeys to ensure driver onboarding could be completed in under 10 minutes. Worked closely with engineering to implement efficient background location tracking using socket connections.",
+      "solution": "Successfully deployed both native applications to the Google Play Store. The Sarthi app features an intuitive earning dashboard, heatmaps for high-demand areas, and instant payout capabilities. The consumer app includes real-time ETA tracking, secure payment gateways, and an SOS safety feature.",
+      "impact": [
+        "Achieved 10,000+ app downloads in the first quarter with a 35% Month-over-Month (MoM) growth in active users.",
+        "Maintained an average Driver Retention Rate of 78% by introducing instant payouts and low-commission tiers.",
+        "Optimized matching algorithms to reduce average ETA from 15 mins to under 6 mins in core serviceable areas."
+      ],
+      "learnings": "In multi-sided marketplaces, supply constraints (drivers) are harder to solve than demand constraints. Building driver-first features (like instant payouts) was more critical to early retention than consumer discounts.",
+      "imageUrl": "/images/driver_gill.png",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.driver_gill"
+    },
+    {
+      "id": "feat-002",
+      "title": "True Istekhara",
+      "tagline": "Digital astrology and consultation platform connecting seekers with authentic experts",
+      "company": "Celestial IT Verse",
+      "role": "Product Manager",
+      "duration": "2025",
+      "skills": ["Service Marketplace", "Payment Gateways", "Live Consultation", "Cross-Platform"],
+      "context": "The spiritual and astrological consultation market in India is largely unorganized. Users struggle to find verified, authentic experts, while experts lack the digital infrastructure to manage scheduling, payments, and client history effectively.",
+      "problem": "How might we create a secure, high-trust environment for 1-on-1 consultations? The platform needed to handle complex scheduling for experts, securely hold funds in escrow until consultations were completed, and provide a low-latency environment for sensitive sessions.",
+      "process": "Drafted the comprehensive PRD outlining 7 specialized consultation categories. Designed an expert verification funnel to maintain high platform quality. Prioritized a seamless wallet-based payment architecture to reduce transaction friction during repeat consultations.",
+      "solution": "Launched a cross-platform mobile application and web-based administrative panel. Features include real-time expert availability toggles, automated SMS/Push reminders, secure video/audio calling infrastructure, and a rating/review system to enforce quality control.",
+      "impact": [
+        "Generated an estimated ₹5 Lakh Gross Merchandise Value (GMV) in the first 3 months via an escrow wallet model.",
+        "Achieved a high Customer Satisfaction (CSAT) score of 4.6/5 by strictly enforcing expert verification protocols.",
+        "Increased expert utilization rates by 40% using an automated slot-matching algorithm."
+      ],
+      "learnings": "Trust is the primary currency in consultation marketplaces. Features like verified badges and transparent refund policies were initially deprioritized but became critical for user conversion during Beta.",
+      "imageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.istekhara.istekhara"
+    },
+    {
+      "id": "feat-003",
+      "title": "Aajeevansang",
+      "tagline": "Premium matrimonial matchmaking platform with intelligent compatibility scoring",
+      "company": "Affluent",
+      "role": "Product Manager",
+      "duration": "2024",
+      "skills": ["Matching Algorithms", "User Privacy", "Data Security", "Monetization Strategy"],
+      "context": "The modern matrimonial space suffers from low signal-to-noise ratios, with users experiencing high fatigue due to irrelevant matches and privacy concerns. There was a market gap for a highly curated, secure, and privacy-first matchmaking experience.",
+      "problem": "Balancing robust profile verification (to prevent fraud) with a frictionless onboarding experience. Additionally, female users demanded granular privacy controls over their photos and contact details before initiating conversations.",
+      "process": "Conducted extensive user interviews to define the 'Trust Framework'. Designed a multi-tier profile verification system integrating document uploads. Developed a weighted matching algorithm prioritizing deep compatibility vectors over surface-level traits.",
+      "solution": "Deployed the Aajeevansang Android app featuring dynamic privacy controls (blurring photos, hidden contact info), a robust AI-assisted matchmaking engine, and a tiered subscription model for premium messaging capabilities.",
+      "impact": [
+        "Scaled to 5,000+ verified user profiles within the initial launch phase.",
+        "Achieved a 12% conversion rate from freemium to paid subscription tiers by paywalling direct messaging.",
+        "Reduced reported fraudulent profiles by 95% using an automated KYC verification flow."
+      ],
+      "learnings": "In dating/matrimony, friction during onboarding can actually be positive. Implementing stricter verification steps increased drop-offs by 15% but improved the overall LTV of users who completed the funnel due to higher match quality.",
+      "imageUrl": "/images/aajeevansang.png",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.affluent.aajeevansang"
+    },
+    {
+      "id": "feat-004",
+      "title": "Snapvisionary",
+      "tagline": "AI-powered visual content creation suite for marketers and creators",
+      "company": "Snapvisionary",
+      "role": "Product Manager",
+      "duration": "2024",
+      "skills": ["Generative AI", "Image Processing", "SaaS Monetization", "Cloud Architecture"],
+      "context": "Content creators face high barriers to producing engaging visual content. Traditional photo editing is time-consuming and requires specialized skills, while early AI tools lacked mobile-friendly interfaces.",
+      "problem": "Processing high-resolution images with AI models on mobile devices leads to severe battery drain and crashing. We needed a cloud-offloaded architecture that felt instantaneous to the end user.",
+      "process": "Evaluated 3rd party AI vision models (Stable Diffusion, Midjourney API). Designed a token-based SaaS credit system to manage API costs. Worked with engineering to build an asynchronous job queue for rendering image transformations.",
+      "solution": "Launched the Snapvisionary mobile application on the Play Store. Integrated 1-tap background removal, style transfer, and intelligent upscaling. Built a subscription tier mapped directly to AI token consumption costs.",
+      "impact": [
+        "Processed over 50,000+ AI image generations in the first month of launch.",
+        "Maintained API costs under $0.05 per generation, establishing a profitable unit economic model.",
+        "Increased Day-7 user retention to 45% by introducing daily free token drops."
+      ],
+      "learnings": "When wrapping third-party AI APIs, the UX is the main differentiator. Building 'skeleton loaders' and 'progress estimates' during the 10-second image generation wait significantly reduced user churn.",
+      "imageUrl": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&q=80",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.snapvisionary"
+    },
+    {
+      "id": "feat-005",
+      "title": "File Kavach",
+      "tagline": "Military-grade digital vault and secure file storage application",
+      "company": "Celestial IT Verse",
+      "role": "Product Manager",
+      "duration": "2024",
+      "skills": ["Cybersecurity", "Encryption", "Utility Apps", "UI/UX Design"],
+      "context": "With increasing data breaches and phone thefts, users are highly anxious about storing sensitive documents (IDs, passwords, private photos) on their mobile devices. Built-in OS vaults often lack advanced cloaking features.",
+      "problem": "Designing an app that is virtually impenetrable to unauthorized access, yet extremely intuitive for the account owner to retrieve files when needed. The app also needed to survive physical device loss.",
+      "process": "Researched advanced encryption standards (AES-256). Designed stealth features such as a 'Decoy Vault' (entering a fake pin opens a blank vault). Mapped the UX for biometric integration and cloud-synced encrypted backups.",
+      "solution": "Released File Kavach on the Play Store. Core features include local AES encryption, biometric access control, an intruder selfie capture mechanism, and stealth mode (hiding the app icon from the drawer).",
+      "impact": [
+        "Secured over 100,000+ sensitive files across the user base within 6 months.",
+        "Achieved a 4.8/5 Play Store rating, heavily praised for the 'Decoy Vault' feature.",
+        "Drove a 20% premium conversion rate by paywalling the cloud backup feature."
+      ],
+      "learnings": "Security products must 'feel' secure. Adding minor deliberate delays with scanning animations during decryption significantly increased user trust compared to instantaneous decryption.",
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.celestial.filekavach"
+    },
+    {
+      "id": "feat-006",
+      "title": "Zoci",
+      "tagline": "Modern direct-to-consumer e-commerce scaling engine",
+      "company": "Zoci",
+      "role": "Product Manager",
+      "duration": "2024",
+      "skills": ["E-Commerce", "Conversion Rate Optimization (CRO)", "Logistics Integration", "Web Platform"],
+      "context": "To compete in the fast-paced D2C market, a brand's web platform must provide an ultra-fast, seamless shopping experience. Friction at checkout directly translates to abandoned carts and lost revenue.",
+      "problem": "The existing web flow suffered from high cart abandonment due to complex shipping calculations and a multi-page checkout process. Additionally, the backend lacked real-time inventory syncing with the logistics provider.",
+      "process": "Conducted an extensive Conversion Rate Optimization (CRO) audit using Hotjar heatmaps. Redesigned the checkout into a single-page flow. Integrated 3PL (Third Party Logistics) APIs to automate AWB generation and order tracking.",
+      "solution": "Relaunched the Zoci.in web platform. Implemented headless commerce principles for sub-second page loads. Features include 1-click OTP login, predictive search, and an integrated return/refund portal.",
+      "impact": [
+        "Increased Checkout Conversion Rate by 18% through the single-page checkout implementation.",
+        "Reduced Customer Support tickets related to 'Order Status' by 60% via automated WhatsApp updates.",
+        "Improved Average Order Value (AOV) by 15% using an AI-driven 'Frequently Bought Together' widget."
+      ],
+      "learnings": "Speed is revenue in e-commerce. Cutting page load times by just 1.5 seconds had a more significant impact on the conversion rate than redesigning the entire product page.",
+      "imageUrl": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80",
+      "liveUrl": "https://zoci.in/"
+    },
+    {
+      "id": "feat-007",
+      "title": "Pinak Adventure Farms",
+      "tagline": "Discovery and booking platform for premium adventure experiences",
+      "company": "Pinak Adventure",
+      "role": "Product Manager",
+      "duration": "2024",
+      "skills": ["Travel/Hospitality Tech", "Booking Engine", "B2B Dashboards", "SEO Strategy"],
+      "context": "Adventure farms and experiential hospitality businesses struggle with manual offline bookings, leading to overbooking, poor yield management, and sub-optimal customer experiences during peak seasons.",
+      "problem": "The business needed a customized booking engine capable of handling complex inventory (cabins, tents, day-passes) while dynamically adjusting pricing based on weekend surges and holiday demand.",
+      "process": "Mapped the complex operational workflows of the farm staff. Designed a dual-sided web platform: a visually immersive consumer booking site and a tablet-optimized B2B dashboard for staff to manage check-ins and inventory.",
+      "solution": "Successfully deployed PinakAdventure.com. The consumer side features an interactive property map, dynamic pricing calendars, and secure payments. The admin side includes a yield management tool and automated CRM for post-stay reviews.",
+      "impact": [
+        "Shifted 80% of manual phone bookings to the automated online platform, drastically reducing operational overhead.",
+        "Increased RevPAR (Revenue Per Available Room) by 25% through dynamic weekend pricing algorithms.",
+        "Boosted organic traffic by 40% via programmatic SEO landing pages for specific adventure activities."
+      ],
+      "learnings": "In experiential booking, high-quality media sells the product. Optimizing the delivery of 4K video tours without slowing down the booking engine was the key to maximizing conversion.",
+      "imageUrl": "https://images.unsplash.com/photo-1533692328991-08159ff19fca?w=800&q=80",
+      "liveUrl": "https://pinakadventure.com/"
+    },
+    {
+      "id": "feat-008",
+      "title": "AAG & AAG Veer",
+      "tagline": "Immersive browser-based fantasy gaming and entertainment platform",
+      "company": "Celestial IT Verse",
+      "role": "Product Manager",
+      "duration": "2024 - 2025",
+      "skills": ["Gaming Economics", "User Retention", "Web Platform", "Agile Execution"],
+      "context": "The casual gaming sector requires constant innovation to capture and retain user attention. Celestial IT Verse aimed to launch a suite of web-based entertainment platforms targeting different segments of the gamer demographic.",
+      "problem": "Retaining users in casual web games is notoriously difficult without a compelling progression system or social hook. The challenge was to design engaging core loops that incentivized daily active usage.",
+      "process": "Conducted competitive analysis of emerging web-gaming platforms. Designed the core game loops and progression systems. Collaborated with the engineering team to ensure high-performance rendering within the browser.",
+      "solution": "Successfully shipped AAG and AAG Veer as robust web platforms. Integrated social sharing mechanics, leaderboard systems to foster competitive engagement, and seamless cross-device compatibility.",
+      "impact": [
+        "Successfully deployed the platforms to production environments (celestialitverse.com/aag).",
+        "Achieved a Daily Active User (DAU) to Monthly Active User (MAU) ratio of 22%, indicating strong habit formation.",
+        "Implemented event-driven analytics to monitor player retention cohorts and optimize the onboarding funnel."
+      ],
+      "learnings": "In gaming products, time-to-first-value must be measured in seconds. Optimizing initial load times and removing sign-up walls dramatically improved day-1 retention metrics.",
+      "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
+      "liveUrl": "https://celestialitverse.com/aag/"
+    },
+    {
+      "id": "feat-009",
+      "title": "Driver Gill Sarthi",
+      "tagline": "The dedicated driver-partner application powering the Driver Gill network",
+      "company": "Driver Gill",
+      "role": "Product Manager",
+      "duration": "2024 - Present",
+      "skills": ["B2B Mobile App", "Geofencing", "Financial Ledgers", "Onboarding Ops"],
+      "context": "While the consumer app drives demand, the 'Sarthi' (Driver) app is the backbone of the logistics network. Drivers needed a tool that acted as their primary source of income management and ride allocation.",
+      "problem": "Driver churn in ride-hailing is notoriously high due to opaque earnings, difficult dispute resolution, and battery-draining apps. The Sarthi app needed to be heavily optimized for low-end Android devices while providing extreme transparency in earnings.",
+      "process": "Shadowed drivers for a week to understand their pain points. Architected a transparent ledger system that breaks down every ride fare, commission, and tax. Designed an intelligent dispatch algorithm that minimizes 'empty miles'.",
+      "solution": "Launched Driver Gill Sarthi on the Play Store. It features an automated KYC pipeline using OCR, an offline-first earnings ledger, voice-based ride alerts, and a heatmap indicating high-demand geofenced zones.",
+      "impact": [
+        "Reduced driver onboarding time from 3 days to under 2 hours via automated OCR document verification.",
+        "Increased Driver Lifetime Value (LTV) by 40% through the implementation of daily milestone bonuses.",
+        "Decreased app-related battery consumption by 30% by optimizing background GPS polling intervals."
+      ],
+      "learnings": "Drivers treat the app as their boss. Trust is built through financial transparency. Implementing a real-time earnings breakdown screen reduced driver support calls by over 50%.",
+      "imageUrl": "/images/driver_gill.png",
+      "liveUrl": "https://play.google.com/store/apps/details?id=com.drivergill.sarthi"
+    }
+  ]
+}

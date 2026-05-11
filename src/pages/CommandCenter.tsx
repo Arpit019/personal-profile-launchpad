@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import {
   RefreshCw, LogOut, PenLine, Briefcase, MessageSquare, LayoutDashboard,
   Users, UserCheck, Copy, Check, ChevronRight, Sparkles, Calendar, ExternalLink,
-  MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X, Globe, BookOpen, ScrollText
+  MapPin, Building, FileText, Send, ArrowLeft, Plus, Edit3, Trash2, Save, X, Globe, BookOpen, ScrollText, Target
 } from "lucide-react";
+import PmAgentTab from "../components/PmAgentTab";
 import { usePosts, useJobs, useReplies, useProfile, refreshFromLinkedIn, usePortfolioContent, useMessages, useSubscribers } from "../hooks/useCommandData";
 import { supabase } from "../lib/supabase";
 
-type Tab = "dashboard" | "inbox" | "posts" | "jobs" | "engage" | "audience" | "profile" | "cms";
+type Tab = "dashboard" | "inbox" | "posts" | "jobs" | "engage" | "audience" | "profile" | "cms" | "pm_agent";
 
 const CopyBtn = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -25,7 +26,7 @@ const CopyBtn = ({ text }: { text: string }) => {
   );
 };
 
-const VALID_TABS: Tab[] = ["dashboard", "inbox", "posts", "jobs", "engage", "audience", "profile", "cms"];
+const VALID_TABS: Tab[] = ["dashboard", "inbox", "posts", "jobs", "engage", "audience", "profile", "cms", "pm_agent"];
 
 const CommandCenter: React.FC = () => {
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const CommandCenter: React.FC = () => {
     { id: "audience", label: "AUDIENCE", icon: <Users size={16}/>, badge: subscribersHook.subscribers.length || undefined },
     { id: "profile", label: "PROFILE_AUDIT", icon: <UserCheck size={16}/> },
     { id: "cms", label: "PORTFOLIO_CMS", icon: <FileText size={16}/> },
+    { id: "pm_agent", label: "PM_AGENT", icon: <Target size={16}/> },
   ];
 
   const siteLinks = [
@@ -183,6 +185,7 @@ const CommandCenter: React.FC = () => {
           {tab === "audience" && <AudienceTab {...subscribersHook} />}
           {tab === "profile" && <ProfileTab {...profileHook} />}
           {tab === "cms" && <CmsTab {...portfolioHook} />}
+          {tab === "pm_agent" && <PmAgentTab />}
         </div>
       </div>
     </div>
